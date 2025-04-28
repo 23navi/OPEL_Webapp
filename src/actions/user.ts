@@ -14,12 +14,55 @@ export const onAuthenticateUser = async () => {
       where: {
         clerkid: user.id,
       },
-      include:{
-        workspace: true
-      }
+      include: {
+        workspace: {
+          where: {
+            User: {
+              clerkid: user.id,
+            },
+          },
+        },
+      },
+    });
+    if (userExist) {
+      return { status: 200, user: userExist };
+    }
+
+    const newUser = await client.user.create({
+      data: {
+        clerkid: user.id,
+        email: user.emailAddresses[0].emailAddress,
+        firstname: user.firstName,
+        lastname: user.lastName,
+        image: user.imageUrl,
+        studio: {
+          create: {},
+        },
+        subscription: {
+          create: {},
+        },
+        workspace: {
+          create: {
+            name: `${user.firstName}'s Workspace`,
+            type: "PERSONAL",
+          },
+        },
+      },
+      include: {
+        workspace: true,
+        subscription: {
+          select: {
+            plan: true,
+          },
+        },
+      },
     });
 
-    return { status: 200, user };
+    if (newUser) {
+      return { status: 200, user: newUser };
+    }
+
+    return { status: 400, message: "No user" };
   } catch (error) {
     console.log(error);
     return { status: 500, message: "Internal server error" };
