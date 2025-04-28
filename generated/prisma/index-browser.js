@@ -119,15 +119,32 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
-  clerkid: 'clerkid',
   email: 'email',
   firstname: 'firstname',
   lastname: 'lastname',
+  createdAt: 'createdAt',
+  clerkid: 'clerkid',
   image: 'image',
   trial: 'trial',
-  createdAt: 'createdAt',
-  updateddAt: 'updateddAt',
   firstView: 'firstView'
+};
+
+exports.Prisma.CommentScalarFieldEnum = {
+  id: 'id',
+  comment: 'comment',
+  commentId: 'commentId',
+  userId: 'userId',
+  videoId: 'videoId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.SubscriptionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  plan: 'plan',
+  updatedAt: 'updatedAt',
+  customerId: 'customerId'
 };
 
 exports.Prisma.MediaScalarFieldEnum = {
@@ -168,24 +185,6 @@ exports.Prisma.VideoScalarFieldEnum = {
   summery: 'summery'
 };
 
-exports.Prisma.CommentScalarFieldEnum = {
-  id: 'id',
-  comment: 'comment',
-  commentId: 'commentId',
-  userId: 'userId',
-  videoId: 'videoId',
-  createdAt: 'createdAt'
-};
-
-exports.Prisma.SubscriptionScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  createdAt: 'createdAt',
-  plan: 'plan',
-  updatedAt: 'updatedAt',
-  customerId: 'customerId'
-};
-
 exports.Prisma.MemberScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -223,6 +222,11 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.SUBSCRIPTION_PLAN = exports.$Enums.SUBSCRIPTION_PLAN = {
+  PRO: 'PRO',
+  FREE: 'FREE'
+};
+
 exports.PRESET = exports.$Enums.PRESET = {
   HD: 'HD',
   SD: 'SD'
@@ -233,19 +237,14 @@ exports.Type = exports.$Enums.Type = {
   PUBLIC: 'PUBLIC'
 };
 
-exports.SUBSCRIPTION_PLAN = exports.$Enums.SUBSCRIPTION_PLAN = {
-  PRO: 'PRO',
-  FREE: 'FREE'
-};
-
 exports.Prisma.ModelName = {
   User: 'User',
+  Comment: 'Comment',
+  Subscription: 'Subscription',
   Media: 'Media',
   WorkSpace: 'WorkSpace',
   Folder: 'Folder',
   Video: 'Video',
-  Comment: 'Comment',
-  Subscription: 'Subscription',
   Member: 'Member',
   Notification: 'Notification',
   Invite: 'Invite'

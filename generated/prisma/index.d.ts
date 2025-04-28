@@ -19,6 +19,16 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model Comment
+ * 
+ */
+export type Comment = $Result.DefaultSelection<Prisma.$CommentPayload>
+/**
+ * Model Subscription
+ * 
+ */
+export type Subscription = $Result.DefaultSelection<Prisma.$SubscriptionPayload>
+/**
  * Model Media
  * 
  */
@@ -39,16 +49,6 @@ export type Folder = $Result.DefaultSelection<Prisma.$FolderPayload>
  */
 export type Video = $Result.DefaultSelection<Prisma.$VideoPayload>
 /**
- * Model Comment
- * 
- */
-export type Comment = $Result.DefaultSelection<Prisma.$CommentPayload>
-/**
- * Model Subscription
- * 
- */
-export type Subscription = $Result.DefaultSelection<Prisma.$SubscriptionPayload>
-/**
  * Model Member
  * 
  */
@@ -68,20 +68,20 @@ export type Invite = $Result.DefaultSelection<Prisma.$InvitePayload>
  * Enums
  */
 export namespace $Enums {
-  export const PRESET: {
-  HD: 'HD',
-  SD: 'SD'
-};
-
-export type PRESET = (typeof PRESET)[keyof typeof PRESET]
-
-
-export const Type: {
+  export const Type: {
   PERSONAL: 'PERSONAL',
   PUBLIC: 'PUBLIC'
 };
 
 export type Type = (typeof Type)[keyof typeof Type]
+
+
+export const PRESET: {
+  HD: 'HD',
+  SD: 'SD'
+};
+
+export type PRESET = (typeof PRESET)[keyof typeof PRESET]
 
 
 export const SUBSCRIPTION_PLAN: {
@@ -93,13 +93,13 @@ export type SUBSCRIPTION_PLAN = (typeof SUBSCRIPTION_PLAN)[keyof typeof SUBSCRIP
 
 }
 
-export type PRESET = $Enums.PRESET
-
-export const PRESET: typeof $Enums.PRESET
-
 export type Type = $Enums.Type
 
 export const Type: typeof $Enums.Type
+
+export type PRESET = $Enums.PRESET
+
+export const PRESET: typeof $Enums.PRESET
 
 export type SUBSCRIPTION_PLAN = $Enums.SUBSCRIPTION_PLAN
 
@@ -241,6 +241,26 @@ export class PrismaClient<
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.comment`: Exposes CRUD operations for the **Comment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Comments
+    * const comments = await prisma.comment.findMany()
+    * ```
+    */
+  get comment(): Prisma.CommentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.subscription`: Exposes CRUD operations for the **Subscription** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Subscriptions
+    * const subscriptions = await prisma.subscription.findMany()
+    * ```
+    */
+  get subscription(): Prisma.SubscriptionDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.media`: Exposes CRUD operations for the **Media** model.
     * Example usage:
     * ```ts
@@ -279,26 +299,6 @@ export class PrismaClient<
     * ```
     */
   get video(): Prisma.VideoDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.comment`: Exposes CRUD operations for the **Comment** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Comments
-    * const comments = await prisma.comment.findMany()
-    * ```
-    */
-  get comment(): Prisma.CommentDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.subscription`: Exposes CRUD operations for the **Subscription** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Subscriptions
-    * const subscriptions = await prisma.subscription.findMany()
-    * ```
-    */
-  get subscription(): Prisma.SubscriptionDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.member`: Exposes CRUD operations for the **Member** model.
@@ -770,12 +770,12 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    Comment: 'Comment',
+    Subscription: 'Subscription',
     Media: 'Media',
     WorkSpace: 'WorkSpace',
     Folder: 'Folder',
     Video: 'Video',
-    Comment: 'Comment',
-    Subscription: 'Subscription',
     Member: 'Member',
     Notification: 'Notification',
     Invite: 'Invite'
@@ -797,7 +797,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "media" | "workSpace" | "folder" | "video" | "comment" | "subscription" | "member" | "notification" | "invite"
+      modelProps: "user" | "comment" | "subscription" | "media" | "workSpace" | "folder" | "video" | "member" | "notification" | "invite"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -872,6 +872,154 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      Comment: {
+        payload: Prisma.$CommentPayload<ExtArgs>
+        fields: Prisma.CommentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CommentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CommentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>
+          }
+          findFirst: {
+            args: Prisma.CommentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CommentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>
+          }
+          findMany: {
+            args: Prisma.CommentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>[]
+          }
+          create: {
+            args: Prisma.CommentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>
+          }
+          createMany: {
+            args: Prisma.CommentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CommentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>[]
+          }
+          delete: {
+            args: Prisma.CommentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>
+          }
+          update: {
+            args: Prisma.CommentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>
+          }
+          deleteMany: {
+            args: Prisma.CommentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CommentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CommentUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>[]
+          }
+          upsert: {
+            args: Prisma.CommentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommentPayload>
+          }
+          aggregate: {
+            args: Prisma.CommentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateComment>
+          }
+          groupBy: {
+            args: Prisma.CommentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CommentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CommentCountArgs<ExtArgs>
+            result: $Utils.Optional<CommentCountAggregateOutputType> | number
+          }
+        }
+      }
+      Subscription: {
+        payload: Prisma.$SubscriptionPayload<ExtArgs>
+        fields: Prisma.SubscriptionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SubscriptionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SubscriptionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
+          }
+          findFirst: {
+            args: Prisma.SubscriptionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SubscriptionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
+          }
+          findMany: {
+            args: Prisma.SubscriptionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>[]
+          }
+          create: {
+            args: Prisma.SubscriptionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
+          }
+          createMany: {
+            args: Prisma.SubscriptionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SubscriptionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>[]
+          }
+          delete: {
+            args: Prisma.SubscriptionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
+          }
+          update: {
+            args: Prisma.SubscriptionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
+          }
+          deleteMany: {
+            args: Prisma.SubscriptionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SubscriptionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SubscriptionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>[]
+          }
+          upsert: {
+            args: Prisma.SubscriptionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
+          }
+          aggregate: {
+            args: Prisma.SubscriptionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSubscription>
+          }
+          groupBy: {
+            args: Prisma.SubscriptionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SubscriptionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SubscriptionCountArgs<ExtArgs>
+            result: $Utils.Optional<SubscriptionCountAggregateOutputType> | number
           }
         }
       }
@@ -1168,154 +1316,6 @@ export namespace Prisma {
           count: {
             args: Prisma.VideoCountArgs<ExtArgs>
             result: $Utils.Optional<VideoCountAggregateOutputType> | number
-          }
-        }
-      }
-      Comment: {
-        payload: Prisma.$CommentPayload<ExtArgs>
-        fields: Prisma.CommentFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.CommentFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CommentPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.CommentFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CommentPayload>
-          }
-          findFirst: {
-            args: Prisma.CommentFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CommentPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.CommentFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CommentPayload>
-          }
-          findMany: {
-            args: Prisma.CommentFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CommentPayload>[]
-          }
-          create: {
-            args: Prisma.CommentCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CommentPayload>
-          }
-          createMany: {
-            args: Prisma.CommentCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.CommentCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CommentPayload>[]
-          }
-          delete: {
-            args: Prisma.CommentDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CommentPayload>
-          }
-          update: {
-            args: Prisma.CommentUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CommentPayload>
-          }
-          deleteMany: {
-            args: Prisma.CommentDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.CommentUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.CommentUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CommentPayload>[]
-          }
-          upsert: {
-            args: Prisma.CommentUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$CommentPayload>
-          }
-          aggregate: {
-            args: Prisma.CommentAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateComment>
-          }
-          groupBy: {
-            args: Prisma.CommentGroupByArgs<ExtArgs>
-            result: $Utils.Optional<CommentGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.CommentCountArgs<ExtArgs>
-            result: $Utils.Optional<CommentCountAggregateOutputType> | number
-          }
-        }
-      }
-      Subscription: {
-        payload: Prisma.$SubscriptionPayload<ExtArgs>
-        fields: Prisma.SubscriptionFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.SubscriptionFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.SubscriptionFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
-          }
-          findFirst: {
-            args: Prisma.SubscriptionFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.SubscriptionFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
-          }
-          findMany: {
-            args: Prisma.SubscriptionFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>[]
-          }
-          create: {
-            args: Prisma.SubscriptionCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
-          }
-          createMany: {
-            args: Prisma.SubscriptionCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.SubscriptionCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>[]
-          }
-          delete: {
-            args: Prisma.SubscriptionDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
-          }
-          update: {
-            args: Prisma.SubscriptionUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
-          }
-          deleteMany: {
-            args: Prisma.SubscriptionDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.SubscriptionUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.SubscriptionUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>[]
-          }
-          upsert: {
-            args: Prisma.SubscriptionUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$SubscriptionPayload>
-          }
-          aggregate: {
-            args: Prisma.SubscriptionAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateSubscription>
-          }
-          groupBy: {
-            args: Prisma.SubscriptionGroupByArgs<ExtArgs>
-            result: $Utils.Optional<SubscriptionGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.SubscriptionCountArgs<ExtArgs>
-            result: $Utils.Optional<SubscriptionCountAggregateOutputType> | number
           }
         }
       }
@@ -1626,12 +1626,12 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    comment?: CommentOmit
+    subscription?: SubscriptionOmit
     media?: MediaOmit
     workSpace?: WorkSpaceOmit
     folder?: FolderOmit
     video?: VideoOmit
-    comment?: CommentOmit
-    subscription?: SubscriptionOmit
     member?: MemberOmit
     notification?: NotificationOmit
     invite?: InviteOmit
@@ -1730,22 +1730,22 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     workspace: number
-    comment: number
     videos: number
     members: number
     notification: number
     sender: number
     reciever: number
+    comment: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workspace?: boolean | UserCountOutputTypeCountWorkspaceArgs
-    comment?: boolean | UserCountOutputTypeCountCommentArgs
     videos?: boolean | UserCountOutputTypeCountVideosArgs
     members?: boolean | UserCountOutputTypeCountMembersArgs
     notification?: boolean | UserCountOutputTypeCountNotificationArgs
     sender?: boolean | UserCountOutputTypeCountSenderArgs
     reciever?: boolean | UserCountOutputTypeCountRecieverArgs
+    comment?: boolean | UserCountOutputTypeCountCommentArgs
   }
 
   // Custom InputTypes
@@ -1764,13 +1764,6 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountWorkspaceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: WorkSpaceWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountCommentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: CommentWhereInput
   }
 
   /**
@@ -1806,6 +1799,44 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountRecieverArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: InviteWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountCommentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommentWhereInput
+  }
+
+
+  /**
+   * Count Type CommentCountOutputType
+   */
+
+  export type CommentCountOutputType = {
+    reply: number
+  }
+
+  export type CommentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reply?: boolean | CommentCountOutputTypeCountReplyArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CommentCountOutputType without action
+   */
+  export type CommentCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommentCountOutputType
+     */
+    select?: CommentCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CommentCountOutputType without action
+   */
+  export type CommentCountOutputTypeCountReplyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommentWhereInput
   }
 
 
@@ -1930,37 +1961,6 @@ export namespace Prisma {
 
 
   /**
-   * Count Type CommentCountOutputType
-   */
-
-  export type CommentCountOutputType = {
-    reply: number
-  }
-
-  export type CommentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    reply?: boolean | CommentCountOutputTypeCountReplyArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * CommentCountOutputType without action
-   */
-  export type CommentCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CommentCountOutputType
-     */
-    select?: CommentCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * CommentCountOutputType without action
-   */
-  export type CommentCountOutputTypeCountReplyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: CommentWhereInput
-  }
-
-
-  /**
    * Models
    */
 
@@ -1976,40 +1976,37 @@ export namespace Prisma {
 
   export type UserMinAggregateOutputType = {
     id: string | null
-    clerkid: string | null
     email: string | null
     firstname: string | null
     lastname: string | null
+    createdAt: Date | null
+    clerkid: string | null
     image: string | null
     trial: boolean | null
-    createdAt: Date | null
-    updateddAt: Date | null
     firstView: boolean | null
   }
 
   export type UserMaxAggregateOutputType = {
     id: string | null
-    clerkid: string | null
     email: string | null
     firstname: string | null
     lastname: string | null
+    createdAt: Date | null
+    clerkid: string | null
     image: string | null
     trial: boolean | null
-    createdAt: Date | null
-    updateddAt: Date | null
     firstView: boolean | null
   }
 
   export type UserCountAggregateOutputType = {
     id: number
-    clerkid: number
     email: number
     firstname: number
     lastname: number
+    createdAt: number
+    clerkid: number
     image: number
     trial: number
-    createdAt: number
-    updateddAt: number
     firstView: number
     _all: number
   }
@@ -2017,40 +2014,37 @@ export namespace Prisma {
 
   export type UserMinAggregateInputType = {
     id?: true
-    clerkid?: true
     email?: true
     firstname?: true
     lastname?: true
+    createdAt?: true
+    clerkid?: true
     image?: true
     trial?: true
-    createdAt?: true
-    updateddAt?: true
     firstView?: true
   }
 
   export type UserMaxAggregateInputType = {
     id?: true
-    clerkid?: true
     email?: true
     firstname?: true
     lastname?: true
+    createdAt?: true
+    clerkid?: true
     image?: true
     trial?: true
-    createdAt?: true
-    updateddAt?: true
     firstView?: true
   }
 
   export type UserCountAggregateInputType = {
     id?: true
-    clerkid?: true
     email?: true
     firstname?: true
     lastname?: true
+    createdAt?: true
+    clerkid?: true
     image?: true
     trial?: true
-    createdAt?: true
-    updateddAt?: true
     firstView?: true
     _all?: true
   }
@@ -2129,14 +2123,13 @@ export namespace Prisma {
 
   export type UserGroupByOutputType = {
     id: string
-    clerkid: string
     email: string
     firstname: string | null
     lastname: string | null
+    createdAt: Date
+    clerkid: string
     image: string | null
     trial: boolean
-    createdAt: Date
-    updateddAt: Date
     firstView: boolean
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
@@ -2159,77 +2152,73 @@ export namespace Prisma {
 
   export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    clerkid?: boolean
     email?: boolean
     firstname?: boolean
     lastname?: boolean
+    createdAt?: boolean
+    clerkid?: boolean
     image?: boolean
     trial?: boolean
-    createdAt?: boolean
-    updateddAt?: boolean
     firstView?: boolean
     studio?: boolean | User$studioArgs<ExtArgs>
     workspace?: boolean | User$workspaceArgs<ExtArgs>
-    comment?: boolean | User$commentArgs<ExtArgs>
     videos?: boolean | User$videosArgs<ExtArgs>
     subscription?: boolean | User$subscriptionArgs<ExtArgs>
     members?: boolean | User$membersArgs<ExtArgs>
     notification?: boolean | User$notificationArgs<ExtArgs>
     sender?: boolean | User$senderArgs<ExtArgs>
     reciever?: boolean | User$recieverArgs<ExtArgs>
+    comment?: boolean | User$commentArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    clerkid?: boolean
     email?: boolean
     firstname?: boolean
     lastname?: boolean
+    createdAt?: boolean
+    clerkid?: boolean
     image?: boolean
     trial?: boolean
-    createdAt?: boolean
-    updateddAt?: boolean
     firstView?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    clerkid?: boolean
     email?: boolean
     firstname?: boolean
     lastname?: boolean
+    createdAt?: boolean
+    clerkid?: boolean
     image?: boolean
     trial?: boolean
-    createdAt?: boolean
-    updateddAt?: boolean
     firstView?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
     id?: boolean
-    clerkid?: boolean
     email?: boolean
     firstname?: boolean
     lastname?: boolean
+    createdAt?: boolean
+    clerkid?: boolean
     image?: boolean
     trial?: boolean
-    createdAt?: boolean
-    updateddAt?: boolean
     firstView?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "clerkid" | "email" | "firstname" | "lastname" | "image" | "trial" | "createdAt" | "updateddAt" | "firstView", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "firstname" | "lastname" | "createdAt" | "clerkid" | "image" | "trial" | "firstView", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     studio?: boolean | User$studioArgs<ExtArgs>
     workspace?: boolean | User$workspaceArgs<ExtArgs>
-    comment?: boolean | User$commentArgs<ExtArgs>
     videos?: boolean | User$videosArgs<ExtArgs>
     subscription?: boolean | User$subscriptionArgs<ExtArgs>
     members?: boolean | User$membersArgs<ExtArgs>
     notification?: boolean | User$notificationArgs<ExtArgs>
     sender?: boolean | User$senderArgs<ExtArgs>
     reciever?: boolean | User$recieverArgs<ExtArgs>
+    comment?: boolean | User$commentArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2240,24 +2229,23 @@ export namespace Prisma {
     objects: {
       studio: Prisma.$MediaPayload<ExtArgs> | null
       workspace: Prisma.$WorkSpacePayload<ExtArgs>[]
-      comment: Prisma.$CommentPayload<ExtArgs>[]
       videos: Prisma.$VideoPayload<ExtArgs>[]
       subscription: Prisma.$SubscriptionPayload<ExtArgs> | null
       members: Prisma.$MemberPayload<ExtArgs>[]
       notification: Prisma.$NotificationPayload<ExtArgs>[]
       sender: Prisma.$InvitePayload<ExtArgs>[]
       reciever: Prisma.$InvitePayload<ExtArgs>[]
+      comment: Prisma.$CommentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      clerkid: string
       email: string
       firstname: string | null
       lastname: string | null
+      createdAt: Date
+      clerkid: string
       image: string | null
       trial: boolean
-      createdAt: Date
-      updateddAt: Date
       firstView: boolean
     }, ExtArgs["result"]["user"]>
     composites: {}
@@ -2655,13 +2643,13 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     studio<T extends User$studioArgs<ExtArgs> = {}>(args?: Subset<T, User$studioArgs<ExtArgs>>): Prisma__MediaClient<$Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     workspace<T extends User$workspaceArgs<ExtArgs> = {}>(args?: Subset<T, User$workspaceArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkSpacePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    comment<T extends User$commentArgs<ExtArgs> = {}>(args?: Subset<T, User$commentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     videos<T extends User$videosArgs<ExtArgs> = {}>(args?: Subset<T, User$videosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VideoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     subscription<T extends User$subscriptionArgs<ExtArgs> = {}>(args?: Subset<T, User$subscriptionArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     members<T extends User$membersArgs<ExtArgs> = {}>(args?: Subset<T, User$membersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     notification<T extends User$notificationArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sender<T extends User$senderArgs<ExtArgs> = {}>(args?: Subset<T, User$senderArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reciever<T extends User$recieverArgs<ExtArgs> = {}>(args?: Subset<T, User$recieverArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    comment<T extends User$commentArgs<ExtArgs> = {}>(args?: Subset<T, User$commentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2692,14 +2680,13 @@ export namespace Prisma {
    */
   interface UserFieldRefs {
     readonly id: FieldRef<"User", 'String'>
-    readonly clerkid: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
     readonly firstname: FieldRef<"User", 'String'>
     readonly lastname: FieldRef<"User", 'String'>
+    readonly createdAt: FieldRef<"User", 'DateTime'>
+    readonly clerkid: FieldRef<"User", 'String'>
     readonly image: FieldRef<"User", 'String'>
     readonly trial: FieldRef<"User", 'Boolean'>
-    readonly createdAt: FieldRef<"User", 'DateTime'>
-    readonly updateddAt: FieldRef<"User", 'DateTime'>
     readonly firstView: FieldRef<"User", 'Boolean'>
   }
     
@@ -3132,30 +3119,6 @@ export namespace Prisma {
   }
 
   /**
-   * User.comment
-   */
-  export type User$commentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Comment
-     */
-    select?: CommentSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Comment
-     */
-    omit?: CommentOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CommentInclude<ExtArgs> | null
-    where?: CommentWhereInput
-    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
-    cursor?: CommentWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
-  }
-
-  /**
    * User.videos
    */
   export type User$videosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3295,6 +3258,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.comment
+   */
+  export type User$commentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    where?: CommentWhereInput
+    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
+    cursor?: CommentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3310,6 +3297,2270 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Comment
+   */
+
+  export type AggregateComment = {
+    _count: CommentCountAggregateOutputType | null
+    _min: CommentMinAggregateOutputType | null
+    _max: CommentMaxAggregateOutputType | null
+  }
+
+  export type CommentMinAggregateOutputType = {
+    id: string | null
+    comment: string | null
+    commentId: string | null
+    userId: string | null
+    videoId: string | null
+    createdAt: Date | null
+  }
+
+  export type CommentMaxAggregateOutputType = {
+    id: string | null
+    comment: string | null
+    commentId: string | null
+    userId: string | null
+    videoId: string | null
+    createdAt: Date | null
+  }
+
+  export type CommentCountAggregateOutputType = {
+    id: number
+    comment: number
+    commentId: number
+    userId: number
+    videoId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type CommentMinAggregateInputType = {
+    id?: true
+    comment?: true
+    commentId?: true
+    userId?: true
+    videoId?: true
+    createdAt?: true
+  }
+
+  export type CommentMaxAggregateInputType = {
+    id?: true
+    comment?: true
+    commentId?: true
+    userId?: true
+    videoId?: true
+    createdAt?: true
+  }
+
+  export type CommentCountAggregateInputType = {
+    id?: true
+    comment?: true
+    commentId?: true
+    userId?: true
+    videoId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type CommentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Comment to aggregate.
+     */
+    where?: CommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Comments to fetch.
+     */
+    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Comments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Comments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Comments
+    **/
+    _count?: true | CommentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CommentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CommentMaxAggregateInputType
+  }
+
+  export type GetCommentAggregateType<T extends CommentAggregateArgs> = {
+        [P in keyof T & keyof AggregateComment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateComment[P]>
+      : GetScalarType<T[P], AggregateComment[P]>
+  }
+
+
+
+
+  export type CommentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommentWhereInput
+    orderBy?: CommentOrderByWithAggregationInput | CommentOrderByWithAggregationInput[]
+    by: CommentScalarFieldEnum[] | CommentScalarFieldEnum
+    having?: CommentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CommentCountAggregateInputType | true
+    _min?: CommentMinAggregateInputType
+    _max?: CommentMaxAggregateInputType
+  }
+
+  export type CommentGroupByOutputType = {
+    id: string
+    comment: string
+    commentId: string | null
+    userId: string | null
+    videoId: string | null
+    createdAt: Date
+    _count: CommentCountAggregateOutputType | null
+    _min: CommentMinAggregateOutputType | null
+    _max: CommentMaxAggregateOutputType | null
+  }
+
+  type GetCommentGroupByPayload<T extends CommentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CommentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CommentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CommentGroupByOutputType[P]>
+            : GetScalarType<T[P], CommentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CommentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    comment?: boolean
+    commentId?: boolean
+    userId?: boolean
+    videoId?: boolean
+    createdAt?: boolean
+    reply?: boolean | Comment$replyArgs<ExtArgs>
+    Comment?: boolean | Comment$CommentArgs<ExtArgs>
+    User?: boolean | Comment$UserArgs<ExtArgs>
+    Video?: boolean | Comment$VideoArgs<ExtArgs>
+    _count?: boolean | CommentCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["comment"]>
+
+  export type CommentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    comment?: boolean
+    commentId?: boolean
+    userId?: boolean
+    videoId?: boolean
+    createdAt?: boolean
+    Comment?: boolean | Comment$CommentArgs<ExtArgs>
+    User?: boolean | Comment$UserArgs<ExtArgs>
+    Video?: boolean | Comment$VideoArgs<ExtArgs>
+  }, ExtArgs["result"]["comment"]>
+
+  export type CommentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    comment?: boolean
+    commentId?: boolean
+    userId?: boolean
+    videoId?: boolean
+    createdAt?: boolean
+    Comment?: boolean | Comment$CommentArgs<ExtArgs>
+    User?: boolean | Comment$UserArgs<ExtArgs>
+    Video?: boolean | Comment$VideoArgs<ExtArgs>
+  }, ExtArgs["result"]["comment"]>
+
+  export type CommentSelectScalar = {
+    id?: boolean
+    comment?: boolean
+    commentId?: boolean
+    userId?: boolean
+    videoId?: boolean
+    createdAt?: boolean
+  }
+
+  export type CommentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "comment" | "commentId" | "userId" | "videoId" | "createdAt", ExtArgs["result"]["comment"]>
+  export type CommentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reply?: boolean | Comment$replyArgs<ExtArgs>
+    Comment?: boolean | Comment$CommentArgs<ExtArgs>
+    User?: boolean | Comment$UserArgs<ExtArgs>
+    Video?: boolean | Comment$VideoArgs<ExtArgs>
+    _count?: boolean | CommentCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type CommentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Comment?: boolean | Comment$CommentArgs<ExtArgs>
+    User?: boolean | Comment$UserArgs<ExtArgs>
+    Video?: boolean | Comment$VideoArgs<ExtArgs>
+  }
+  export type CommentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Comment?: boolean | Comment$CommentArgs<ExtArgs>
+    User?: boolean | Comment$UserArgs<ExtArgs>
+    Video?: boolean | Comment$VideoArgs<ExtArgs>
+  }
+
+  export type $CommentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Comment"
+    objects: {
+      reply: Prisma.$CommentPayload<ExtArgs>[]
+      Comment: Prisma.$CommentPayload<ExtArgs> | null
+      User: Prisma.$UserPayload<ExtArgs> | null
+      Video: Prisma.$VideoPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      comment: string
+      commentId: string | null
+      userId: string | null
+      videoId: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["comment"]>
+    composites: {}
+  }
+
+  type CommentGetPayload<S extends boolean | null | undefined | CommentDefaultArgs> = $Result.GetResult<Prisma.$CommentPayload, S>
+
+  type CommentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CommentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CommentCountAggregateInputType | true
+    }
+
+  export interface CommentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Comment'], meta: { name: 'Comment' } }
+    /**
+     * Find zero or one Comment that matches the filter.
+     * @param {CommentFindUniqueArgs} args - Arguments to find a Comment
+     * @example
+     * // Get one Comment
+     * const comment = await prisma.comment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CommentFindUniqueArgs>(args: SelectSubset<T, CommentFindUniqueArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Comment that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CommentFindUniqueOrThrowArgs} args - Arguments to find a Comment
+     * @example
+     * // Get one Comment
+     * const comment = await prisma.comment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CommentFindUniqueOrThrowArgs>(args: SelectSubset<T, CommentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Comment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommentFindFirstArgs} args - Arguments to find a Comment
+     * @example
+     * // Get one Comment
+     * const comment = await prisma.comment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CommentFindFirstArgs>(args?: SelectSubset<T, CommentFindFirstArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Comment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommentFindFirstOrThrowArgs} args - Arguments to find a Comment
+     * @example
+     * // Get one Comment
+     * const comment = await prisma.comment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CommentFindFirstOrThrowArgs>(args?: SelectSubset<T, CommentFindFirstOrThrowArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Comments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Comments
+     * const comments = await prisma.comment.findMany()
+     * 
+     * // Get first 10 Comments
+     * const comments = await prisma.comment.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const commentWithIdOnly = await prisma.comment.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CommentFindManyArgs>(args?: SelectSubset<T, CommentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Comment.
+     * @param {CommentCreateArgs} args - Arguments to create a Comment.
+     * @example
+     * // Create one Comment
+     * const Comment = await prisma.comment.create({
+     *   data: {
+     *     // ... data to create a Comment
+     *   }
+     * })
+     * 
+     */
+    create<T extends CommentCreateArgs>(args: SelectSubset<T, CommentCreateArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Comments.
+     * @param {CommentCreateManyArgs} args - Arguments to create many Comments.
+     * @example
+     * // Create many Comments
+     * const comment = await prisma.comment.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CommentCreateManyArgs>(args?: SelectSubset<T, CommentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Comments and returns the data saved in the database.
+     * @param {CommentCreateManyAndReturnArgs} args - Arguments to create many Comments.
+     * @example
+     * // Create many Comments
+     * const comment = await prisma.comment.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Comments and only return the `id`
+     * const commentWithIdOnly = await prisma.comment.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CommentCreateManyAndReturnArgs>(args?: SelectSubset<T, CommentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Comment.
+     * @param {CommentDeleteArgs} args - Arguments to delete one Comment.
+     * @example
+     * // Delete one Comment
+     * const Comment = await prisma.comment.delete({
+     *   where: {
+     *     // ... filter to delete one Comment
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CommentDeleteArgs>(args: SelectSubset<T, CommentDeleteArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Comment.
+     * @param {CommentUpdateArgs} args - Arguments to update one Comment.
+     * @example
+     * // Update one Comment
+     * const comment = await prisma.comment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CommentUpdateArgs>(args: SelectSubset<T, CommentUpdateArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Comments.
+     * @param {CommentDeleteManyArgs} args - Arguments to filter Comments to delete.
+     * @example
+     * // Delete a few Comments
+     * const { count } = await prisma.comment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CommentDeleteManyArgs>(args?: SelectSubset<T, CommentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Comments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Comments
+     * const comment = await prisma.comment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CommentUpdateManyArgs>(args: SelectSubset<T, CommentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Comments and returns the data updated in the database.
+     * @param {CommentUpdateManyAndReturnArgs} args - Arguments to update many Comments.
+     * @example
+     * // Update many Comments
+     * const comment = await prisma.comment.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Comments and only return the `id`
+     * const commentWithIdOnly = await prisma.comment.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CommentUpdateManyAndReturnArgs>(args: SelectSubset<T, CommentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Comment.
+     * @param {CommentUpsertArgs} args - Arguments to update or create a Comment.
+     * @example
+     * // Update or create a Comment
+     * const comment = await prisma.comment.upsert({
+     *   create: {
+     *     // ... data to create a Comment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Comment we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CommentUpsertArgs>(args: SelectSubset<T, CommentUpsertArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Comments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommentCountArgs} args - Arguments to filter Comments to count.
+     * @example
+     * // Count the number of Comments
+     * const count = await prisma.comment.count({
+     *   where: {
+     *     // ... the filter for the Comments we want to count
+     *   }
+     * })
+    **/
+    count<T extends CommentCountArgs>(
+      args?: Subset<T, CommentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CommentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Comment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CommentAggregateArgs>(args: Subset<T, CommentAggregateArgs>): Prisma.PrismaPromise<GetCommentAggregateType<T>>
+
+    /**
+     * Group by Comment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CommentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CommentGroupByArgs['orderBy'] }
+        : { orderBy?: CommentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CommentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCommentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Comment model
+   */
+  readonly fields: CommentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Comment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CommentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    reply<T extends Comment$replyArgs<ExtArgs> = {}>(args?: Subset<T, Comment$replyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    Comment<T extends Comment$CommentArgs<ExtArgs> = {}>(args?: Subset<T, Comment$CommentArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    User<T extends Comment$UserArgs<ExtArgs> = {}>(args?: Subset<T, Comment$UserArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    Video<T extends Comment$VideoArgs<ExtArgs> = {}>(args?: Subset<T, Comment$VideoArgs<ExtArgs>>): Prisma__VideoClient<$Result.GetResult<Prisma.$VideoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Comment model
+   */
+  interface CommentFieldRefs {
+    readonly id: FieldRef<"Comment", 'String'>
+    readonly comment: FieldRef<"Comment", 'String'>
+    readonly commentId: FieldRef<"Comment", 'String'>
+    readonly userId: FieldRef<"Comment", 'String'>
+    readonly videoId: FieldRef<"Comment", 'String'>
+    readonly createdAt: FieldRef<"Comment", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Comment findUnique
+   */
+  export type CommentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
+     * Filter, which Comment to fetch.
+     */
+    where: CommentWhereUniqueInput
+  }
+
+  /**
+   * Comment findUniqueOrThrow
+   */
+  export type CommentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
+     * Filter, which Comment to fetch.
+     */
+    where: CommentWhereUniqueInput
+  }
+
+  /**
+   * Comment findFirst
+   */
+  export type CommentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
+     * Filter, which Comment to fetch.
+     */
+    where?: CommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Comments to fetch.
+     */
+    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Comments.
+     */
+    cursor?: CommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Comments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Comments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Comments.
+     */
+    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
+  }
+
+  /**
+   * Comment findFirstOrThrow
+   */
+  export type CommentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
+     * Filter, which Comment to fetch.
+     */
+    where?: CommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Comments to fetch.
+     */
+    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Comments.
+     */
+    cursor?: CommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Comments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Comments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Comments.
+     */
+    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
+  }
+
+  /**
+   * Comment findMany
+   */
+  export type CommentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
+     * Filter, which Comments to fetch.
+     */
+    where?: CommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Comments to fetch.
+     */
+    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Comments.
+     */
+    cursor?: CommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Comments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Comments.
+     */
+    skip?: number
+    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
+  }
+
+  /**
+   * Comment create
+   */
+  export type CommentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Comment.
+     */
+    data: XOR<CommentCreateInput, CommentUncheckedCreateInput>
+  }
+
+  /**
+   * Comment createMany
+   */
+  export type CommentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Comments.
+     */
+    data: CommentCreateManyInput | CommentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Comment createManyAndReturn
+   */
+  export type CommentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * The data used to create many Comments.
+     */
+    data: CommentCreateManyInput | CommentCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Comment update
+   */
+  export type CommentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Comment.
+     */
+    data: XOR<CommentUpdateInput, CommentUncheckedUpdateInput>
+    /**
+     * Choose, which Comment to update.
+     */
+    where: CommentWhereUniqueInput
+  }
+
+  /**
+   * Comment updateMany
+   */
+  export type CommentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Comments.
+     */
+    data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyInput>
+    /**
+     * Filter which Comments to update
+     */
+    where?: CommentWhereInput
+    /**
+     * Limit how many Comments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Comment updateManyAndReturn
+   */
+  export type CommentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * The data used to update Comments.
+     */
+    data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyInput>
+    /**
+     * Filter which Comments to update
+     */
+    where?: CommentWhereInput
+    /**
+     * Limit how many Comments to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Comment upsert
+   */
+  export type CommentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Comment to update in case it exists.
+     */
+    where: CommentWhereUniqueInput
+    /**
+     * In case the Comment found by the `where` argument doesn't exist, create a new Comment with this data.
+     */
+    create: XOR<CommentCreateInput, CommentUncheckedCreateInput>
+    /**
+     * In case the Comment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CommentUpdateInput, CommentUncheckedUpdateInput>
+  }
+
+  /**
+   * Comment delete
+   */
+  export type CommentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    /**
+     * Filter which Comment to delete.
+     */
+    where: CommentWhereUniqueInput
+  }
+
+  /**
+   * Comment deleteMany
+   */
+  export type CommentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Comments to delete
+     */
+    where?: CommentWhereInput
+    /**
+     * Limit how many Comments to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Comment.reply
+   */
+  export type Comment$replyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    where?: CommentWhereInput
+    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
+    cursor?: CommentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
+  }
+
+  /**
+   * Comment.Comment
+   */
+  export type Comment$CommentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+    where?: CommentWhereInput
+  }
+
+  /**
+   * Comment.User
+   */
+  export type Comment$UserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * Comment.Video
+   */
+  export type Comment$VideoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Video
+     */
+    select?: VideoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Video
+     */
+    omit?: VideoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VideoInclude<ExtArgs> | null
+    where?: VideoWhereInput
+  }
+
+  /**
+   * Comment without action
+   */
+  export type CommentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Comment
+     */
+    select?: CommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Comment
+     */
+    omit?: CommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommentInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Subscription
+   */
+
+  export type AggregateSubscription = {
+    _count: SubscriptionCountAggregateOutputType | null
+    _min: SubscriptionMinAggregateOutputType | null
+    _max: SubscriptionMaxAggregateOutputType | null
+  }
+
+  export type SubscriptionMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    createdAt: Date | null
+    plan: $Enums.SUBSCRIPTION_PLAN | null
+    updatedAt: Date | null
+    customerId: string | null
+  }
+
+  export type SubscriptionMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    createdAt: Date | null
+    plan: $Enums.SUBSCRIPTION_PLAN | null
+    updatedAt: Date | null
+    customerId: string | null
+  }
+
+  export type SubscriptionCountAggregateOutputType = {
+    id: number
+    userId: number
+    createdAt: number
+    plan: number
+    updatedAt: number
+    customerId: number
+    _all: number
+  }
+
+
+  export type SubscriptionMinAggregateInputType = {
+    id?: true
+    userId?: true
+    createdAt?: true
+    plan?: true
+    updatedAt?: true
+    customerId?: true
+  }
+
+  export type SubscriptionMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    createdAt?: true
+    plan?: true
+    updatedAt?: true
+    customerId?: true
+  }
+
+  export type SubscriptionCountAggregateInputType = {
+    id?: true
+    userId?: true
+    createdAt?: true
+    plan?: true
+    updatedAt?: true
+    customerId?: true
+    _all?: true
+  }
+
+  export type SubscriptionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Subscription to aggregate.
+     */
+    where?: SubscriptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Subscriptions to fetch.
+     */
+    orderBy?: SubscriptionOrderByWithRelationInput | SubscriptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SubscriptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Subscriptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Subscriptions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Subscriptions
+    **/
+    _count?: true | SubscriptionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SubscriptionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SubscriptionMaxAggregateInputType
+  }
+
+  export type GetSubscriptionAggregateType<T extends SubscriptionAggregateArgs> = {
+        [P in keyof T & keyof AggregateSubscription]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSubscription[P]>
+      : GetScalarType<T[P], AggregateSubscription[P]>
+  }
+
+
+
+
+  export type SubscriptionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SubscriptionWhereInput
+    orderBy?: SubscriptionOrderByWithAggregationInput | SubscriptionOrderByWithAggregationInput[]
+    by: SubscriptionScalarFieldEnum[] | SubscriptionScalarFieldEnum
+    having?: SubscriptionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SubscriptionCountAggregateInputType | true
+    _min?: SubscriptionMinAggregateInputType
+    _max?: SubscriptionMaxAggregateInputType
+  }
+
+  export type SubscriptionGroupByOutputType = {
+    id: string
+    userId: string | null
+    createdAt: Date
+    plan: $Enums.SUBSCRIPTION_PLAN
+    updatedAt: Date
+    customerId: string | null
+    _count: SubscriptionCountAggregateOutputType | null
+    _min: SubscriptionMinAggregateOutputType | null
+    _max: SubscriptionMaxAggregateOutputType | null
+  }
+
+  type GetSubscriptionGroupByPayload<T extends SubscriptionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SubscriptionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SubscriptionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SubscriptionGroupByOutputType[P]>
+            : GetScalarType<T[P], SubscriptionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SubscriptionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    plan?: boolean
+    updatedAt?: boolean
+    customerId?: boolean
+    User?: boolean | Subscription$UserArgs<ExtArgs>
+  }, ExtArgs["result"]["subscription"]>
+
+  export type SubscriptionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    plan?: boolean
+    updatedAt?: boolean
+    customerId?: boolean
+    User?: boolean | Subscription$UserArgs<ExtArgs>
+  }, ExtArgs["result"]["subscription"]>
+
+  export type SubscriptionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    plan?: boolean
+    updatedAt?: boolean
+    customerId?: boolean
+    User?: boolean | Subscription$UserArgs<ExtArgs>
+  }, ExtArgs["result"]["subscription"]>
+
+  export type SubscriptionSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    createdAt?: boolean
+    plan?: boolean
+    updatedAt?: boolean
+    customerId?: boolean
+  }
+
+  export type SubscriptionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "createdAt" | "plan" | "updatedAt" | "customerId", ExtArgs["result"]["subscription"]>
+  export type SubscriptionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    User?: boolean | Subscription$UserArgs<ExtArgs>
+  }
+  export type SubscriptionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    User?: boolean | Subscription$UserArgs<ExtArgs>
+  }
+  export type SubscriptionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    User?: boolean | Subscription$UserArgs<ExtArgs>
+  }
+
+  export type $SubscriptionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Subscription"
+    objects: {
+      User: Prisma.$UserPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string | null
+      createdAt: Date
+      plan: $Enums.SUBSCRIPTION_PLAN
+      updatedAt: Date
+      customerId: string | null
+    }, ExtArgs["result"]["subscription"]>
+    composites: {}
+  }
+
+  type SubscriptionGetPayload<S extends boolean | null | undefined | SubscriptionDefaultArgs> = $Result.GetResult<Prisma.$SubscriptionPayload, S>
+
+  type SubscriptionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SubscriptionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SubscriptionCountAggregateInputType | true
+    }
+
+  export interface SubscriptionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Subscription'], meta: { name: 'Subscription' } }
+    /**
+     * Find zero or one Subscription that matches the filter.
+     * @param {SubscriptionFindUniqueArgs} args - Arguments to find a Subscription
+     * @example
+     * // Get one Subscription
+     * const subscription = await prisma.subscription.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SubscriptionFindUniqueArgs>(args: SelectSubset<T, SubscriptionFindUniqueArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Subscription that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SubscriptionFindUniqueOrThrowArgs} args - Arguments to find a Subscription
+     * @example
+     * // Get one Subscription
+     * const subscription = await prisma.subscription.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SubscriptionFindUniqueOrThrowArgs>(args: SelectSubset<T, SubscriptionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Subscription that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionFindFirstArgs} args - Arguments to find a Subscription
+     * @example
+     * // Get one Subscription
+     * const subscription = await prisma.subscription.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SubscriptionFindFirstArgs>(args?: SelectSubset<T, SubscriptionFindFirstArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Subscription that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionFindFirstOrThrowArgs} args - Arguments to find a Subscription
+     * @example
+     * // Get one Subscription
+     * const subscription = await prisma.subscription.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SubscriptionFindFirstOrThrowArgs>(args?: SelectSubset<T, SubscriptionFindFirstOrThrowArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Subscriptions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Subscriptions
+     * const subscriptions = await prisma.subscription.findMany()
+     * 
+     * // Get first 10 Subscriptions
+     * const subscriptions = await prisma.subscription.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const subscriptionWithIdOnly = await prisma.subscription.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SubscriptionFindManyArgs>(args?: SelectSubset<T, SubscriptionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Subscription.
+     * @param {SubscriptionCreateArgs} args - Arguments to create a Subscription.
+     * @example
+     * // Create one Subscription
+     * const Subscription = await prisma.subscription.create({
+     *   data: {
+     *     // ... data to create a Subscription
+     *   }
+     * })
+     * 
+     */
+    create<T extends SubscriptionCreateArgs>(args: SelectSubset<T, SubscriptionCreateArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Subscriptions.
+     * @param {SubscriptionCreateManyArgs} args - Arguments to create many Subscriptions.
+     * @example
+     * // Create many Subscriptions
+     * const subscription = await prisma.subscription.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SubscriptionCreateManyArgs>(args?: SelectSubset<T, SubscriptionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Subscriptions and returns the data saved in the database.
+     * @param {SubscriptionCreateManyAndReturnArgs} args - Arguments to create many Subscriptions.
+     * @example
+     * // Create many Subscriptions
+     * const subscription = await prisma.subscription.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Subscriptions and only return the `id`
+     * const subscriptionWithIdOnly = await prisma.subscription.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SubscriptionCreateManyAndReturnArgs>(args?: SelectSubset<T, SubscriptionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Subscription.
+     * @param {SubscriptionDeleteArgs} args - Arguments to delete one Subscription.
+     * @example
+     * // Delete one Subscription
+     * const Subscription = await prisma.subscription.delete({
+     *   where: {
+     *     // ... filter to delete one Subscription
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SubscriptionDeleteArgs>(args: SelectSubset<T, SubscriptionDeleteArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Subscription.
+     * @param {SubscriptionUpdateArgs} args - Arguments to update one Subscription.
+     * @example
+     * // Update one Subscription
+     * const subscription = await prisma.subscription.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SubscriptionUpdateArgs>(args: SelectSubset<T, SubscriptionUpdateArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Subscriptions.
+     * @param {SubscriptionDeleteManyArgs} args - Arguments to filter Subscriptions to delete.
+     * @example
+     * // Delete a few Subscriptions
+     * const { count } = await prisma.subscription.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SubscriptionDeleteManyArgs>(args?: SelectSubset<T, SubscriptionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Subscriptions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Subscriptions
+     * const subscription = await prisma.subscription.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SubscriptionUpdateManyArgs>(args: SelectSubset<T, SubscriptionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Subscriptions and returns the data updated in the database.
+     * @param {SubscriptionUpdateManyAndReturnArgs} args - Arguments to update many Subscriptions.
+     * @example
+     * // Update many Subscriptions
+     * const subscription = await prisma.subscription.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Subscriptions and only return the `id`
+     * const subscriptionWithIdOnly = await prisma.subscription.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SubscriptionUpdateManyAndReturnArgs>(args: SelectSubset<T, SubscriptionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Subscription.
+     * @param {SubscriptionUpsertArgs} args - Arguments to update or create a Subscription.
+     * @example
+     * // Update or create a Subscription
+     * const subscription = await prisma.subscription.upsert({
+     *   create: {
+     *     // ... data to create a Subscription
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Subscription we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SubscriptionUpsertArgs>(args: SelectSubset<T, SubscriptionUpsertArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Subscriptions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionCountArgs} args - Arguments to filter Subscriptions to count.
+     * @example
+     * // Count the number of Subscriptions
+     * const count = await prisma.subscription.count({
+     *   where: {
+     *     // ... the filter for the Subscriptions we want to count
+     *   }
+     * })
+    **/
+    count<T extends SubscriptionCountArgs>(
+      args?: Subset<T, SubscriptionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SubscriptionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Subscription.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SubscriptionAggregateArgs>(args: Subset<T, SubscriptionAggregateArgs>): Prisma.PrismaPromise<GetSubscriptionAggregateType<T>>
+
+    /**
+     * Group by Subscription.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubscriptionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SubscriptionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SubscriptionGroupByArgs['orderBy'] }
+        : { orderBy?: SubscriptionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SubscriptionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSubscriptionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Subscription model
+   */
+  readonly fields: SubscriptionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Subscription.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SubscriptionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    User<T extends Subscription$UserArgs<ExtArgs> = {}>(args?: Subset<T, Subscription$UserArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Subscription model
+   */
+  interface SubscriptionFieldRefs {
+    readonly id: FieldRef<"Subscription", 'String'>
+    readonly userId: FieldRef<"Subscription", 'String'>
+    readonly createdAt: FieldRef<"Subscription", 'DateTime'>
+    readonly plan: FieldRef<"Subscription", 'SUBSCRIPTION_PLAN'>
+    readonly updatedAt: FieldRef<"Subscription", 'DateTime'>
+    readonly customerId: FieldRef<"Subscription", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Subscription findUnique
+   */
+  export type SubscriptionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * Filter, which Subscription to fetch.
+     */
+    where: SubscriptionWhereUniqueInput
+  }
+
+  /**
+   * Subscription findUniqueOrThrow
+   */
+  export type SubscriptionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * Filter, which Subscription to fetch.
+     */
+    where: SubscriptionWhereUniqueInput
+  }
+
+  /**
+   * Subscription findFirst
+   */
+  export type SubscriptionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * Filter, which Subscription to fetch.
+     */
+    where?: SubscriptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Subscriptions to fetch.
+     */
+    orderBy?: SubscriptionOrderByWithRelationInput | SubscriptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Subscriptions.
+     */
+    cursor?: SubscriptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Subscriptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Subscriptions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Subscriptions.
+     */
+    distinct?: SubscriptionScalarFieldEnum | SubscriptionScalarFieldEnum[]
+  }
+
+  /**
+   * Subscription findFirstOrThrow
+   */
+  export type SubscriptionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * Filter, which Subscription to fetch.
+     */
+    where?: SubscriptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Subscriptions to fetch.
+     */
+    orderBy?: SubscriptionOrderByWithRelationInput | SubscriptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Subscriptions.
+     */
+    cursor?: SubscriptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Subscriptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Subscriptions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Subscriptions.
+     */
+    distinct?: SubscriptionScalarFieldEnum | SubscriptionScalarFieldEnum[]
+  }
+
+  /**
+   * Subscription findMany
+   */
+  export type SubscriptionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * Filter, which Subscriptions to fetch.
+     */
+    where?: SubscriptionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Subscriptions to fetch.
+     */
+    orderBy?: SubscriptionOrderByWithRelationInput | SubscriptionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Subscriptions.
+     */
+    cursor?: SubscriptionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Subscriptions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Subscriptions.
+     */
+    skip?: number
+    distinct?: SubscriptionScalarFieldEnum | SubscriptionScalarFieldEnum[]
+  }
+
+  /**
+   * Subscription create
+   */
+  export type SubscriptionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Subscription.
+     */
+    data?: XOR<SubscriptionCreateInput, SubscriptionUncheckedCreateInput>
+  }
+
+  /**
+   * Subscription createMany
+   */
+  export type SubscriptionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Subscriptions.
+     */
+    data: SubscriptionCreateManyInput | SubscriptionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Subscription createManyAndReturn
+   */
+  export type SubscriptionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * The data used to create many Subscriptions.
+     */
+    data: SubscriptionCreateManyInput | SubscriptionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Subscription update
+   */
+  export type SubscriptionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Subscription.
+     */
+    data: XOR<SubscriptionUpdateInput, SubscriptionUncheckedUpdateInput>
+    /**
+     * Choose, which Subscription to update.
+     */
+    where: SubscriptionWhereUniqueInput
+  }
+
+  /**
+   * Subscription updateMany
+   */
+  export type SubscriptionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Subscriptions.
+     */
+    data: XOR<SubscriptionUpdateManyMutationInput, SubscriptionUncheckedUpdateManyInput>
+    /**
+     * Filter which Subscriptions to update
+     */
+    where?: SubscriptionWhereInput
+    /**
+     * Limit how many Subscriptions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Subscription updateManyAndReturn
+   */
+  export type SubscriptionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * The data used to update Subscriptions.
+     */
+    data: XOR<SubscriptionUpdateManyMutationInput, SubscriptionUncheckedUpdateManyInput>
+    /**
+     * Filter which Subscriptions to update
+     */
+    where?: SubscriptionWhereInput
+    /**
+     * Limit how many Subscriptions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Subscription upsert
+   */
+  export type SubscriptionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Subscription to update in case it exists.
+     */
+    where: SubscriptionWhereUniqueInput
+    /**
+     * In case the Subscription found by the `where` argument doesn't exist, create a new Subscription with this data.
+     */
+    create: XOR<SubscriptionCreateInput, SubscriptionUncheckedCreateInput>
+    /**
+     * In case the Subscription was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SubscriptionUpdateInput, SubscriptionUncheckedUpdateInput>
+  }
+
+  /**
+   * Subscription delete
+   */
+  export type SubscriptionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
+    /**
+     * Filter which Subscription to delete.
+     */
+    where: SubscriptionWhereUniqueInput
+  }
+
+  /**
+   * Subscription deleteMany
+   */
+  export type SubscriptionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Subscriptions to delete
+     */
+    where?: SubscriptionWhereInput
+    /**
+     * Limit how many Subscriptions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Subscription.User
+   */
+  export type Subscription$UserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * Subscription without action
+   */
+  export type SubscriptionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subscription
+     */
+    select?: SubscriptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subscription
+     */
+    omit?: SubscriptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubscriptionInclude<ExtArgs> | null
   }
 
 
@@ -7962,2270 +10213,6 @@ export namespace Prisma {
 
 
   /**
-   * Model Comment
-   */
-
-  export type AggregateComment = {
-    _count: CommentCountAggregateOutputType | null
-    _min: CommentMinAggregateOutputType | null
-    _max: CommentMaxAggregateOutputType | null
-  }
-
-  export type CommentMinAggregateOutputType = {
-    id: string | null
-    comment: string | null
-    commentId: string | null
-    userId: string | null
-    videoId: string | null
-    createdAt: Date | null
-  }
-
-  export type CommentMaxAggregateOutputType = {
-    id: string | null
-    comment: string | null
-    commentId: string | null
-    userId: string | null
-    videoId: string | null
-    createdAt: Date | null
-  }
-
-  export type CommentCountAggregateOutputType = {
-    id: number
-    comment: number
-    commentId: number
-    userId: number
-    videoId: number
-    createdAt: number
-    _all: number
-  }
-
-
-  export type CommentMinAggregateInputType = {
-    id?: true
-    comment?: true
-    commentId?: true
-    userId?: true
-    videoId?: true
-    createdAt?: true
-  }
-
-  export type CommentMaxAggregateInputType = {
-    id?: true
-    comment?: true
-    commentId?: true
-    userId?: true
-    videoId?: true
-    createdAt?: true
-  }
-
-  export type CommentCountAggregateInputType = {
-    id?: true
-    comment?: true
-    commentId?: true
-    userId?: true
-    videoId?: true
-    createdAt?: true
-    _all?: true
-  }
-
-  export type CommentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Comment to aggregate.
-     */
-    where?: CommentWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Comments to fetch.
-     */
-    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: CommentWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Comments from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Comments.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Comments
-    **/
-    _count?: true | CommentCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: CommentMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: CommentMaxAggregateInputType
-  }
-
-  export type GetCommentAggregateType<T extends CommentAggregateArgs> = {
-        [P in keyof T & keyof AggregateComment]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateComment[P]>
-      : GetScalarType<T[P], AggregateComment[P]>
-  }
-
-
-
-
-  export type CommentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: CommentWhereInput
-    orderBy?: CommentOrderByWithAggregationInput | CommentOrderByWithAggregationInput[]
-    by: CommentScalarFieldEnum[] | CommentScalarFieldEnum
-    having?: CommentScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: CommentCountAggregateInputType | true
-    _min?: CommentMinAggregateInputType
-    _max?: CommentMaxAggregateInputType
-  }
-
-  export type CommentGroupByOutputType = {
-    id: string
-    comment: string
-    commentId: string | null
-    userId: string | null
-    videoId: string | null
-    createdAt: Date
-    _count: CommentCountAggregateOutputType | null
-    _min: CommentMinAggregateOutputType | null
-    _max: CommentMaxAggregateOutputType | null
-  }
-
-  type GetCommentGroupByPayload<T extends CommentGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<CommentGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof CommentGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], CommentGroupByOutputType[P]>
-            : GetScalarType<T[P], CommentGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type CommentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    comment?: boolean
-    commentId?: boolean
-    userId?: boolean
-    videoId?: boolean
-    createdAt?: boolean
-    reply?: boolean | Comment$replyArgs<ExtArgs>
-    Comment?: boolean | Comment$CommentArgs<ExtArgs>
-    User?: boolean | Comment$UserArgs<ExtArgs>
-    Video?: boolean | Comment$VideoArgs<ExtArgs>
-    _count?: boolean | CommentCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["comment"]>
-
-  export type CommentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    comment?: boolean
-    commentId?: boolean
-    userId?: boolean
-    videoId?: boolean
-    createdAt?: boolean
-    Comment?: boolean | Comment$CommentArgs<ExtArgs>
-    User?: boolean | Comment$UserArgs<ExtArgs>
-    Video?: boolean | Comment$VideoArgs<ExtArgs>
-  }, ExtArgs["result"]["comment"]>
-
-  export type CommentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    comment?: boolean
-    commentId?: boolean
-    userId?: boolean
-    videoId?: boolean
-    createdAt?: boolean
-    Comment?: boolean | Comment$CommentArgs<ExtArgs>
-    User?: boolean | Comment$UserArgs<ExtArgs>
-    Video?: boolean | Comment$VideoArgs<ExtArgs>
-  }, ExtArgs["result"]["comment"]>
-
-  export type CommentSelectScalar = {
-    id?: boolean
-    comment?: boolean
-    commentId?: boolean
-    userId?: boolean
-    videoId?: boolean
-    createdAt?: boolean
-  }
-
-  export type CommentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "comment" | "commentId" | "userId" | "videoId" | "createdAt", ExtArgs["result"]["comment"]>
-  export type CommentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    reply?: boolean | Comment$replyArgs<ExtArgs>
-    Comment?: boolean | Comment$CommentArgs<ExtArgs>
-    User?: boolean | Comment$UserArgs<ExtArgs>
-    Video?: boolean | Comment$VideoArgs<ExtArgs>
-    _count?: boolean | CommentCountOutputTypeDefaultArgs<ExtArgs>
-  }
-  export type CommentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Comment?: boolean | Comment$CommentArgs<ExtArgs>
-    User?: boolean | Comment$UserArgs<ExtArgs>
-    Video?: boolean | Comment$VideoArgs<ExtArgs>
-  }
-  export type CommentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Comment?: boolean | Comment$CommentArgs<ExtArgs>
-    User?: boolean | Comment$UserArgs<ExtArgs>
-    Video?: boolean | Comment$VideoArgs<ExtArgs>
-  }
-
-  export type $CommentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Comment"
-    objects: {
-      reply: Prisma.$CommentPayload<ExtArgs>[]
-      Comment: Prisma.$CommentPayload<ExtArgs> | null
-      User: Prisma.$UserPayload<ExtArgs> | null
-      Video: Prisma.$VideoPayload<ExtArgs> | null
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      comment: string
-      commentId: string | null
-      userId: string | null
-      videoId: string | null
-      createdAt: Date
-    }, ExtArgs["result"]["comment"]>
-    composites: {}
-  }
-
-  type CommentGetPayload<S extends boolean | null | undefined | CommentDefaultArgs> = $Result.GetResult<Prisma.$CommentPayload, S>
-
-  type CommentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<CommentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: CommentCountAggregateInputType | true
-    }
-
-  export interface CommentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Comment'], meta: { name: 'Comment' } }
-    /**
-     * Find zero or one Comment that matches the filter.
-     * @param {CommentFindUniqueArgs} args - Arguments to find a Comment
-     * @example
-     * // Get one Comment
-     * const comment = await prisma.comment.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends CommentFindUniqueArgs>(args: SelectSubset<T, CommentFindUniqueArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Comment that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {CommentFindUniqueOrThrowArgs} args - Arguments to find a Comment
-     * @example
-     * // Get one Comment
-     * const comment = await prisma.comment.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends CommentFindUniqueOrThrowArgs>(args: SelectSubset<T, CommentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Comment that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {CommentFindFirstArgs} args - Arguments to find a Comment
-     * @example
-     * // Get one Comment
-     * const comment = await prisma.comment.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends CommentFindFirstArgs>(args?: SelectSubset<T, CommentFindFirstArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Comment that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {CommentFindFirstOrThrowArgs} args - Arguments to find a Comment
-     * @example
-     * // Get one Comment
-     * const comment = await prisma.comment.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends CommentFindFirstOrThrowArgs>(args?: SelectSubset<T, CommentFindFirstOrThrowArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Comments that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {CommentFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Comments
-     * const comments = await prisma.comment.findMany()
-     * 
-     * // Get first 10 Comments
-     * const comments = await prisma.comment.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const commentWithIdOnly = await prisma.comment.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends CommentFindManyArgs>(args?: SelectSubset<T, CommentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Comment.
-     * @param {CommentCreateArgs} args - Arguments to create a Comment.
-     * @example
-     * // Create one Comment
-     * const Comment = await prisma.comment.create({
-     *   data: {
-     *     // ... data to create a Comment
-     *   }
-     * })
-     * 
-     */
-    create<T extends CommentCreateArgs>(args: SelectSubset<T, CommentCreateArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Comments.
-     * @param {CommentCreateManyArgs} args - Arguments to create many Comments.
-     * @example
-     * // Create many Comments
-     * const comment = await prisma.comment.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends CommentCreateManyArgs>(args?: SelectSubset<T, CommentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Comments and returns the data saved in the database.
-     * @param {CommentCreateManyAndReturnArgs} args - Arguments to create many Comments.
-     * @example
-     * // Create many Comments
-     * const comment = await prisma.comment.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Comments and only return the `id`
-     * const commentWithIdOnly = await prisma.comment.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends CommentCreateManyAndReturnArgs>(args?: SelectSubset<T, CommentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a Comment.
-     * @param {CommentDeleteArgs} args - Arguments to delete one Comment.
-     * @example
-     * // Delete one Comment
-     * const Comment = await prisma.comment.delete({
-     *   where: {
-     *     // ... filter to delete one Comment
-     *   }
-     * })
-     * 
-     */
-    delete<T extends CommentDeleteArgs>(args: SelectSubset<T, CommentDeleteArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Comment.
-     * @param {CommentUpdateArgs} args - Arguments to update one Comment.
-     * @example
-     * // Update one Comment
-     * const comment = await prisma.comment.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends CommentUpdateArgs>(args: SelectSubset<T, CommentUpdateArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Comments.
-     * @param {CommentDeleteManyArgs} args - Arguments to filter Comments to delete.
-     * @example
-     * // Delete a few Comments
-     * const { count } = await prisma.comment.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends CommentDeleteManyArgs>(args?: SelectSubset<T, CommentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Comments.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {CommentUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Comments
-     * const comment = await prisma.comment.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends CommentUpdateManyArgs>(args: SelectSubset<T, CommentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Comments and returns the data updated in the database.
-     * @param {CommentUpdateManyAndReturnArgs} args - Arguments to update many Comments.
-     * @example
-     * // Update many Comments
-     * const comment = await prisma.comment.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Comments and only return the `id`
-     * const commentWithIdOnly = await prisma.comment.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends CommentUpdateManyAndReturnArgs>(args: SelectSubset<T, CommentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one Comment.
-     * @param {CommentUpsertArgs} args - Arguments to update or create a Comment.
-     * @example
-     * // Update or create a Comment
-     * const comment = await prisma.comment.upsert({
-     *   create: {
-     *     // ... data to create a Comment
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Comment we want to update
-     *   }
-     * })
-     */
-    upsert<T extends CommentUpsertArgs>(args: SelectSubset<T, CommentUpsertArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Comments.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {CommentCountArgs} args - Arguments to filter Comments to count.
-     * @example
-     * // Count the number of Comments
-     * const count = await prisma.comment.count({
-     *   where: {
-     *     // ... the filter for the Comments we want to count
-     *   }
-     * })
-    **/
-    count<T extends CommentCountArgs>(
-      args?: Subset<T, CommentCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], CommentCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Comment.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {CommentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends CommentAggregateArgs>(args: Subset<T, CommentAggregateArgs>): Prisma.PrismaPromise<GetCommentAggregateType<T>>
-
-    /**
-     * Group by Comment.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {CommentGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends CommentGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: CommentGroupByArgs['orderBy'] }
-        : { orderBy?: CommentGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, CommentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCommentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the Comment model
-   */
-  readonly fields: CommentFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for Comment.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__CommentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    reply<T extends Comment$replyArgs<ExtArgs> = {}>(args?: Subset<T, Comment$replyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    Comment<T extends Comment$CommentArgs<ExtArgs> = {}>(args?: Subset<T, Comment$CommentArgs<ExtArgs>>): Prisma__CommentClient<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    User<T extends Comment$UserArgs<ExtArgs> = {}>(args?: Subset<T, Comment$UserArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    Video<T extends Comment$VideoArgs<ExtArgs> = {}>(args?: Subset<T, Comment$VideoArgs<ExtArgs>>): Prisma__VideoClient<$Result.GetResult<Prisma.$VideoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the Comment model
-   */
-  interface CommentFieldRefs {
-    readonly id: FieldRef<"Comment", 'String'>
-    readonly comment: FieldRef<"Comment", 'String'>
-    readonly commentId: FieldRef<"Comment", 'String'>
-    readonly userId: FieldRef<"Comment", 'String'>
-    readonly videoId: FieldRef<"Comment", 'String'>
-    readonly createdAt: FieldRef<"Comment", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * Comment findUnique
-   */
-  export type CommentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Comment
-     */
-    select?: CommentSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Comment
-     */
-    omit?: CommentOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CommentInclude<ExtArgs> | null
-    /**
-     * Filter, which Comment to fetch.
-     */
-    where: CommentWhereUniqueInput
-  }
-
-  /**
-   * Comment findUniqueOrThrow
-   */
-  export type CommentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Comment
-     */
-    select?: CommentSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Comment
-     */
-    omit?: CommentOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CommentInclude<ExtArgs> | null
-    /**
-     * Filter, which Comment to fetch.
-     */
-    where: CommentWhereUniqueInput
-  }
-
-  /**
-   * Comment findFirst
-   */
-  export type CommentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Comment
-     */
-    select?: CommentSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Comment
-     */
-    omit?: CommentOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CommentInclude<ExtArgs> | null
-    /**
-     * Filter, which Comment to fetch.
-     */
-    where?: CommentWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Comments to fetch.
-     */
-    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Comments.
-     */
-    cursor?: CommentWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Comments from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Comments.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Comments.
-     */
-    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
-  }
-
-  /**
-   * Comment findFirstOrThrow
-   */
-  export type CommentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Comment
-     */
-    select?: CommentSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Comment
-     */
-    omit?: CommentOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CommentInclude<ExtArgs> | null
-    /**
-     * Filter, which Comment to fetch.
-     */
-    where?: CommentWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Comments to fetch.
-     */
-    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Comments.
-     */
-    cursor?: CommentWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Comments from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Comments.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Comments.
-     */
-    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
-  }
-
-  /**
-   * Comment findMany
-   */
-  export type CommentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Comment
-     */
-    select?: CommentSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Comment
-     */
-    omit?: CommentOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CommentInclude<ExtArgs> | null
-    /**
-     * Filter, which Comments to fetch.
-     */
-    where?: CommentWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Comments to fetch.
-     */
-    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Comments.
-     */
-    cursor?: CommentWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Comments from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Comments.
-     */
-    skip?: number
-    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
-  }
-
-  /**
-   * Comment create
-   */
-  export type CommentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Comment
-     */
-    select?: CommentSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Comment
-     */
-    omit?: CommentOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CommentInclude<ExtArgs> | null
-    /**
-     * The data needed to create a Comment.
-     */
-    data: XOR<CommentCreateInput, CommentUncheckedCreateInput>
-  }
-
-  /**
-   * Comment createMany
-   */
-  export type CommentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many Comments.
-     */
-    data: CommentCreateManyInput | CommentCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * Comment createManyAndReturn
-   */
-  export type CommentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Comment
-     */
-    select?: CommentSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Comment
-     */
-    omit?: CommentOmit<ExtArgs> | null
-    /**
-     * The data used to create many Comments.
-     */
-    data: CommentCreateManyInput | CommentCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CommentIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * Comment update
-   */
-  export type CommentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Comment
-     */
-    select?: CommentSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Comment
-     */
-    omit?: CommentOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CommentInclude<ExtArgs> | null
-    /**
-     * The data needed to update a Comment.
-     */
-    data: XOR<CommentUpdateInput, CommentUncheckedUpdateInput>
-    /**
-     * Choose, which Comment to update.
-     */
-    where: CommentWhereUniqueInput
-  }
-
-  /**
-   * Comment updateMany
-   */
-  export type CommentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Comments.
-     */
-    data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyInput>
-    /**
-     * Filter which Comments to update
-     */
-    where?: CommentWhereInput
-    /**
-     * Limit how many Comments to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * Comment updateManyAndReturn
-   */
-  export type CommentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Comment
-     */
-    select?: CommentSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Comment
-     */
-    omit?: CommentOmit<ExtArgs> | null
-    /**
-     * The data used to update Comments.
-     */
-    data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyInput>
-    /**
-     * Filter which Comments to update
-     */
-    where?: CommentWhereInput
-    /**
-     * Limit how many Comments to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CommentIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * Comment upsert
-   */
-  export type CommentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Comment
-     */
-    select?: CommentSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Comment
-     */
-    omit?: CommentOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CommentInclude<ExtArgs> | null
-    /**
-     * The filter to search for the Comment to update in case it exists.
-     */
-    where: CommentWhereUniqueInput
-    /**
-     * In case the Comment found by the `where` argument doesn't exist, create a new Comment with this data.
-     */
-    create: XOR<CommentCreateInput, CommentUncheckedCreateInput>
-    /**
-     * In case the Comment was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<CommentUpdateInput, CommentUncheckedUpdateInput>
-  }
-
-  /**
-   * Comment delete
-   */
-  export type CommentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Comment
-     */
-    select?: CommentSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Comment
-     */
-    omit?: CommentOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CommentInclude<ExtArgs> | null
-    /**
-     * Filter which Comment to delete.
-     */
-    where: CommentWhereUniqueInput
-  }
-
-  /**
-   * Comment deleteMany
-   */
-  export type CommentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Comments to delete
-     */
-    where?: CommentWhereInput
-    /**
-     * Limit how many Comments to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * Comment.reply
-   */
-  export type Comment$replyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Comment
-     */
-    select?: CommentSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Comment
-     */
-    omit?: CommentOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CommentInclude<ExtArgs> | null
-    where?: CommentWhereInput
-    orderBy?: CommentOrderByWithRelationInput | CommentOrderByWithRelationInput[]
-    cursor?: CommentWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: CommentScalarFieldEnum | CommentScalarFieldEnum[]
-  }
-
-  /**
-   * Comment.Comment
-   */
-  export type Comment$CommentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Comment
-     */
-    select?: CommentSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Comment
-     */
-    omit?: CommentOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CommentInclude<ExtArgs> | null
-    where?: CommentWhereInput
-  }
-
-  /**
-   * Comment.User
-   */
-  export type Comment$UserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    where?: UserWhereInput
-  }
-
-  /**
-   * Comment.Video
-   */
-  export type Comment$VideoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Video
-     */
-    select?: VideoSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Video
-     */
-    omit?: VideoOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: VideoInclude<ExtArgs> | null
-    where?: VideoWhereInput
-  }
-
-  /**
-   * Comment without action
-   */
-  export type CommentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Comment
-     */
-    select?: CommentSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Comment
-     */
-    omit?: CommentOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CommentInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model Subscription
-   */
-
-  export type AggregateSubscription = {
-    _count: SubscriptionCountAggregateOutputType | null
-    _min: SubscriptionMinAggregateOutputType | null
-    _max: SubscriptionMaxAggregateOutputType | null
-  }
-
-  export type SubscriptionMinAggregateOutputType = {
-    id: string | null
-    userId: string | null
-    createdAt: Date | null
-    plan: $Enums.SUBSCRIPTION_PLAN | null
-    updatedAt: Date | null
-    customerId: string | null
-  }
-
-  export type SubscriptionMaxAggregateOutputType = {
-    id: string | null
-    userId: string | null
-    createdAt: Date | null
-    plan: $Enums.SUBSCRIPTION_PLAN | null
-    updatedAt: Date | null
-    customerId: string | null
-  }
-
-  export type SubscriptionCountAggregateOutputType = {
-    id: number
-    userId: number
-    createdAt: number
-    plan: number
-    updatedAt: number
-    customerId: number
-    _all: number
-  }
-
-
-  export type SubscriptionMinAggregateInputType = {
-    id?: true
-    userId?: true
-    createdAt?: true
-    plan?: true
-    updatedAt?: true
-    customerId?: true
-  }
-
-  export type SubscriptionMaxAggregateInputType = {
-    id?: true
-    userId?: true
-    createdAt?: true
-    plan?: true
-    updatedAt?: true
-    customerId?: true
-  }
-
-  export type SubscriptionCountAggregateInputType = {
-    id?: true
-    userId?: true
-    createdAt?: true
-    plan?: true
-    updatedAt?: true
-    customerId?: true
-    _all?: true
-  }
-
-  export type SubscriptionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Subscription to aggregate.
-     */
-    where?: SubscriptionWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Subscriptions to fetch.
-     */
-    orderBy?: SubscriptionOrderByWithRelationInput | SubscriptionOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: SubscriptionWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Subscriptions from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Subscriptions.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Subscriptions
-    **/
-    _count?: true | SubscriptionCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: SubscriptionMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: SubscriptionMaxAggregateInputType
-  }
-
-  export type GetSubscriptionAggregateType<T extends SubscriptionAggregateArgs> = {
-        [P in keyof T & keyof AggregateSubscription]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateSubscription[P]>
-      : GetScalarType<T[P], AggregateSubscription[P]>
-  }
-
-
-
-
-  export type SubscriptionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: SubscriptionWhereInput
-    orderBy?: SubscriptionOrderByWithAggregationInput | SubscriptionOrderByWithAggregationInput[]
-    by: SubscriptionScalarFieldEnum[] | SubscriptionScalarFieldEnum
-    having?: SubscriptionScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: SubscriptionCountAggregateInputType | true
-    _min?: SubscriptionMinAggregateInputType
-    _max?: SubscriptionMaxAggregateInputType
-  }
-
-  export type SubscriptionGroupByOutputType = {
-    id: string
-    userId: string | null
-    createdAt: Date
-    plan: $Enums.SUBSCRIPTION_PLAN
-    updatedAt: Date
-    customerId: string | null
-    _count: SubscriptionCountAggregateOutputType | null
-    _min: SubscriptionMinAggregateOutputType | null
-    _max: SubscriptionMaxAggregateOutputType | null
-  }
-
-  type GetSubscriptionGroupByPayload<T extends SubscriptionGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<SubscriptionGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof SubscriptionGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], SubscriptionGroupByOutputType[P]>
-            : GetScalarType<T[P], SubscriptionGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type SubscriptionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    userId?: boolean
-    createdAt?: boolean
-    plan?: boolean
-    updatedAt?: boolean
-    customerId?: boolean
-    User?: boolean | Subscription$UserArgs<ExtArgs>
-  }, ExtArgs["result"]["subscription"]>
-
-  export type SubscriptionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    userId?: boolean
-    createdAt?: boolean
-    plan?: boolean
-    updatedAt?: boolean
-    customerId?: boolean
-    User?: boolean | Subscription$UserArgs<ExtArgs>
-  }, ExtArgs["result"]["subscription"]>
-
-  export type SubscriptionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    userId?: boolean
-    createdAt?: boolean
-    plan?: boolean
-    updatedAt?: boolean
-    customerId?: boolean
-    User?: boolean | Subscription$UserArgs<ExtArgs>
-  }, ExtArgs["result"]["subscription"]>
-
-  export type SubscriptionSelectScalar = {
-    id?: boolean
-    userId?: boolean
-    createdAt?: boolean
-    plan?: boolean
-    updatedAt?: boolean
-    customerId?: boolean
-  }
-
-  export type SubscriptionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "createdAt" | "plan" | "updatedAt" | "customerId", ExtArgs["result"]["subscription"]>
-  export type SubscriptionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    User?: boolean | Subscription$UserArgs<ExtArgs>
-  }
-  export type SubscriptionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    User?: boolean | Subscription$UserArgs<ExtArgs>
-  }
-  export type SubscriptionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    User?: boolean | Subscription$UserArgs<ExtArgs>
-  }
-
-  export type $SubscriptionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Subscription"
-    objects: {
-      User: Prisma.$UserPayload<ExtArgs> | null
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      userId: string | null
-      createdAt: Date
-      plan: $Enums.SUBSCRIPTION_PLAN
-      updatedAt: Date
-      customerId: string | null
-    }, ExtArgs["result"]["subscription"]>
-    composites: {}
-  }
-
-  type SubscriptionGetPayload<S extends boolean | null | undefined | SubscriptionDefaultArgs> = $Result.GetResult<Prisma.$SubscriptionPayload, S>
-
-  type SubscriptionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<SubscriptionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: SubscriptionCountAggregateInputType | true
-    }
-
-  export interface SubscriptionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Subscription'], meta: { name: 'Subscription' } }
-    /**
-     * Find zero or one Subscription that matches the filter.
-     * @param {SubscriptionFindUniqueArgs} args - Arguments to find a Subscription
-     * @example
-     * // Get one Subscription
-     * const subscription = await prisma.subscription.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends SubscriptionFindUniqueArgs>(args: SelectSubset<T, SubscriptionFindUniqueArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Subscription that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {SubscriptionFindUniqueOrThrowArgs} args - Arguments to find a Subscription
-     * @example
-     * // Get one Subscription
-     * const subscription = await prisma.subscription.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends SubscriptionFindUniqueOrThrowArgs>(args: SelectSubset<T, SubscriptionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Subscription that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SubscriptionFindFirstArgs} args - Arguments to find a Subscription
-     * @example
-     * // Get one Subscription
-     * const subscription = await prisma.subscription.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends SubscriptionFindFirstArgs>(args?: SelectSubset<T, SubscriptionFindFirstArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Subscription that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SubscriptionFindFirstOrThrowArgs} args - Arguments to find a Subscription
-     * @example
-     * // Get one Subscription
-     * const subscription = await prisma.subscription.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends SubscriptionFindFirstOrThrowArgs>(args?: SelectSubset<T, SubscriptionFindFirstOrThrowArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Subscriptions that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SubscriptionFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Subscriptions
-     * const subscriptions = await prisma.subscription.findMany()
-     * 
-     * // Get first 10 Subscriptions
-     * const subscriptions = await prisma.subscription.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const subscriptionWithIdOnly = await prisma.subscription.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends SubscriptionFindManyArgs>(args?: SelectSubset<T, SubscriptionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Subscription.
-     * @param {SubscriptionCreateArgs} args - Arguments to create a Subscription.
-     * @example
-     * // Create one Subscription
-     * const Subscription = await prisma.subscription.create({
-     *   data: {
-     *     // ... data to create a Subscription
-     *   }
-     * })
-     * 
-     */
-    create<T extends SubscriptionCreateArgs>(args: SelectSubset<T, SubscriptionCreateArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Subscriptions.
-     * @param {SubscriptionCreateManyArgs} args - Arguments to create many Subscriptions.
-     * @example
-     * // Create many Subscriptions
-     * const subscription = await prisma.subscription.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends SubscriptionCreateManyArgs>(args?: SelectSubset<T, SubscriptionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Subscriptions and returns the data saved in the database.
-     * @param {SubscriptionCreateManyAndReturnArgs} args - Arguments to create many Subscriptions.
-     * @example
-     * // Create many Subscriptions
-     * const subscription = await prisma.subscription.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Subscriptions and only return the `id`
-     * const subscriptionWithIdOnly = await prisma.subscription.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends SubscriptionCreateManyAndReturnArgs>(args?: SelectSubset<T, SubscriptionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a Subscription.
-     * @param {SubscriptionDeleteArgs} args - Arguments to delete one Subscription.
-     * @example
-     * // Delete one Subscription
-     * const Subscription = await prisma.subscription.delete({
-     *   where: {
-     *     // ... filter to delete one Subscription
-     *   }
-     * })
-     * 
-     */
-    delete<T extends SubscriptionDeleteArgs>(args: SelectSubset<T, SubscriptionDeleteArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Subscription.
-     * @param {SubscriptionUpdateArgs} args - Arguments to update one Subscription.
-     * @example
-     * // Update one Subscription
-     * const subscription = await prisma.subscription.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends SubscriptionUpdateArgs>(args: SelectSubset<T, SubscriptionUpdateArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Subscriptions.
-     * @param {SubscriptionDeleteManyArgs} args - Arguments to filter Subscriptions to delete.
-     * @example
-     * // Delete a few Subscriptions
-     * const { count } = await prisma.subscription.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends SubscriptionDeleteManyArgs>(args?: SelectSubset<T, SubscriptionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Subscriptions.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SubscriptionUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Subscriptions
-     * const subscription = await prisma.subscription.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends SubscriptionUpdateManyArgs>(args: SelectSubset<T, SubscriptionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Subscriptions and returns the data updated in the database.
-     * @param {SubscriptionUpdateManyAndReturnArgs} args - Arguments to update many Subscriptions.
-     * @example
-     * // Update many Subscriptions
-     * const subscription = await prisma.subscription.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Subscriptions and only return the `id`
-     * const subscriptionWithIdOnly = await prisma.subscription.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends SubscriptionUpdateManyAndReturnArgs>(args: SelectSubset<T, SubscriptionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one Subscription.
-     * @param {SubscriptionUpsertArgs} args - Arguments to update or create a Subscription.
-     * @example
-     * // Update or create a Subscription
-     * const subscription = await prisma.subscription.upsert({
-     *   create: {
-     *     // ... data to create a Subscription
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Subscription we want to update
-     *   }
-     * })
-     */
-    upsert<T extends SubscriptionUpsertArgs>(args: SelectSubset<T, SubscriptionUpsertArgs<ExtArgs>>): Prisma__SubscriptionClient<$Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Subscriptions.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SubscriptionCountArgs} args - Arguments to filter Subscriptions to count.
-     * @example
-     * // Count the number of Subscriptions
-     * const count = await prisma.subscription.count({
-     *   where: {
-     *     // ... the filter for the Subscriptions we want to count
-     *   }
-     * })
-    **/
-    count<T extends SubscriptionCountArgs>(
-      args?: Subset<T, SubscriptionCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], SubscriptionCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Subscription.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SubscriptionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends SubscriptionAggregateArgs>(args: Subset<T, SubscriptionAggregateArgs>): Prisma.PrismaPromise<GetSubscriptionAggregateType<T>>
-
-    /**
-     * Group by Subscription.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SubscriptionGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends SubscriptionGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: SubscriptionGroupByArgs['orderBy'] }
-        : { orderBy?: SubscriptionGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, SubscriptionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSubscriptionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the Subscription model
-   */
-  readonly fields: SubscriptionFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for Subscription.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__SubscriptionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    User<T extends Subscription$UserArgs<ExtArgs> = {}>(args?: Subset<T, Subscription$UserArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the Subscription model
-   */
-  interface SubscriptionFieldRefs {
-    readonly id: FieldRef<"Subscription", 'String'>
-    readonly userId: FieldRef<"Subscription", 'String'>
-    readonly createdAt: FieldRef<"Subscription", 'DateTime'>
-    readonly plan: FieldRef<"Subscription", 'SUBSCRIPTION_PLAN'>
-    readonly updatedAt: FieldRef<"Subscription", 'DateTime'>
-    readonly customerId: FieldRef<"Subscription", 'String'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * Subscription findUnique
-   */
-  export type SubscriptionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Subscription
-     */
-    select?: SubscriptionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Subscription
-     */
-    omit?: SubscriptionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubscriptionInclude<ExtArgs> | null
-    /**
-     * Filter, which Subscription to fetch.
-     */
-    where: SubscriptionWhereUniqueInput
-  }
-
-  /**
-   * Subscription findUniqueOrThrow
-   */
-  export type SubscriptionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Subscription
-     */
-    select?: SubscriptionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Subscription
-     */
-    omit?: SubscriptionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubscriptionInclude<ExtArgs> | null
-    /**
-     * Filter, which Subscription to fetch.
-     */
-    where: SubscriptionWhereUniqueInput
-  }
-
-  /**
-   * Subscription findFirst
-   */
-  export type SubscriptionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Subscription
-     */
-    select?: SubscriptionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Subscription
-     */
-    omit?: SubscriptionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubscriptionInclude<ExtArgs> | null
-    /**
-     * Filter, which Subscription to fetch.
-     */
-    where?: SubscriptionWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Subscriptions to fetch.
-     */
-    orderBy?: SubscriptionOrderByWithRelationInput | SubscriptionOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Subscriptions.
-     */
-    cursor?: SubscriptionWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Subscriptions from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Subscriptions.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Subscriptions.
-     */
-    distinct?: SubscriptionScalarFieldEnum | SubscriptionScalarFieldEnum[]
-  }
-
-  /**
-   * Subscription findFirstOrThrow
-   */
-  export type SubscriptionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Subscription
-     */
-    select?: SubscriptionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Subscription
-     */
-    omit?: SubscriptionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubscriptionInclude<ExtArgs> | null
-    /**
-     * Filter, which Subscription to fetch.
-     */
-    where?: SubscriptionWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Subscriptions to fetch.
-     */
-    orderBy?: SubscriptionOrderByWithRelationInput | SubscriptionOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Subscriptions.
-     */
-    cursor?: SubscriptionWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Subscriptions from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Subscriptions.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Subscriptions.
-     */
-    distinct?: SubscriptionScalarFieldEnum | SubscriptionScalarFieldEnum[]
-  }
-
-  /**
-   * Subscription findMany
-   */
-  export type SubscriptionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Subscription
-     */
-    select?: SubscriptionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Subscription
-     */
-    omit?: SubscriptionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubscriptionInclude<ExtArgs> | null
-    /**
-     * Filter, which Subscriptions to fetch.
-     */
-    where?: SubscriptionWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Subscriptions to fetch.
-     */
-    orderBy?: SubscriptionOrderByWithRelationInput | SubscriptionOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Subscriptions.
-     */
-    cursor?: SubscriptionWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Subscriptions from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Subscriptions.
-     */
-    skip?: number
-    distinct?: SubscriptionScalarFieldEnum | SubscriptionScalarFieldEnum[]
-  }
-
-  /**
-   * Subscription create
-   */
-  export type SubscriptionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Subscription
-     */
-    select?: SubscriptionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Subscription
-     */
-    omit?: SubscriptionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubscriptionInclude<ExtArgs> | null
-    /**
-     * The data needed to create a Subscription.
-     */
-    data?: XOR<SubscriptionCreateInput, SubscriptionUncheckedCreateInput>
-  }
-
-  /**
-   * Subscription createMany
-   */
-  export type SubscriptionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many Subscriptions.
-     */
-    data: SubscriptionCreateManyInput | SubscriptionCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * Subscription createManyAndReturn
-   */
-  export type SubscriptionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Subscription
-     */
-    select?: SubscriptionSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Subscription
-     */
-    omit?: SubscriptionOmit<ExtArgs> | null
-    /**
-     * The data used to create many Subscriptions.
-     */
-    data: SubscriptionCreateManyInput | SubscriptionCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubscriptionIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * Subscription update
-   */
-  export type SubscriptionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Subscription
-     */
-    select?: SubscriptionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Subscription
-     */
-    omit?: SubscriptionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubscriptionInclude<ExtArgs> | null
-    /**
-     * The data needed to update a Subscription.
-     */
-    data: XOR<SubscriptionUpdateInput, SubscriptionUncheckedUpdateInput>
-    /**
-     * Choose, which Subscription to update.
-     */
-    where: SubscriptionWhereUniqueInput
-  }
-
-  /**
-   * Subscription updateMany
-   */
-  export type SubscriptionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Subscriptions.
-     */
-    data: XOR<SubscriptionUpdateManyMutationInput, SubscriptionUncheckedUpdateManyInput>
-    /**
-     * Filter which Subscriptions to update
-     */
-    where?: SubscriptionWhereInput
-    /**
-     * Limit how many Subscriptions to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * Subscription updateManyAndReturn
-   */
-  export type SubscriptionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Subscription
-     */
-    select?: SubscriptionSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Subscription
-     */
-    omit?: SubscriptionOmit<ExtArgs> | null
-    /**
-     * The data used to update Subscriptions.
-     */
-    data: XOR<SubscriptionUpdateManyMutationInput, SubscriptionUncheckedUpdateManyInput>
-    /**
-     * Filter which Subscriptions to update
-     */
-    where?: SubscriptionWhereInput
-    /**
-     * Limit how many Subscriptions to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubscriptionIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * Subscription upsert
-   */
-  export type SubscriptionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Subscription
-     */
-    select?: SubscriptionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Subscription
-     */
-    omit?: SubscriptionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubscriptionInclude<ExtArgs> | null
-    /**
-     * The filter to search for the Subscription to update in case it exists.
-     */
-    where: SubscriptionWhereUniqueInput
-    /**
-     * In case the Subscription found by the `where` argument doesn't exist, create a new Subscription with this data.
-     */
-    create: XOR<SubscriptionCreateInput, SubscriptionUncheckedCreateInput>
-    /**
-     * In case the Subscription was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<SubscriptionUpdateInput, SubscriptionUncheckedUpdateInput>
-  }
-
-  /**
-   * Subscription delete
-   */
-  export type SubscriptionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Subscription
-     */
-    select?: SubscriptionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Subscription
-     */
-    omit?: SubscriptionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubscriptionInclude<ExtArgs> | null
-    /**
-     * Filter which Subscription to delete.
-     */
-    where: SubscriptionWhereUniqueInput
-  }
-
-  /**
-   * Subscription deleteMany
-   */
-  export type SubscriptionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Subscriptions to delete
-     */
-    where?: SubscriptionWhereInput
-    /**
-     * Limit how many Subscriptions to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * Subscription.User
-   */
-  export type Subscription$UserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    where?: UserWhereInput
-  }
-
-  /**
-   * Subscription without action
-   */
-  export type SubscriptionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Subscription
-     */
-    select?: SubscriptionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Subscription
-     */
-    omit?: SubscriptionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SubscriptionInclude<ExtArgs> | null
-  }
-
-
-  /**
    * Model Member
    */
 
@@ -13540,18 +13527,41 @@ export namespace Prisma {
 
   export const UserScalarFieldEnum: {
     id: 'id',
-    clerkid: 'clerkid',
     email: 'email',
     firstname: 'firstname',
     lastname: 'lastname',
+    createdAt: 'createdAt',
+    clerkid: 'clerkid',
     image: 'image',
     trial: 'trial',
-    createdAt: 'createdAt',
-    updateddAt: 'updateddAt',
     firstView: 'firstView'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const CommentScalarFieldEnum: {
+    id: 'id',
+    comment: 'comment',
+    commentId: 'commentId',
+    userId: 'userId',
+    videoId: 'videoId',
+    createdAt: 'createdAt'
+  };
+
+  export type CommentScalarFieldEnum = (typeof CommentScalarFieldEnum)[keyof typeof CommentScalarFieldEnum]
+
+
+  export const SubscriptionScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    createdAt: 'createdAt',
+    plan: 'plan',
+    updatedAt: 'updatedAt',
+    customerId: 'customerId'
+  };
+
+  export type SubscriptionScalarFieldEnum = (typeof SubscriptionScalarFieldEnum)[keyof typeof SubscriptionScalarFieldEnum]
 
 
   export const MediaScalarFieldEnum: {
@@ -13602,30 +13612,6 @@ export namespace Prisma {
   };
 
   export type VideoScalarFieldEnum = (typeof VideoScalarFieldEnum)[keyof typeof VideoScalarFieldEnum]
-
-
-  export const CommentScalarFieldEnum: {
-    id: 'id',
-    comment: 'comment',
-    commentId: 'commentId',
-    userId: 'userId',
-    videoId: 'videoId',
-    createdAt: 'createdAt'
-  };
-
-  export type CommentScalarFieldEnum = (typeof CommentScalarFieldEnum)[keyof typeof CommentScalarFieldEnum]
-
-
-  export const SubscriptionScalarFieldEnum: {
-    id: 'id',
-    userId: 'userId',
-    createdAt: 'createdAt',
-    plan: 'plan',
-    updatedAt: 'updatedAt',
-    customerId: 'customerId'
-  };
-
-  export type SubscriptionScalarFieldEnum = (typeof SubscriptionScalarFieldEnum)[keyof typeof SubscriptionScalarFieldEnum]
 
 
   export const MemberScalarFieldEnum: {
@@ -13704,13 +13690,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -13721,6 +13700,27 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
+   * Reference to a field of type 'SUBSCRIPTION_PLAN'
+   */
+  export type EnumSUBSCRIPTION_PLANFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SUBSCRIPTION_PLAN'>
+    
+
+
+  /**
+   * Reference to a field of type 'SUBSCRIPTION_PLAN[]'
+   */
+  export type ListEnumSUBSCRIPTION_PLANFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SUBSCRIPTION_PLAN[]'>
     
 
 
@@ -13767,20 +13767,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'SUBSCRIPTION_PLAN'
-   */
-  export type EnumSUBSCRIPTION_PLANFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SUBSCRIPTION_PLAN'>
-    
-
-
-  /**
-   * Reference to a field of type 'SUBSCRIPTION_PLAN[]'
-   */
-  export type ListEnumSUBSCRIPTION_PLANFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SUBSCRIPTION_PLAN[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -13802,83 +13788,79 @@ export namespace Prisma {
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     id?: UuidFilter<"User"> | string
-    clerkid?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
     firstname?: StringNullableFilter<"User"> | string | null
     lastname?: StringNullableFilter<"User"> | string | null
+    createdAt?: DateTimeFilter<"User"> | Date | string
+    clerkid?: StringFilter<"User"> | string
     image?: StringNullableFilter<"User"> | string | null
     trial?: BoolFilter<"User"> | boolean
-    createdAt?: DateTimeFilter<"User"> | Date | string
-    updateddAt?: DateTimeFilter<"User"> | Date | string
     firstView?: BoolFilter<"User"> | boolean
     studio?: XOR<MediaNullableScalarRelationFilter, MediaWhereInput> | null
     workspace?: WorkSpaceListRelationFilter
-    comment?: CommentListRelationFilter
     videos?: VideoListRelationFilter
     subscription?: XOR<SubscriptionNullableScalarRelationFilter, SubscriptionWhereInput> | null
     members?: MemberListRelationFilter
     notification?: NotificationListRelationFilter
     sender?: InviteListRelationFilter
     reciever?: InviteListRelationFilter
+    comment?: CommentListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
-    clerkid?: SortOrder
     email?: SortOrder
     firstname?: SortOrderInput | SortOrder
     lastname?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    clerkid?: SortOrder
     image?: SortOrderInput | SortOrder
     trial?: SortOrder
-    createdAt?: SortOrder
-    updateddAt?: SortOrder
     firstView?: SortOrder
     studio?: MediaOrderByWithRelationInput
     workspace?: WorkSpaceOrderByRelationAggregateInput
-    comment?: CommentOrderByRelationAggregateInput
     videos?: VideoOrderByRelationAggregateInput
     subscription?: SubscriptionOrderByWithRelationInput
     members?: MemberOrderByRelationAggregateInput
     notification?: NotificationOrderByRelationAggregateInput
     sender?: InviteOrderByRelationAggregateInput
     reciever?: InviteOrderByRelationAggregateInput
+    comment?: CommentOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    clerkid?: string
     email?: string
+    clerkid?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     firstname?: StringNullableFilter<"User"> | string | null
     lastname?: StringNullableFilter<"User"> | string | null
+    createdAt?: DateTimeFilter<"User"> | Date | string
     image?: StringNullableFilter<"User"> | string | null
     trial?: BoolFilter<"User"> | boolean
-    createdAt?: DateTimeFilter<"User"> | Date | string
-    updateddAt?: DateTimeFilter<"User"> | Date | string
     firstView?: BoolFilter<"User"> | boolean
     studio?: XOR<MediaNullableScalarRelationFilter, MediaWhereInput> | null
     workspace?: WorkSpaceListRelationFilter
-    comment?: CommentListRelationFilter
     videos?: VideoListRelationFilter
     subscription?: XOR<SubscriptionNullableScalarRelationFilter, SubscriptionWhereInput> | null
     members?: MemberListRelationFilter
     notification?: NotificationListRelationFilter
     sender?: InviteListRelationFilter
     reciever?: InviteListRelationFilter
-  }, "id" | "clerkid" | "email">
+    comment?: CommentListRelationFilter
+  }, "id" | "email" | "clerkid">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
-    clerkid?: SortOrder
     email?: SortOrder
     firstname?: SortOrderInput | SortOrder
     lastname?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    clerkid?: SortOrder
     image?: SortOrderInput | SortOrder
     trial?: SortOrder
-    createdAt?: SortOrder
-    updateddAt?: SortOrder
     firstView?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -13890,15 +13872,143 @@ export namespace Prisma {
     OR?: UserScalarWhereWithAggregatesInput[]
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: UuidWithAggregatesFilter<"User"> | string
-    clerkid?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
     firstname?: StringNullableWithAggregatesFilter<"User"> | string | null
     lastname?: StringNullableWithAggregatesFilter<"User"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    clerkid?: StringWithAggregatesFilter<"User"> | string
     image?: StringNullableWithAggregatesFilter<"User"> | string | null
     trial?: BoolWithAggregatesFilter<"User"> | boolean
-    createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
-    updateddAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     firstView?: BoolWithAggregatesFilter<"User"> | boolean
+  }
+
+  export type CommentWhereInput = {
+    AND?: CommentWhereInput | CommentWhereInput[]
+    OR?: CommentWhereInput[]
+    NOT?: CommentWhereInput | CommentWhereInput[]
+    id?: UuidFilter<"Comment"> | string
+    comment?: StringFilter<"Comment"> | string
+    commentId?: UuidNullableFilter<"Comment"> | string | null
+    userId?: UuidNullableFilter<"Comment"> | string | null
+    videoId?: UuidNullableFilter<"Comment"> | string | null
+    createdAt?: DateTimeFilter<"Comment"> | Date | string
+    reply?: CommentListRelationFilter
+    Comment?: XOR<CommentNullableScalarRelationFilter, CommentWhereInput> | null
+    User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    Video?: XOR<VideoNullableScalarRelationFilter, VideoWhereInput> | null
+  }
+
+  export type CommentOrderByWithRelationInput = {
+    id?: SortOrder
+    comment?: SortOrder
+    commentId?: SortOrderInput | SortOrder
+    userId?: SortOrderInput | SortOrder
+    videoId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    reply?: CommentOrderByRelationAggregateInput
+    Comment?: CommentOrderByWithRelationInput
+    User?: UserOrderByWithRelationInput
+    Video?: VideoOrderByWithRelationInput
+  }
+
+  export type CommentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: CommentWhereInput | CommentWhereInput[]
+    OR?: CommentWhereInput[]
+    NOT?: CommentWhereInput | CommentWhereInput[]
+    comment?: StringFilter<"Comment"> | string
+    commentId?: UuidNullableFilter<"Comment"> | string | null
+    userId?: UuidNullableFilter<"Comment"> | string | null
+    videoId?: UuidNullableFilter<"Comment"> | string | null
+    createdAt?: DateTimeFilter<"Comment"> | Date | string
+    reply?: CommentListRelationFilter
+    Comment?: XOR<CommentNullableScalarRelationFilter, CommentWhereInput> | null
+    User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    Video?: XOR<VideoNullableScalarRelationFilter, VideoWhereInput> | null
+  }, "id">
+
+  export type CommentOrderByWithAggregationInput = {
+    id?: SortOrder
+    comment?: SortOrder
+    commentId?: SortOrderInput | SortOrder
+    userId?: SortOrderInput | SortOrder
+    videoId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: CommentCountOrderByAggregateInput
+    _max?: CommentMaxOrderByAggregateInput
+    _min?: CommentMinOrderByAggregateInput
+  }
+
+  export type CommentScalarWhereWithAggregatesInput = {
+    AND?: CommentScalarWhereWithAggregatesInput | CommentScalarWhereWithAggregatesInput[]
+    OR?: CommentScalarWhereWithAggregatesInput[]
+    NOT?: CommentScalarWhereWithAggregatesInput | CommentScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Comment"> | string
+    comment?: StringWithAggregatesFilter<"Comment"> | string
+    commentId?: UuidNullableWithAggregatesFilter<"Comment"> | string | null
+    userId?: UuidNullableWithAggregatesFilter<"Comment"> | string | null
+    videoId?: UuidNullableWithAggregatesFilter<"Comment"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Comment"> | Date | string
+  }
+
+  export type SubscriptionWhereInput = {
+    AND?: SubscriptionWhereInput | SubscriptionWhereInput[]
+    OR?: SubscriptionWhereInput[]
+    NOT?: SubscriptionWhereInput | SubscriptionWhereInput[]
+    id?: UuidFilter<"Subscription"> | string
+    userId?: UuidNullableFilter<"Subscription"> | string | null
+    createdAt?: DateTimeFilter<"Subscription"> | Date | string
+    plan?: EnumSUBSCRIPTION_PLANFilter<"Subscription"> | $Enums.SUBSCRIPTION_PLAN
+    updatedAt?: DateTimeFilter<"Subscription"> | Date | string
+    customerId?: StringNullableFilter<"Subscription"> | string | null
+    User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }
+
+  export type SubscriptionOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    plan?: SortOrder
+    updatedAt?: SortOrder
+    customerId?: SortOrderInput | SortOrder
+    User?: UserOrderByWithRelationInput
+  }
+
+  export type SubscriptionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId?: string
+    customerId?: string
+    AND?: SubscriptionWhereInput | SubscriptionWhereInput[]
+    OR?: SubscriptionWhereInput[]
+    NOT?: SubscriptionWhereInput | SubscriptionWhereInput[]
+    createdAt?: DateTimeFilter<"Subscription"> | Date | string
+    plan?: EnumSUBSCRIPTION_PLANFilter<"Subscription"> | $Enums.SUBSCRIPTION_PLAN
+    updatedAt?: DateTimeFilter<"Subscription"> | Date | string
+    User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }, "id" | "userId" | "customerId">
+
+  export type SubscriptionOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    plan?: SortOrder
+    updatedAt?: SortOrder
+    customerId?: SortOrderInput | SortOrder
+    _count?: SubscriptionCountOrderByAggregateInput
+    _max?: SubscriptionMaxOrderByAggregateInput
+    _min?: SubscriptionMinOrderByAggregateInput
+  }
+
+  export type SubscriptionScalarWhereWithAggregatesInput = {
+    AND?: SubscriptionScalarWhereWithAggregatesInput | SubscriptionScalarWhereWithAggregatesInput[]
+    OR?: SubscriptionScalarWhereWithAggregatesInput[]
+    NOT?: SubscriptionScalarWhereWithAggregatesInput | SubscriptionScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Subscription"> | string
+    userId?: UuidNullableWithAggregatesFilter<"Subscription"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Subscription"> | Date | string
+    plan?: EnumSUBSCRIPTION_PLANWithAggregatesFilter<"Subscription"> | $Enums.SUBSCRIPTION_PLAN
+    updatedAt?: DateTimeWithAggregatesFilter<"Subscription"> | Date | string
+    customerId?: StringNullableWithAggregatesFilter<"Subscription"> | string | null
   }
 
   export type MediaWhereInput = {
@@ -14177,135 +14287,6 @@ export namespace Prisma {
     summery?: StringNullableWithAggregatesFilter<"Video"> | string | null
   }
 
-  export type CommentWhereInput = {
-    AND?: CommentWhereInput | CommentWhereInput[]
-    OR?: CommentWhereInput[]
-    NOT?: CommentWhereInput | CommentWhereInput[]
-    id?: UuidFilter<"Comment"> | string
-    comment?: StringFilter<"Comment"> | string
-    commentId?: UuidNullableFilter<"Comment"> | string | null
-    userId?: UuidNullableFilter<"Comment"> | string | null
-    videoId?: UuidNullableFilter<"Comment"> | string | null
-    createdAt?: DateTimeFilter<"Comment"> | Date | string
-    reply?: CommentListRelationFilter
-    Comment?: XOR<CommentNullableScalarRelationFilter, CommentWhereInput> | null
-    User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-    Video?: XOR<VideoNullableScalarRelationFilter, VideoWhereInput> | null
-  }
-
-  export type CommentOrderByWithRelationInput = {
-    id?: SortOrder
-    comment?: SortOrder
-    commentId?: SortOrderInput | SortOrder
-    userId?: SortOrderInput | SortOrder
-    videoId?: SortOrderInput | SortOrder
-    createdAt?: SortOrder
-    reply?: CommentOrderByRelationAggregateInput
-    Comment?: CommentOrderByWithRelationInput
-    User?: UserOrderByWithRelationInput
-    Video?: VideoOrderByWithRelationInput
-  }
-
-  export type CommentWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: CommentWhereInput | CommentWhereInput[]
-    OR?: CommentWhereInput[]
-    NOT?: CommentWhereInput | CommentWhereInput[]
-    comment?: StringFilter<"Comment"> | string
-    commentId?: UuidNullableFilter<"Comment"> | string | null
-    userId?: UuidNullableFilter<"Comment"> | string | null
-    videoId?: UuidNullableFilter<"Comment"> | string | null
-    createdAt?: DateTimeFilter<"Comment"> | Date | string
-    reply?: CommentListRelationFilter
-    Comment?: XOR<CommentNullableScalarRelationFilter, CommentWhereInput> | null
-    User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-    Video?: XOR<VideoNullableScalarRelationFilter, VideoWhereInput> | null
-  }, "id">
-
-  export type CommentOrderByWithAggregationInput = {
-    id?: SortOrder
-    comment?: SortOrder
-    commentId?: SortOrderInput | SortOrder
-    userId?: SortOrderInput | SortOrder
-    videoId?: SortOrderInput | SortOrder
-    createdAt?: SortOrder
-    _count?: CommentCountOrderByAggregateInput
-    _max?: CommentMaxOrderByAggregateInput
-    _min?: CommentMinOrderByAggregateInput
-  }
-
-  export type CommentScalarWhereWithAggregatesInput = {
-    AND?: CommentScalarWhereWithAggregatesInput | CommentScalarWhereWithAggregatesInput[]
-    OR?: CommentScalarWhereWithAggregatesInput[]
-    NOT?: CommentScalarWhereWithAggregatesInput | CommentScalarWhereWithAggregatesInput[]
-    id?: UuidWithAggregatesFilter<"Comment"> | string
-    comment?: StringWithAggregatesFilter<"Comment"> | string
-    commentId?: UuidNullableWithAggregatesFilter<"Comment"> | string | null
-    userId?: UuidNullableWithAggregatesFilter<"Comment"> | string | null
-    videoId?: UuidNullableWithAggregatesFilter<"Comment"> | string | null
-    createdAt?: DateTimeWithAggregatesFilter<"Comment"> | Date | string
-  }
-
-  export type SubscriptionWhereInput = {
-    AND?: SubscriptionWhereInput | SubscriptionWhereInput[]
-    OR?: SubscriptionWhereInput[]
-    NOT?: SubscriptionWhereInput | SubscriptionWhereInput[]
-    id?: UuidFilter<"Subscription"> | string
-    userId?: UuidNullableFilter<"Subscription"> | string | null
-    createdAt?: DateTimeFilter<"Subscription"> | Date | string
-    plan?: EnumSUBSCRIPTION_PLANFilter<"Subscription"> | $Enums.SUBSCRIPTION_PLAN
-    updatedAt?: DateTimeFilter<"Subscription"> | Date | string
-    customerId?: StringNullableFilter<"Subscription"> | string | null
-    User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-  }
-
-  export type SubscriptionOrderByWithRelationInput = {
-    id?: SortOrder
-    userId?: SortOrderInput | SortOrder
-    createdAt?: SortOrder
-    plan?: SortOrder
-    updatedAt?: SortOrder
-    customerId?: SortOrderInput | SortOrder
-    User?: UserOrderByWithRelationInput
-  }
-
-  export type SubscriptionWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    userId?: string
-    customerId?: string
-    AND?: SubscriptionWhereInput | SubscriptionWhereInput[]
-    OR?: SubscriptionWhereInput[]
-    NOT?: SubscriptionWhereInput | SubscriptionWhereInput[]
-    createdAt?: DateTimeFilter<"Subscription"> | Date | string
-    plan?: EnumSUBSCRIPTION_PLANFilter<"Subscription"> | $Enums.SUBSCRIPTION_PLAN
-    updatedAt?: DateTimeFilter<"Subscription"> | Date | string
-    User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-  }, "id" | "userId" | "customerId">
-
-  export type SubscriptionOrderByWithAggregationInput = {
-    id?: SortOrder
-    userId?: SortOrderInput | SortOrder
-    createdAt?: SortOrder
-    plan?: SortOrder
-    updatedAt?: SortOrder
-    customerId?: SortOrderInput | SortOrder
-    _count?: SubscriptionCountOrderByAggregateInput
-    _max?: SubscriptionMaxOrderByAggregateInput
-    _min?: SubscriptionMinOrderByAggregateInput
-  }
-
-  export type SubscriptionScalarWhereWithAggregatesInput = {
-    AND?: SubscriptionScalarWhereWithAggregatesInput | SubscriptionScalarWhereWithAggregatesInput[]
-    OR?: SubscriptionScalarWhereWithAggregatesInput[]
-    NOT?: SubscriptionScalarWhereWithAggregatesInput | SubscriptionScalarWhereWithAggregatesInput[]
-    id?: UuidWithAggregatesFilter<"Subscription"> | string
-    userId?: UuidNullableWithAggregatesFilter<"Subscription"> | string | null
-    createdAt?: DateTimeWithAggregatesFilter<"Subscription"> | Date | string
-    plan?: EnumSUBSCRIPTION_PLANWithAggregatesFilter<"Subscription"> | $Enums.SUBSCRIPTION_PLAN
-    updatedAt?: DateTimeWithAggregatesFilter<"Subscription"> | Date | string
-    customerId?: StringNullableWithAggregatesFilter<"Subscription"> | string | null
-  }
-
   export type MemberWhereInput = {
     AND?: MemberWhereInput | MemberWhereInput[]
     OR?: MemberWhereInput[]
@@ -14477,129 +14458,248 @@ export namespace Prisma {
 
   export type UserCreateInput = {
     id?: string
-    clerkid: string
     email: string
     firstname?: string | null
     lastname?: string | null
+    createdAt?: Date | string
+    clerkid: string
     image?: string | null
     trial?: boolean
-    createdAt?: Date | string
-    updateddAt?: Date | string
     firstView?: boolean
     studio?: MediaCreateNestedOneWithoutUserInput
     workspace?: WorkSpaceCreateNestedManyWithoutUserInput
-    comment?: CommentCreateNestedManyWithoutUserInput
     videos?: VideoCreateNestedManyWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     members?: MemberCreateNestedManyWithoutUserInput
     notification?: NotificationCreateNestedManyWithoutUserInput
     sender?: InviteCreateNestedManyWithoutSenderInput
     reciever?: InviteCreateNestedManyWithoutRecieverInput
+    comment?: CommentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
     id?: string
-    clerkid: string
     email: string
     firstname?: string | null
     lastname?: string | null
+    createdAt?: Date | string
+    clerkid: string
     image?: string | null
     trial?: boolean
-    createdAt?: Date | string
-    updateddAt?: Date | string
     firstView?: boolean
     studio?: MediaUncheckedCreateNestedOneWithoutUserInput
     workspace?: WorkSpaceUncheckedCreateNestedManyWithoutUserInput
-    comment?: CommentUncheckedCreateNestedManyWithoutUserInput
     videos?: VideoUncheckedCreateNestedManyWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     members?: MemberUncheckedCreateNestedManyWithoutUserInput
     notification?: NotificationUncheckedCreateNestedManyWithoutUserInput
     sender?: InviteUncheckedCreateNestedManyWithoutSenderInput
     reciever?: InviteUncheckedCreateNestedManyWithoutRecieverInput
+    comment?: CommentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    clerkid?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     firstname?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkid?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateddAt?: DateTimeFieldUpdateOperationsInput | Date | string
     firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUpdateOneWithoutUserNestedInput
     workspace?: WorkSpaceUpdateManyWithoutUserNestedInput
-    comment?: CommentUpdateManyWithoutUserNestedInput
     videos?: VideoUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     members?: MemberUpdateManyWithoutUserNestedInput
     notification?: NotificationUpdateManyWithoutUserNestedInput
     sender?: InviteUpdateManyWithoutSenderNestedInput
     reciever?: InviteUpdateManyWithoutRecieverNestedInput
+    comment?: CommentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    clerkid?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     firstname?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkid?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateddAt?: DateTimeFieldUpdateOperationsInput | Date | string
     firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUncheckedUpdateOneWithoutUserNestedInput
     workspace?: WorkSpaceUncheckedUpdateManyWithoutUserNestedInput
-    comment?: CommentUncheckedUpdateManyWithoutUserNestedInput
     videos?: VideoUncheckedUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     members?: MemberUncheckedUpdateManyWithoutUserNestedInput
     notification?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     sender?: InviteUncheckedUpdateManyWithoutSenderNestedInput
     reciever?: InviteUncheckedUpdateManyWithoutRecieverNestedInput
+    comment?: CommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
     id?: string
-    clerkid: string
     email: string
     firstname?: string | null
     lastname?: string | null
+    createdAt?: Date | string
+    clerkid: string
     image?: string | null
     trial?: boolean
-    createdAt?: Date | string
-    updateddAt?: Date | string
     firstView?: boolean
   }
 
   export type UserUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    clerkid?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     firstname?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkid?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateddAt?: DateTimeFieldUpdateOperationsInput | Date | string
     firstView?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    clerkid?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     firstname?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkid?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateddAt?: DateTimeFieldUpdateOperationsInput | Date | string
     firstView?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type CommentCreateInput = {
+    id?: string
+    comment: string
+    createdAt?: Date | string
+    reply?: CommentCreateNestedManyWithoutCommentInput
+    Comment?: CommentCreateNestedOneWithoutReplyInput
+    User?: UserCreateNestedOneWithoutCommentInput
+    Video?: VideoCreateNestedOneWithoutCommentInput
+  }
+
+  export type CommentUncheckedCreateInput = {
+    id?: string
+    comment: string
+    commentId?: string | null
+    userId?: string | null
+    videoId?: string | null
+    createdAt?: Date | string
+    reply?: CommentUncheckedCreateNestedManyWithoutCommentInput
+  }
+
+  export type CommentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reply?: CommentUpdateManyWithoutCommentNestedInput
+    Comment?: CommentUpdateOneWithoutReplyNestedInput
+    User?: UserUpdateOneWithoutCommentNestedInput
+    Video?: VideoUpdateOneWithoutCommentNestedInput
+  }
+
+  export type CommentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    commentId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    videoId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reply?: CommentUncheckedUpdateManyWithoutCommentNestedInput
+  }
+
+  export type CommentCreateManyInput = {
+    id?: string
+    comment: string
+    commentId?: string | null
+    userId?: string | null
+    videoId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type CommentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    commentId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    videoId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SubscriptionCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    plan?: $Enums.SUBSCRIPTION_PLAN
+    updatedAt?: Date | string
+    customerId?: string | null
+    User?: UserCreateNestedOneWithoutSubscriptionInput
+  }
+
+  export type SubscriptionUncheckedCreateInput = {
+    id?: string
+    userId?: string | null
+    createdAt?: Date | string
+    plan?: $Enums.SUBSCRIPTION_PLAN
+    updatedAt?: Date | string
+    customerId?: string | null
+  }
+
+  export type SubscriptionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    plan?: EnumSUBSCRIPTION_PLANFieldUpdateOperationsInput | $Enums.SUBSCRIPTION_PLAN
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+    User?: UserUpdateOneWithoutSubscriptionNestedInput
+  }
+
+  export type SubscriptionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    plan?: EnumSUBSCRIPTION_PLANFieldUpdateOperationsInput | $Enums.SUBSCRIPTION_PLAN
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type SubscriptionCreateManyInput = {
+    id?: string
+    userId?: string | null
+    createdAt?: Date | string
+    plan?: $Enums.SUBSCRIPTION_PLAN
+    updatedAt?: Date | string
+    customerId?: string | null
+  }
+
+  export type SubscriptionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    plan?: EnumSUBSCRIPTION_PLANFieldUpdateOperationsInput | $Enums.SUBSCRIPTION_PLAN
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type SubscriptionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    plan?: EnumSUBSCRIPTION_PLANFieldUpdateOperationsInput | $Enums.SUBSCRIPTION_PLAN
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    customerId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MediaCreateInput = {
@@ -14886,132 +14986,6 @@ export namespace Prisma {
     summery?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type CommentCreateInput = {
-    id?: string
-    comment: string
-    createdAt?: Date | string
-    reply?: CommentCreateNestedManyWithoutCommentInput
-    Comment?: CommentCreateNestedOneWithoutReplyInput
-    User?: UserCreateNestedOneWithoutCommentInput
-    Video?: VideoCreateNestedOneWithoutCommentInput
-  }
-
-  export type CommentUncheckedCreateInput = {
-    id?: string
-    comment: string
-    commentId?: string | null
-    userId?: string | null
-    videoId?: string | null
-    createdAt?: Date | string
-    reply?: CommentUncheckedCreateNestedManyWithoutCommentInput
-  }
-
-  export type CommentUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    comment?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reply?: CommentUpdateManyWithoutCommentNestedInput
-    Comment?: CommentUpdateOneWithoutReplyNestedInput
-    User?: UserUpdateOneWithoutCommentNestedInput
-    Video?: VideoUpdateOneWithoutCommentNestedInput
-  }
-
-  export type CommentUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    comment?: StringFieldUpdateOperationsInput | string
-    commentId?: NullableStringFieldUpdateOperationsInput | string | null
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
-    videoId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reply?: CommentUncheckedUpdateManyWithoutCommentNestedInput
-  }
-
-  export type CommentCreateManyInput = {
-    id?: string
-    comment: string
-    commentId?: string | null
-    userId?: string | null
-    videoId?: string | null
-    createdAt?: Date | string
-  }
-
-  export type CommentUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    comment?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type CommentUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    comment?: StringFieldUpdateOperationsInput | string
-    commentId?: NullableStringFieldUpdateOperationsInput | string | null
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
-    videoId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type SubscriptionCreateInput = {
-    id?: string
-    createdAt?: Date | string
-    plan?: $Enums.SUBSCRIPTION_PLAN
-    updatedAt?: Date | string
-    customerId?: string | null
-    User?: UserCreateNestedOneWithoutSubscriptionInput
-  }
-
-  export type SubscriptionUncheckedCreateInput = {
-    id?: string
-    userId?: string | null
-    createdAt?: Date | string
-    plan?: $Enums.SUBSCRIPTION_PLAN
-    updatedAt?: Date | string
-    customerId?: string | null
-  }
-
-  export type SubscriptionUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    plan?: EnumSUBSCRIPTION_PLANFieldUpdateOperationsInput | $Enums.SUBSCRIPTION_PLAN
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    customerId?: NullableStringFieldUpdateOperationsInput | string | null
-    User?: UserUpdateOneWithoutSubscriptionNestedInput
-  }
-
-  export type SubscriptionUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    plan?: EnumSUBSCRIPTION_PLANFieldUpdateOperationsInput | $Enums.SUBSCRIPTION_PLAN
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    customerId?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type SubscriptionCreateManyInput = {
-    id?: string
-    userId?: string | null
-    createdAt?: Date | string
-    plan?: $Enums.SUBSCRIPTION_PLAN
-    updatedAt?: Date | string
-    customerId?: string | null
-  }
-
-  export type SubscriptionUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    plan?: EnumSUBSCRIPTION_PLANFieldUpdateOperationsInput | $Enums.SUBSCRIPTION_PLAN
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    customerId?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type SubscriptionUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    plan?: EnumSUBSCRIPTION_PLANFieldUpdateOperationsInput | $Enums.SUBSCRIPTION_PLAN
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    customerId?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
   export type MemberCreateInput = {
     id?: string
     createdAt?: Date | string
@@ -15209,11 +15183,6 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -15225,6 +15194,11 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type MediaNullableScalarRelationFilter = {
     is?: MediaWhereInput | null
     isNot?: MediaWhereInput | null
@@ -15234,12 +15208,6 @@ export namespace Prisma {
     every?: WorkSpaceWhereInput
     some?: WorkSpaceWhereInput
     none?: WorkSpaceWhereInput
-  }
-
-  export type CommentListRelationFilter = {
-    every?: CommentWhereInput
-    some?: CommentWhereInput
-    none?: CommentWhereInput
   }
 
   export type VideoListRelationFilter = {
@@ -15271,16 +15239,18 @@ export namespace Prisma {
     none?: InviteWhereInput
   }
 
+  export type CommentListRelationFilter = {
+    every?: CommentWhereInput
+    some?: CommentWhereInput
+    none?: CommentWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
   }
 
   export type WorkSpaceOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type CommentOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -15300,42 +15270,43 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type CommentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
-    clerkid?: SortOrder
     email?: SortOrder
     firstname?: SortOrder
     lastname?: SortOrder
+    createdAt?: SortOrder
+    clerkid?: SortOrder
     image?: SortOrder
     trial?: SortOrder
-    createdAt?: SortOrder
-    updateddAt?: SortOrder
     firstView?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
-    clerkid?: SortOrder
     email?: SortOrder
     firstname?: SortOrder
     lastname?: SortOrder
+    createdAt?: SortOrder
+    clerkid?: SortOrder
     image?: SortOrder
     trial?: SortOrder
-    createdAt?: SortOrder
-    updateddAt?: SortOrder
     firstView?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
     id?: SortOrder
-    clerkid?: SortOrder
     email?: SortOrder
     firstname?: SortOrder
     lastname?: SortOrder
+    createdAt?: SortOrder
+    clerkid?: SortOrder
     image?: SortOrder
     trial?: SortOrder
-    createdAt?: SortOrder
-    updateddAt?: SortOrder
     firstView?: SortOrder
   }
 
@@ -15390,14 +15361,6 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -15412,11 +15375,12 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type EnumPRESETFilter<$PrismaModel = never> = {
-    equals?: $Enums.PRESET | EnumPRESETFieldRefInput<$PrismaModel>
-    in?: $Enums.PRESET[] | ListEnumPRESETFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PRESET[] | ListEnumPRESETFieldRefInput<$PrismaModel>
-    not?: NestedEnumPRESETFilter<$PrismaModel> | $Enums.PRESET
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type UuidNullableFilter<$PrismaModel = never> = {
@@ -15431,9 +15395,112 @@ export namespace Prisma {
     not?: NestedUuidNullableFilter<$PrismaModel> | string | null
   }
 
+  export type CommentNullableScalarRelationFilter = {
+    is?: CommentWhereInput | null
+    isNot?: CommentWhereInput | null
+  }
+
   export type UserNullableScalarRelationFilter = {
     is?: UserWhereInput | null
     isNot?: UserWhereInput | null
+  }
+
+  export type VideoNullableScalarRelationFilter = {
+    is?: VideoWhereInput | null
+    isNot?: VideoWhereInput | null
+  }
+
+  export type CommentCountOrderByAggregateInput = {
+    id?: SortOrder
+    comment?: SortOrder
+    commentId?: SortOrder
+    userId?: SortOrder
+    videoId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CommentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    comment?: SortOrder
+    commentId?: SortOrder
+    userId?: SortOrder
+    videoId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type CommentMinOrderByAggregateInput = {
+    id?: SortOrder
+    comment?: SortOrder
+    commentId?: SortOrder
+    userId?: SortOrder
+    videoId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type UuidNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedUuidNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type EnumSUBSCRIPTION_PLANFilter<$PrismaModel = never> = {
+    equals?: $Enums.SUBSCRIPTION_PLAN | EnumSUBSCRIPTION_PLANFieldRefInput<$PrismaModel>
+    in?: $Enums.SUBSCRIPTION_PLAN[] | ListEnumSUBSCRIPTION_PLANFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SUBSCRIPTION_PLAN[] | ListEnumSUBSCRIPTION_PLANFieldRefInput<$PrismaModel>
+    not?: NestedEnumSUBSCRIPTION_PLANFilter<$PrismaModel> | $Enums.SUBSCRIPTION_PLAN
+  }
+
+  export type SubscriptionCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    plan?: SortOrder
+    updatedAt?: SortOrder
+    customerId?: SortOrder
+  }
+
+  export type SubscriptionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    plan?: SortOrder
+    updatedAt?: SortOrder
+    customerId?: SortOrder
+  }
+
+  export type SubscriptionMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    createdAt?: SortOrder
+    plan?: SortOrder
+    updatedAt?: SortOrder
+    customerId?: SortOrder
+  }
+
+  export type EnumSUBSCRIPTION_PLANWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SUBSCRIPTION_PLAN | EnumSUBSCRIPTION_PLANFieldRefInput<$PrismaModel>
+    in?: $Enums.SUBSCRIPTION_PLAN[] | ListEnumSUBSCRIPTION_PLANFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SUBSCRIPTION_PLAN[] | ListEnumSUBSCRIPTION_PLANFieldRefInput<$PrismaModel>
+    not?: NestedEnumSUBSCRIPTION_PLANWithAggregatesFilter<$PrismaModel> | $Enums.SUBSCRIPTION_PLAN
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSUBSCRIPTION_PLANFilter<$PrismaModel>
+    _max?: NestedEnumSUBSCRIPTION_PLANFilter<$PrismaModel>
+  }
+
+  export type EnumPRESETFilter<$PrismaModel = never> = {
+    equals?: $Enums.PRESET | EnumPRESETFieldRefInput<$PrismaModel>
+    in?: $Enums.PRESET[] | ListEnumPRESETFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PRESET[] | ListEnumPRESETFieldRefInput<$PrismaModel>
+    not?: NestedEnumPRESETFilter<$PrismaModel> | $Enums.PRESET
   }
 
   export type MediaCountOrderByAggregateInput = {
@@ -15471,21 +15538,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumPRESETFilter<$PrismaModel>
     _max?: NestedEnumPRESETFilter<$PrismaModel>
-  }
-
-  export type UuidNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedUuidNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type EnumTypeFilter<$PrismaModel = never> = {
@@ -15647,87 +15699,6 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type CommentNullableScalarRelationFilter = {
-    is?: CommentWhereInput | null
-    isNot?: CommentWhereInput | null
-  }
-
-  export type VideoNullableScalarRelationFilter = {
-    is?: VideoWhereInput | null
-    isNot?: VideoWhereInput | null
-  }
-
-  export type CommentCountOrderByAggregateInput = {
-    id?: SortOrder
-    comment?: SortOrder
-    commentId?: SortOrder
-    userId?: SortOrder
-    videoId?: SortOrder
-    createdAt?: SortOrder
-  }
-
-  export type CommentMaxOrderByAggregateInput = {
-    id?: SortOrder
-    comment?: SortOrder
-    commentId?: SortOrder
-    userId?: SortOrder
-    videoId?: SortOrder
-    createdAt?: SortOrder
-  }
-
-  export type CommentMinOrderByAggregateInput = {
-    id?: SortOrder
-    comment?: SortOrder
-    commentId?: SortOrder
-    userId?: SortOrder
-    videoId?: SortOrder
-    createdAt?: SortOrder
-  }
-
-  export type EnumSUBSCRIPTION_PLANFilter<$PrismaModel = never> = {
-    equals?: $Enums.SUBSCRIPTION_PLAN | EnumSUBSCRIPTION_PLANFieldRefInput<$PrismaModel>
-    in?: $Enums.SUBSCRIPTION_PLAN[] | ListEnumSUBSCRIPTION_PLANFieldRefInput<$PrismaModel>
-    notIn?: $Enums.SUBSCRIPTION_PLAN[] | ListEnumSUBSCRIPTION_PLANFieldRefInput<$PrismaModel>
-    not?: NestedEnumSUBSCRIPTION_PLANFilter<$PrismaModel> | $Enums.SUBSCRIPTION_PLAN
-  }
-
-  export type SubscriptionCountOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    createdAt?: SortOrder
-    plan?: SortOrder
-    updatedAt?: SortOrder
-    customerId?: SortOrder
-  }
-
-  export type SubscriptionMaxOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    createdAt?: SortOrder
-    plan?: SortOrder
-    updatedAt?: SortOrder
-    customerId?: SortOrder
-  }
-
-  export type SubscriptionMinOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    createdAt?: SortOrder
-    plan?: SortOrder
-    updatedAt?: SortOrder
-    customerId?: SortOrder
-  }
-
-  export type EnumSUBSCRIPTION_PLANWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.SUBSCRIPTION_PLAN | EnumSUBSCRIPTION_PLANFieldRefInput<$PrismaModel>
-    in?: $Enums.SUBSCRIPTION_PLAN[] | ListEnumSUBSCRIPTION_PLANFieldRefInput<$PrismaModel>
-    notIn?: $Enums.SUBSCRIPTION_PLAN[] | ListEnumSUBSCRIPTION_PLANFieldRefInput<$PrismaModel>
-    not?: NestedEnumSUBSCRIPTION_PLANWithAggregatesFilter<$PrismaModel> | $Enums.SUBSCRIPTION_PLAN
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumSUBSCRIPTION_PLANFilter<$PrismaModel>
-    _max?: NestedEnumSUBSCRIPTION_PLANFilter<$PrismaModel>
-  }
-
   export type MemberCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -15810,13 +15781,6 @@ export namespace Prisma {
     connect?: WorkSpaceWhereUniqueInput | WorkSpaceWhereUniqueInput[]
   }
 
-  export type CommentCreateNestedManyWithoutUserInput = {
-    create?: XOR<CommentCreateWithoutUserInput, CommentUncheckedCreateWithoutUserInput> | CommentCreateWithoutUserInput[] | CommentUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: CommentCreateOrConnectWithoutUserInput | CommentCreateOrConnectWithoutUserInput[]
-    createMany?: CommentCreateManyUserInputEnvelope
-    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
-  }
-
   export type VideoCreateNestedManyWithoutUserInput = {
     create?: XOR<VideoCreateWithoutUserInput, VideoUncheckedCreateWithoutUserInput> | VideoCreateWithoutUserInput[] | VideoUncheckedCreateWithoutUserInput[]
     connectOrCreate?: VideoCreateOrConnectWithoutUserInput | VideoCreateOrConnectWithoutUserInput[]
@@ -15858,6 +15822,13 @@ export namespace Prisma {
     connect?: InviteWhereUniqueInput | InviteWhereUniqueInput[]
   }
 
+  export type CommentCreateNestedManyWithoutUserInput = {
+    create?: XOR<CommentCreateWithoutUserInput, CommentUncheckedCreateWithoutUserInput> | CommentCreateWithoutUserInput[] | CommentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutUserInput | CommentCreateOrConnectWithoutUserInput[]
+    createMany?: CommentCreateManyUserInputEnvelope
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+  }
+
   export type MediaUncheckedCreateNestedOneWithoutUserInput = {
     create?: XOR<MediaCreateWithoutUserInput, MediaUncheckedCreateWithoutUserInput>
     connectOrCreate?: MediaCreateOrConnectWithoutUserInput
@@ -15869,13 +15840,6 @@ export namespace Prisma {
     connectOrCreate?: WorkSpaceCreateOrConnectWithoutUserInput | WorkSpaceCreateOrConnectWithoutUserInput[]
     createMany?: WorkSpaceCreateManyUserInputEnvelope
     connect?: WorkSpaceWhereUniqueInput | WorkSpaceWhereUniqueInput[]
-  }
-
-  export type CommentUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<CommentCreateWithoutUserInput, CommentUncheckedCreateWithoutUserInput> | CommentCreateWithoutUserInput[] | CommentUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: CommentCreateOrConnectWithoutUserInput | CommentCreateOrConnectWithoutUserInput[]
-    createMany?: CommentCreateManyUserInputEnvelope
-    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
   }
 
   export type VideoUncheckedCreateNestedManyWithoutUserInput = {
@@ -15919,6 +15883,13 @@ export namespace Prisma {
     connect?: InviteWhereUniqueInput | InviteWhereUniqueInput[]
   }
 
+  export type CommentUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<CommentCreateWithoutUserInput, CommentUncheckedCreateWithoutUserInput> | CommentCreateWithoutUserInput[] | CommentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutUserInput | CommentCreateOrConnectWithoutUserInput[]
+    createMany?: CommentCreateManyUserInputEnvelope
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -15927,12 +15898,12 @@ export namespace Prisma {
     set?: string | null
   }
 
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
-  }
-
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type MediaUpdateOneWithoutUserNestedInput = {
@@ -15957,20 +15928,6 @@ export namespace Prisma {
     update?: WorkSpaceUpdateWithWhereUniqueWithoutUserInput | WorkSpaceUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: WorkSpaceUpdateManyWithWhereWithoutUserInput | WorkSpaceUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: WorkSpaceScalarWhereInput | WorkSpaceScalarWhereInput[]
-  }
-
-  export type CommentUpdateManyWithoutUserNestedInput = {
-    create?: XOR<CommentCreateWithoutUserInput, CommentUncheckedCreateWithoutUserInput> | CommentCreateWithoutUserInput[] | CommentUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: CommentCreateOrConnectWithoutUserInput | CommentCreateOrConnectWithoutUserInput[]
-    upsert?: CommentUpsertWithWhereUniqueWithoutUserInput | CommentUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: CommentCreateManyUserInputEnvelope
-    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
-    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
-    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
-    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
-    update?: CommentUpdateWithWhereUniqueWithoutUserInput | CommentUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: CommentUpdateManyWithWhereWithoutUserInput | CommentUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
   }
 
   export type VideoUpdateManyWithoutUserNestedInput = {
@@ -16053,6 +16010,20 @@ export namespace Prisma {
     deleteMany?: InviteScalarWhereInput | InviteScalarWhereInput[]
   }
 
+  export type CommentUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CommentCreateWithoutUserInput, CommentUncheckedCreateWithoutUserInput> | CommentCreateWithoutUserInput[] | CommentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutUserInput | CommentCreateOrConnectWithoutUserInput[]
+    upsert?: CommentUpsertWithWhereUniqueWithoutUserInput | CommentUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CommentCreateManyUserInputEnvelope
+    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    update?: CommentUpdateWithWhereUniqueWithoutUserInput | CommentUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CommentUpdateManyWithWhereWithoutUserInput | CommentUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
+  }
+
   export type MediaUncheckedUpdateOneWithoutUserNestedInput = {
     create?: XOR<MediaCreateWithoutUserInput, MediaUncheckedCreateWithoutUserInput>
     connectOrCreate?: MediaCreateOrConnectWithoutUserInput
@@ -16075,20 +16046,6 @@ export namespace Prisma {
     update?: WorkSpaceUpdateWithWhereUniqueWithoutUserInput | WorkSpaceUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: WorkSpaceUpdateManyWithWhereWithoutUserInput | WorkSpaceUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: WorkSpaceScalarWhereInput | WorkSpaceScalarWhereInput[]
-  }
-
-  export type CommentUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<CommentCreateWithoutUserInput, CommentUncheckedCreateWithoutUserInput> | CommentCreateWithoutUserInput[] | CommentUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: CommentCreateOrConnectWithoutUserInput | CommentCreateOrConnectWithoutUserInput[]
-    upsert?: CommentUpsertWithWhereUniqueWithoutUserInput | CommentUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: CommentCreateManyUserInputEnvelope
-    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
-    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
-    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
-    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
-    update?: CommentUpdateWithWhereUniqueWithoutUserInput | CommentUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: CommentUpdateManyWithWhereWithoutUserInput | CommentUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
   }
 
   export type VideoUncheckedUpdateManyWithoutUserNestedInput = {
@@ -16169,6 +16126,130 @@ export namespace Prisma {
     update?: InviteUpdateWithWhereUniqueWithoutRecieverInput | InviteUpdateWithWhereUniqueWithoutRecieverInput[]
     updateMany?: InviteUpdateManyWithWhereWithoutRecieverInput | InviteUpdateManyWithWhereWithoutRecieverInput[]
     deleteMany?: InviteScalarWhereInput | InviteScalarWhereInput[]
+  }
+
+  export type CommentUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CommentCreateWithoutUserInput, CommentUncheckedCreateWithoutUserInput> | CommentCreateWithoutUserInput[] | CommentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutUserInput | CommentCreateOrConnectWithoutUserInput[]
+    upsert?: CommentUpsertWithWhereUniqueWithoutUserInput | CommentUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CommentCreateManyUserInputEnvelope
+    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    update?: CommentUpdateWithWhereUniqueWithoutUserInput | CommentUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CommentUpdateManyWithWhereWithoutUserInput | CommentUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
+  }
+
+  export type CommentCreateNestedManyWithoutCommentInput = {
+    create?: XOR<CommentCreateWithoutCommentInput, CommentUncheckedCreateWithoutCommentInput> | CommentCreateWithoutCommentInput[] | CommentUncheckedCreateWithoutCommentInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutCommentInput | CommentCreateOrConnectWithoutCommentInput[]
+    createMany?: CommentCreateManyCommentInputEnvelope
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+  }
+
+  export type CommentCreateNestedOneWithoutReplyInput = {
+    create?: XOR<CommentCreateWithoutReplyInput, CommentUncheckedCreateWithoutReplyInput>
+    connectOrCreate?: CommentCreateOrConnectWithoutReplyInput
+    connect?: CommentWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutCommentInput = {
+    create?: XOR<UserCreateWithoutCommentInput, UserUncheckedCreateWithoutCommentInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCommentInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type VideoCreateNestedOneWithoutCommentInput = {
+    create?: XOR<VideoCreateWithoutCommentInput, VideoUncheckedCreateWithoutCommentInput>
+    connectOrCreate?: VideoCreateOrConnectWithoutCommentInput
+    connect?: VideoWhereUniqueInput
+  }
+
+  export type CommentUncheckedCreateNestedManyWithoutCommentInput = {
+    create?: XOR<CommentCreateWithoutCommentInput, CommentUncheckedCreateWithoutCommentInput> | CommentCreateWithoutCommentInput[] | CommentUncheckedCreateWithoutCommentInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutCommentInput | CommentCreateOrConnectWithoutCommentInput[]
+    createMany?: CommentCreateManyCommentInputEnvelope
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+  }
+
+  export type CommentUpdateManyWithoutCommentNestedInput = {
+    create?: XOR<CommentCreateWithoutCommentInput, CommentUncheckedCreateWithoutCommentInput> | CommentCreateWithoutCommentInput[] | CommentUncheckedCreateWithoutCommentInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutCommentInput | CommentCreateOrConnectWithoutCommentInput[]
+    upsert?: CommentUpsertWithWhereUniqueWithoutCommentInput | CommentUpsertWithWhereUniqueWithoutCommentInput[]
+    createMany?: CommentCreateManyCommentInputEnvelope
+    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    update?: CommentUpdateWithWhereUniqueWithoutCommentInput | CommentUpdateWithWhereUniqueWithoutCommentInput[]
+    updateMany?: CommentUpdateManyWithWhereWithoutCommentInput | CommentUpdateManyWithWhereWithoutCommentInput[]
+    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
+  }
+
+  export type CommentUpdateOneWithoutReplyNestedInput = {
+    create?: XOR<CommentCreateWithoutReplyInput, CommentUncheckedCreateWithoutReplyInput>
+    connectOrCreate?: CommentCreateOrConnectWithoutReplyInput
+    upsert?: CommentUpsertWithoutReplyInput
+    disconnect?: CommentWhereInput | boolean
+    delete?: CommentWhereInput | boolean
+    connect?: CommentWhereUniqueInput
+    update?: XOR<XOR<CommentUpdateToOneWithWhereWithoutReplyInput, CommentUpdateWithoutReplyInput>, CommentUncheckedUpdateWithoutReplyInput>
+  }
+
+  export type UserUpdateOneWithoutCommentNestedInput = {
+    create?: XOR<UserCreateWithoutCommentInput, UserUncheckedCreateWithoutCommentInput>
+    connectOrCreate?: UserCreateOrConnectWithoutCommentInput
+    upsert?: UserUpsertWithoutCommentInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCommentInput, UserUpdateWithoutCommentInput>, UserUncheckedUpdateWithoutCommentInput>
+  }
+
+  export type VideoUpdateOneWithoutCommentNestedInput = {
+    create?: XOR<VideoCreateWithoutCommentInput, VideoUncheckedCreateWithoutCommentInput>
+    connectOrCreate?: VideoCreateOrConnectWithoutCommentInput
+    upsert?: VideoUpsertWithoutCommentInput
+    disconnect?: VideoWhereInput | boolean
+    delete?: VideoWhereInput | boolean
+    connect?: VideoWhereUniqueInput
+    update?: XOR<XOR<VideoUpdateToOneWithWhereWithoutCommentInput, VideoUpdateWithoutCommentInput>, VideoUncheckedUpdateWithoutCommentInput>
+  }
+
+  export type CommentUncheckedUpdateManyWithoutCommentNestedInput = {
+    create?: XOR<CommentCreateWithoutCommentInput, CommentUncheckedCreateWithoutCommentInput> | CommentCreateWithoutCommentInput[] | CommentUncheckedCreateWithoutCommentInput[]
+    connectOrCreate?: CommentCreateOrConnectWithoutCommentInput | CommentCreateOrConnectWithoutCommentInput[]
+    upsert?: CommentUpsertWithWhereUniqueWithoutCommentInput | CommentUpsertWithWhereUniqueWithoutCommentInput[]
+    createMany?: CommentCreateManyCommentInputEnvelope
+    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
+    update?: CommentUpdateWithWhereUniqueWithoutCommentInput | CommentUpdateWithWhereUniqueWithoutCommentInput[]
+    updateMany?: CommentUpdateManyWithWhereWithoutCommentInput | CommentUpdateManyWithWhereWithoutCommentInput[]
+    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutSubscriptionInput = {
+    create?: XOR<UserCreateWithoutSubscriptionInput, UserUncheckedCreateWithoutSubscriptionInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSubscriptionInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumSUBSCRIPTION_PLANFieldUpdateOperationsInput = {
+    set?: $Enums.SUBSCRIPTION_PLAN
+  }
+
+  export type UserUpdateOneWithoutSubscriptionNestedInput = {
+    create?: XOR<UserCreateWithoutSubscriptionInput, UserUncheckedCreateWithoutSubscriptionInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSubscriptionInput
+    upsert?: UserUpsertWithoutSubscriptionInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSubscriptionInput, UserUpdateWithoutSubscriptionInput>, UserUncheckedUpdateWithoutSubscriptionInput>
   }
 
   export type UserCreateNestedOneWithoutStudioInput = {
@@ -16535,116 +16616,6 @@ export namespace Prisma {
     deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
   }
 
-  export type CommentCreateNestedManyWithoutCommentInput = {
-    create?: XOR<CommentCreateWithoutCommentInput, CommentUncheckedCreateWithoutCommentInput> | CommentCreateWithoutCommentInput[] | CommentUncheckedCreateWithoutCommentInput[]
-    connectOrCreate?: CommentCreateOrConnectWithoutCommentInput | CommentCreateOrConnectWithoutCommentInput[]
-    createMany?: CommentCreateManyCommentInputEnvelope
-    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
-  }
-
-  export type CommentCreateNestedOneWithoutReplyInput = {
-    create?: XOR<CommentCreateWithoutReplyInput, CommentUncheckedCreateWithoutReplyInput>
-    connectOrCreate?: CommentCreateOrConnectWithoutReplyInput
-    connect?: CommentWhereUniqueInput
-  }
-
-  export type UserCreateNestedOneWithoutCommentInput = {
-    create?: XOR<UserCreateWithoutCommentInput, UserUncheckedCreateWithoutCommentInput>
-    connectOrCreate?: UserCreateOrConnectWithoutCommentInput
-    connect?: UserWhereUniqueInput
-  }
-
-  export type VideoCreateNestedOneWithoutCommentInput = {
-    create?: XOR<VideoCreateWithoutCommentInput, VideoUncheckedCreateWithoutCommentInput>
-    connectOrCreate?: VideoCreateOrConnectWithoutCommentInput
-    connect?: VideoWhereUniqueInput
-  }
-
-  export type CommentUncheckedCreateNestedManyWithoutCommentInput = {
-    create?: XOR<CommentCreateWithoutCommentInput, CommentUncheckedCreateWithoutCommentInput> | CommentCreateWithoutCommentInput[] | CommentUncheckedCreateWithoutCommentInput[]
-    connectOrCreate?: CommentCreateOrConnectWithoutCommentInput | CommentCreateOrConnectWithoutCommentInput[]
-    createMany?: CommentCreateManyCommentInputEnvelope
-    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
-  }
-
-  export type CommentUpdateManyWithoutCommentNestedInput = {
-    create?: XOR<CommentCreateWithoutCommentInput, CommentUncheckedCreateWithoutCommentInput> | CommentCreateWithoutCommentInput[] | CommentUncheckedCreateWithoutCommentInput[]
-    connectOrCreate?: CommentCreateOrConnectWithoutCommentInput | CommentCreateOrConnectWithoutCommentInput[]
-    upsert?: CommentUpsertWithWhereUniqueWithoutCommentInput | CommentUpsertWithWhereUniqueWithoutCommentInput[]
-    createMany?: CommentCreateManyCommentInputEnvelope
-    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
-    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
-    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
-    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
-    update?: CommentUpdateWithWhereUniqueWithoutCommentInput | CommentUpdateWithWhereUniqueWithoutCommentInput[]
-    updateMany?: CommentUpdateManyWithWhereWithoutCommentInput | CommentUpdateManyWithWhereWithoutCommentInput[]
-    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
-  }
-
-  export type CommentUpdateOneWithoutReplyNestedInput = {
-    create?: XOR<CommentCreateWithoutReplyInput, CommentUncheckedCreateWithoutReplyInput>
-    connectOrCreate?: CommentCreateOrConnectWithoutReplyInput
-    upsert?: CommentUpsertWithoutReplyInput
-    disconnect?: CommentWhereInput | boolean
-    delete?: CommentWhereInput | boolean
-    connect?: CommentWhereUniqueInput
-    update?: XOR<XOR<CommentUpdateToOneWithWhereWithoutReplyInput, CommentUpdateWithoutReplyInput>, CommentUncheckedUpdateWithoutReplyInput>
-  }
-
-  export type UserUpdateOneWithoutCommentNestedInput = {
-    create?: XOR<UserCreateWithoutCommentInput, UserUncheckedCreateWithoutCommentInput>
-    connectOrCreate?: UserCreateOrConnectWithoutCommentInput
-    upsert?: UserUpsertWithoutCommentInput
-    disconnect?: UserWhereInput | boolean
-    delete?: UserWhereInput | boolean
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCommentInput, UserUpdateWithoutCommentInput>, UserUncheckedUpdateWithoutCommentInput>
-  }
-
-  export type VideoUpdateOneWithoutCommentNestedInput = {
-    create?: XOR<VideoCreateWithoutCommentInput, VideoUncheckedCreateWithoutCommentInput>
-    connectOrCreate?: VideoCreateOrConnectWithoutCommentInput
-    upsert?: VideoUpsertWithoutCommentInput
-    disconnect?: VideoWhereInput | boolean
-    delete?: VideoWhereInput | boolean
-    connect?: VideoWhereUniqueInput
-    update?: XOR<XOR<VideoUpdateToOneWithWhereWithoutCommentInput, VideoUpdateWithoutCommentInput>, VideoUncheckedUpdateWithoutCommentInput>
-  }
-
-  export type CommentUncheckedUpdateManyWithoutCommentNestedInput = {
-    create?: XOR<CommentCreateWithoutCommentInput, CommentUncheckedCreateWithoutCommentInput> | CommentCreateWithoutCommentInput[] | CommentUncheckedCreateWithoutCommentInput[]
-    connectOrCreate?: CommentCreateOrConnectWithoutCommentInput | CommentCreateOrConnectWithoutCommentInput[]
-    upsert?: CommentUpsertWithWhereUniqueWithoutCommentInput | CommentUpsertWithWhereUniqueWithoutCommentInput[]
-    createMany?: CommentCreateManyCommentInputEnvelope
-    set?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
-    disconnect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
-    delete?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
-    connect?: CommentWhereUniqueInput | CommentWhereUniqueInput[]
-    update?: CommentUpdateWithWhereUniqueWithoutCommentInput | CommentUpdateWithWhereUniqueWithoutCommentInput[]
-    updateMany?: CommentUpdateManyWithWhereWithoutCommentInput | CommentUpdateManyWithWhereWithoutCommentInput[]
-    deleteMany?: CommentScalarWhereInput | CommentScalarWhereInput[]
-  }
-
-  export type UserCreateNestedOneWithoutSubscriptionInput = {
-    create?: XOR<UserCreateWithoutSubscriptionInput, UserUncheckedCreateWithoutSubscriptionInput>
-    connectOrCreate?: UserCreateOrConnectWithoutSubscriptionInput
-    connect?: UserWhereUniqueInput
-  }
-
-  export type EnumSUBSCRIPTION_PLANFieldUpdateOperationsInput = {
-    set?: $Enums.SUBSCRIPTION_PLAN
-  }
-
-  export type UserUpdateOneWithoutSubscriptionNestedInput = {
-    create?: XOR<UserCreateWithoutSubscriptionInput, UserUncheckedCreateWithoutSubscriptionInput>
-    connectOrCreate?: UserCreateOrConnectWithoutSubscriptionInput
-    upsert?: UserUpsertWithoutSubscriptionInput
-    disconnect?: UserWhereInput | boolean
-    delete?: UserWhereInput | boolean
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSubscriptionInput, UserUpdateWithoutSubscriptionInput>, UserUncheckedUpdateWithoutSubscriptionInput>
-  }
-
   export type UserCreateNestedOneWithoutMembersInput = {
     create?: XOR<UserCreateWithoutMembersInput, UserUncheckedCreateWithoutMembersInput>
     connectOrCreate?: UserCreateOrConnectWithoutMembersInput
@@ -16780,11 +16751,6 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -16794,6 +16760,11 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type NestedUuidWithAggregatesFilter<$PrismaModel = never> = {
@@ -16866,14 +16837,6 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -16888,11 +16851,12 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type NestedEnumPRESETFilter<$PrismaModel = never> = {
-    equals?: $Enums.PRESET | EnumPRESETFieldRefInput<$PrismaModel>
-    in?: $Enums.PRESET[] | ListEnumPRESETFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PRESET[] | ListEnumPRESETFieldRefInput<$PrismaModel>
-    not?: NestedEnumPRESETFilter<$PrismaModel> | $Enums.PRESET
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedUuidNullableFilter<$PrismaModel = never> = {
@@ -16904,16 +16868,6 @@ export namespace Prisma {
     gt?: string | StringFieldRefInput<$PrismaModel>
     gte?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedUuidNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedEnumPRESETWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.PRESET | EnumPRESETFieldRefInput<$PrismaModel>
-    in?: $Enums.PRESET[] | ListEnumPRESETFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PRESET[] | ListEnumPRESETFieldRefInput<$PrismaModel>
-    not?: NestedEnumPRESETWithAggregatesFilter<$PrismaModel> | $Enums.PRESET
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumPRESETFilter<$PrismaModel>
-    _max?: NestedEnumPRESETFilter<$PrismaModel>
   }
 
   export type NestedUuidNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -16928,6 +16882,40 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumSUBSCRIPTION_PLANFilter<$PrismaModel = never> = {
+    equals?: $Enums.SUBSCRIPTION_PLAN | EnumSUBSCRIPTION_PLANFieldRefInput<$PrismaModel>
+    in?: $Enums.SUBSCRIPTION_PLAN[] | ListEnumSUBSCRIPTION_PLANFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SUBSCRIPTION_PLAN[] | ListEnumSUBSCRIPTION_PLANFieldRefInput<$PrismaModel>
+    not?: NestedEnumSUBSCRIPTION_PLANFilter<$PrismaModel> | $Enums.SUBSCRIPTION_PLAN
+  }
+
+  export type NestedEnumSUBSCRIPTION_PLANWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SUBSCRIPTION_PLAN | EnumSUBSCRIPTION_PLANFieldRefInput<$PrismaModel>
+    in?: $Enums.SUBSCRIPTION_PLAN[] | ListEnumSUBSCRIPTION_PLANFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SUBSCRIPTION_PLAN[] | ListEnumSUBSCRIPTION_PLANFieldRefInput<$PrismaModel>
+    not?: NestedEnumSUBSCRIPTION_PLANWithAggregatesFilter<$PrismaModel> | $Enums.SUBSCRIPTION_PLAN
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSUBSCRIPTION_PLANFilter<$PrismaModel>
+    _max?: NestedEnumSUBSCRIPTION_PLANFilter<$PrismaModel>
+  }
+
+  export type NestedEnumPRESETFilter<$PrismaModel = never> = {
+    equals?: $Enums.PRESET | EnumPRESETFieldRefInput<$PrismaModel>
+    in?: $Enums.PRESET[] | ListEnumPRESETFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PRESET[] | ListEnumPRESETFieldRefInput<$PrismaModel>
+    not?: NestedEnumPRESETFilter<$PrismaModel> | $Enums.PRESET
+  }
+
+  export type NestedEnumPRESETWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PRESET | EnumPRESETFieldRefInput<$PrismaModel>
+    in?: $Enums.PRESET[] | ListEnumPRESETFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PRESET[] | ListEnumPRESETFieldRefInput<$PrismaModel>
+    not?: NestedEnumPRESETWithAggregatesFilter<$PrismaModel> | $Enums.PRESET
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPRESETFilter<$PrismaModel>
+    _max?: NestedEnumPRESETFilter<$PrismaModel>
   }
 
   export type NestedEnumTypeFilter<$PrismaModel = never> = {
@@ -16972,23 +16960,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
-  export type NestedEnumSUBSCRIPTION_PLANFilter<$PrismaModel = never> = {
-    equals?: $Enums.SUBSCRIPTION_PLAN | EnumSUBSCRIPTION_PLANFieldRefInput<$PrismaModel>
-    in?: $Enums.SUBSCRIPTION_PLAN[] | ListEnumSUBSCRIPTION_PLANFieldRefInput<$PrismaModel>
-    notIn?: $Enums.SUBSCRIPTION_PLAN[] | ListEnumSUBSCRIPTION_PLANFieldRefInput<$PrismaModel>
-    not?: NestedEnumSUBSCRIPTION_PLANFilter<$PrismaModel> | $Enums.SUBSCRIPTION_PLAN
-  }
-
-  export type NestedEnumSUBSCRIPTION_PLANWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.SUBSCRIPTION_PLAN | EnumSUBSCRIPTION_PLANFieldRefInput<$PrismaModel>
-    in?: $Enums.SUBSCRIPTION_PLAN[] | ListEnumSUBSCRIPTION_PLANFieldRefInput<$PrismaModel>
-    notIn?: $Enums.SUBSCRIPTION_PLAN[] | ListEnumSUBSCRIPTION_PLANFieldRefInput<$PrismaModel>
-    not?: NestedEnumSUBSCRIPTION_PLANWithAggregatesFilter<$PrismaModel> | $Enums.SUBSCRIPTION_PLAN
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumSUBSCRIPTION_PLANFilter<$PrismaModel>
-    _max?: NestedEnumSUBSCRIPTION_PLANFilter<$PrismaModel>
   }
 
   export type MediaCreateWithoutUserInput = {
@@ -17041,34 +17012,6 @@ export namespace Prisma {
 
   export type WorkSpaceCreateManyUserInputEnvelope = {
     data: WorkSpaceCreateManyUserInput | WorkSpaceCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type CommentCreateWithoutUserInput = {
-    id?: string
-    comment: string
-    createdAt?: Date | string
-    reply?: CommentCreateNestedManyWithoutCommentInput
-    Comment?: CommentCreateNestedOneWithoutReplyInput
-    Video?: VideoCreateNestedOneWithoutCommentInput
-  }
-
-  export type CommentUncheckedCreateWithoutUserInput = {
-    id?: string
-    comment: string
-    commentId?: string | null
-    videoId?: string | null
-    createdAt?: Date | string
-    reply?: CommentUncheckedCreateNestedManyWithoutCommentInput
-  }
-
-  export type CommentCreateOrConnectWithoutUserInput = {
-    where: CommentWhereUniqueInput
-    create: XOR<CommentCreateWithoutUserInput, CommentUncheckedCreateWithoutUserInput>
-  }
-
-  export type CommentCreateManyUserInputEnvelope = {
-    data: CommentCreateManyUserInput | CommentCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -17227,6 +17170,34 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type CommentCreateWithoutUserInput = {
+    id?: string
+    comment: string
+    createdAt?: Date | string
+    reply?: CommentCreateNestedManyWithoutCommentInput
+    Comment?: CommentCreateNestedOneWithoutReplyInput
+    Video?: VideoCreateNestedOneWithoutCommentInput
+  }
+
+  export type CommentUncheckedCreateWithoutUserInput = {
+    id?: string
+    comment: string
+    commentId?: string | null
+    videoId?: string | null
+    createdAt?: Date | string
+    reply?: CommentUncheckedCreateNestedManyWithoutCommentInput
+  }
+
+  export type CommentCreateOrConnectWithoutUserInput = {
+    where: CommentWhereUniqueInput
+    create: XOR<CommentCreateWithoutUserInput, CommentUncheckedCreateWithoutUserInput>
+  }
+
+  export type CommentCreateManyUserInputEnvelope = {
+    data: CommentCreateManyUserInput | CommentCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type MediaUpsertWithoutUserInput = {
     update: XOR<MediaUpdateWithoutUserInput, MediaUncheckedUpdateWithoutUserInput>
     create: XOR<MediaCreateWithoutUserInput, MediaUncheckedCreateWithoutUserInput>
@@ -17279,34 +17250,6 @@ export namespace Prisma {
     name?: StringFilter<"WorkSpace"> | string
     userId?: UuidNullableFilter<"WorkSpace"> | string | null
     createdAt?: DateTimeFilter<"WorkSpace"> | Date | string
-  }
-
-  export type CommentUpsertWithWhereUniqueWithoutUserInput = {
-    where: CommentWhereUniqueInput
-    update: XOR<CommentUpdateWithoutUserInput, CommentUncheckedUpdateWithoutUserInput>
-    create: XOR<CommentCreateWithoutUserInput, CommentUncheckedCreateWithoutUserInput>
-  }
-
-  export type CommentUpdateWithWhereUniqueWithoutUserInput = {
-    where: CommentWhereUniqueInput
-    data: XOR<CommentUpdateWithoutUserInput, CommentUncheckedUpdateWithoutUserInput>
-  }
-
-  export type CommentUpdateManyWithWhereWithoutUserInput = {
-    where: CommentScalarWhereInput
-    data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type CommentScalarWhereInput = {
-    AND?: CommentScalarWhereInput | CommentScalarWhereInput[]
-    OR?: CommentScalarWhereInput[]
-    NOT?: CommentScalarWhereInput | CommentScalarWhereInput[]
-    id?: UuidFilter<"Comment"> | string
-    comment?: StringFilter<"Comment"> | string
-    commentId?: UuidNullableFilter<"Comment"> | string | null
-    userId?: UuidNullableFilter<"Comment"> | string | null
-    videoId?: UuidNullableFilter<"Comment"> | string | null
-    createdAt?: DateTimeFilter<"Comment"> | Date | string
   }
 
   export type VideoUpsertWithWhereUniqueWithoutUserInput = {
@@ -17465,19 +17408,97 @@ export namespace Prisma {
     data: XOR<InviteUpdateManyMutationInput, InviteUncheckedUpdateManyWithoutRecieverInput>
   }
 
-  export type UserCreateWithoutStudioInput = {
+  export type CommentUpsertWithWhereUniqueWithoutUserInput = {
+    where: CommentWhereUniqueInput
+    update: XOR<CommentUpdateWithoutUserInput, CommentUncheckedUpdateWithoutUserInput>
+    create: XOR<CommentCreateWithoutUserInput, CommentUncheckedCreateWithoutUserInput>
+  }
+
+  export type CommentUpdateWithWhereUniqueWithoutUserInput = {
+    where: CommentWhereUniqueInput
+    data: XOR<CommentUpdateWithoutUserInput, CommentUncheckedUpdateWithoutUserInput>
+  }
+
+  export type CommentUpdateManyWithWhereWithoutUserInput = {
+    where: CommentScalarWhereInput
+    data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type CommentScalarWhereInput = {
+    AND?: CommentScalarWhereInput | CommentScalarWhereInput[]
+    OR?: CommentScalarWhereInput[]
+    NOT?: CommentScalarWhereInput | CommentScalarWhereInput[]
+    id?: UuidFilter<"Comment"> | string
+    comment?: StringFilter<"Comment"> | string
+    commentId?: UuidNullableFilter<"Comment"> | string | null
+    userId?: UuidNullableFilter<"Comment"> | string | null
+    videoId?: UuidNullableFilter<"Comment"> | string | null
+    createdAt?: DateTimeFilter<"Comment"> | Date | string
+  }
+
+  export type CommentCreateWithoutCommentInput = {
     id?: string
-    clerkid: string
+    comment: string
+    createdAt?: Date | string
+    reply?: CommentCreateNestedManyWithoutCommentInput
+    User?: UserCreateNestedOneWithoutCommentInput
+    Video?: VideoCreateNestedOneWithoutCommentInput
+  }
+
+  export type CommentUncheckedCreateWithoutCommentInput = {
+    id?: string
+    comment: string
+    userId?: string | null
+    videoId?: string | null
+    createdAt?: Date | string
+    reply?: CommentUncheckedCreateNestedManyWithoutCommentInput
+  }
+
+  export type CommentCreateOrConnectWithoutCommentInput = {
+    where: CommentWhereUniqueInput
+    create: XOR<CommentCreateWithoutCommentInput, CommentUncheckedCreateWithoutCommentInput>
+  }
+
+  export type CommentCreateManyCommentInputEnvelope = {
+    data: CommentCreateManyCommentInput | CommentCreateManyCommentInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CommentCreateWithoutReplyInput = {
+    id?: string
+    comment: string
+    createdAt?: Date | string
+    Comment?: CommentCreateNestedOneWithoutReplyInput
+    User?: UserCreateNestedOneWithoutCommentInput
+    Video?: VideoCreateNestedOneWithoutCommentInput
+  }
+
+  export type CommentUncheckedCreateWithoutReplyInput = {
+    id?: string
+    comment: string
+    commentId?: string | null
+    userId?: string | null
+    videoId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type CommentCreateOrConnectWithoutReplyInput = {
+    where: CommentWhereUniqueInput
+    create: XOR<CommentCreateWithoutReplyInput, CommentUncheckedCreateWithoutReplyInput>
+  }
+
+  export type UserCreateWithoutCommentInput = {
+    id?: string
     email: string
     firstname?: string | null
     lastname?: string | null
+    createdAt?: Date | string
+    clerkid: string
     image?: string | null
     trial?: boolean
-    createdAt?: Date | string
-    updateddAt?: Date | string
     firstView?: boolean
+    studio?: MediaCreateNestedOneWithoutUserInput
     workspace?: WorkSpaceCreateNestedManyWithoutUserInput
-    comment?: CommentCreateNestedManyWithoutUserInput
     videos?: VideoCreateNestedManyWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     members?: MemberCreateNestedManyWithoutUserInput
@@ -17486,25 +17507,333 @@ export namespace Prisma {
     reciever?: InviteCreateNestedManyWithoutRecieverInput
   }
 
-  export type UserUncheckedCreateWithoutStudioInput = {
+  export type UserUncheckedCreateWithoutCommentInput = {
     id?: string
-    clerkid: string
     email: string
     firstname?: string | null
     lastname?: string | null
+    createdAt?: Date | string
+    clerkid: string
     image?: string | null
     trial?: boolean
-    createdAt?: Date | string
-    updateddAt?: Date | string
     firstView?: boolean
+    studio?: MediaUncheckedCreateNestedOneWithoutUserInput
     workspace?: WorkSpaceUncheckedCreateNestedManyWithoutUserInput
-    comment?: CommentUncheckedCreateNestedManyWithoutUserInput
     videos?: VideoUncheckedCreateNestedManyWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     members?: MemberUncheckedCreateNestedManyWithoutUserInput
     notification?: NotificationUncheckedCreateNestedManyWithoutUserInput
     sender?: InviteUncheckedCreateNestedManyWithoutSenderInput
     reciever?: InviteUncheckedCreateNestedManyWithoutRecieverInput
+  }
+
+  export type UserCreateOrConnectWithoutCommentInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCommentInput, UserUncheckedCreateWithoutCommentInput>
+  }
+
+  export type VideoCreateWithoutCommentInput = {
+    id?: string
+    title?: string | null
+    description?: string | null
+    source: string
+    createdAt?: Date | string
+    processing?: boolean
+    views?: number
+    summery?: string | null
+    Folder?: FolderCreateNestedOneWithoutVideosInput
+    User?: UserCreateNestedOneWithoutVideosInput
+    WorkSpace?: WorkSpaceCreateNestedOneWithoutVideosInput
+  }
+
+  export type VideoUncheckedCreateWithoutCommentInput = {
+    id?: string
+    title?: string | null
+    description?: string | null
+    source: string
+    createdAt?: Date | string
+    folderId?: string | null
+    userId?: string | null
+    processing?: boolean
+    workSpaceId?: string | null
+    views?: number
+    summery?: string | null
+  }
+
+  export type VideoCreateOrConnectWithoutCommentInput = {
+    where: VideoWhereUniqueInput
+    create: XOR<VideoCreateWithoutCommentInput, VideoUncheckedCreateWithoutCommentInput>
+  }
+
+  export type CommentUpsertWithWhereUniqueWithoutCommentInput = {
+    where: CommentWhereUniqueInput
+    update: XOR<CommentUpdateWithoutCommentInput, CommentUncheckedUpdateWithoutCommentInput>
+    create: XOR<CommentCreateWithoutCommentInput, CommentUncheckedCreateWithoutCommentInput>
+  }
+
+  export type CommentUpdateWithWhereUniqueWithoutCommentInput = {
+    where: CommentWhereUniqueInput
+    data: XOR<CommentUpdateWithoutCommentInput, CommentUncheckedUpdateWithoutCommentInput>
+  }
+
+  export type CommentUpdateManyWithWhereWithoutCommentInput = {
+    where: CommentScalarWhereInput
+    data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyWithoutCommentInput>
+  }
+
+  export type CommentUpsertWithoutReplyInput = {
+    update: XOR<CommentUpdateWithoutReplyInput, CommentUncheckedUpdateWithoutReplyInput>
+    create: XOR<CommentCreateWithoutReplyInput, CommentUncheckedCreateWithoutReplyInput>
+    where?: CommentWhereInput
+  }
+
+  export type CommentUpdateToOneWithWhereWithoutReplyInput = {
+    where?: CommentWhereInput
+    data: XOR<CommentUpdateWithoutReplyInput, CommentUncheckedUpdateWithoutReplyInput>
+  }
+
+  export type CommentUpdateWithoutReplyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Comment?: CommentUpdateOneWithoutReplyNestedInput
+    User?: UserUpdateOneWithoutCommentNestedInput
+    Video?: VideoUpdateOneWithoutCommentNestedInput
+  }
+
+  export type CommentUncheckedUpdateWithoutReplyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    commentId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    videoId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUpsertWithoutCommentInput = {
+    update: XOR<UserUpdateWithoutCommentInput, UserUncheckedUpdateWithoutCommentInput>
+    create: XOR<UserCreateWithoutCommentInput, UserUncheckedCreateWithoutCommentInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCommentInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCommentInput, UserUncheckedUpdateWithoutCommentInput>
+  }
+
+  export type UserUpdateWithoutCommentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    firstname?: NullableStringFieldUpdateOperationsInput | string | null
+    lastname?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkid?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
+    studio?: MediaUpdateOneWithoutUserNestedInput
+    workspace?: WorkSpaceUpdateManyWithoutUserNestedInput
+    videos?: VideoUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
+    members?: MemberUpdateManyWithoutUserNestedInput
+    notification?: NotificationUpdateManyWithoutUserNestedInput
+    sender?: InviteUpdateManyWithoutSenderNestedInput
+    reciever?: InviteUpdateManyWithoutRecieverNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCommentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    firstname?: NullableStringFieldUpdateOperationsInput | string | null
+    lastname?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkid?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
+    studio?: MediaUncheckedUpdateOneWithoutUserNestedInput
+    workspace?: WorkSpaceUncheckedUpdateManyWithoutUserNestedInput
+    videos?: VideoUncheckedUpdateManyWithoutUserNestedInput
+    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+    members?: MemberUncheckedUpdateManyWithoutUserNestedInput
+    notification?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    sender?: InviteUncheckedUpdateManyWithoutSenderNestedInput
+    reciever?: InviteUncheckedUpdateManyWithoutRecieverNestedInput
+  }
+
+  export type VideoUpsertWithoutCommentInput = {
+    update: XOR<VideoUpdateWithoutCommentInput, VideoUncheckedUpdateWithoutCommentInput>
+    create: XOR<VideoCreateWithoutCommentInput, VideoUncheckedCreateWithoutCommentInput>
+    where?: VideoWhereInput
+  }
+
+  export type VideoUpdateToOneWithWhereWithoutCommentInput = {
+    where?: VideoWhereInput
+    data: XOR<VideoUpdateWithoutCommentInput, VideoUncheckedUpdateWithoutCommentInput>
+  }
+
+  export type VideoUpdateWithoutCommentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    processing?: BoolFieldUpdateOperationsInput | boolean
+    views?: IntFieldUpdateOperationsInput | number
+    summery?: NullableStringFieldUpdateOperationsInput | string | null
+    Folder?: FolderUpdateOneWithoutVideosNestedInput
+    User?: UserUpdateOneWithoutVideosNestedInput
+    WorkSpace?: WorkSpaceUpdateOneWithoutVideosNestedInput
+  }
+
+  export type VideoUncheckedUpdateWithoutCommentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    folderId?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    processing?: BoolFieldUpdateOperationsInput | boolean
+    workSpaceId?: NullableStringFieldUpdateOperationsInput | string | null
+    views?: IntFieldUpdateOperationsInput | number
+    summery?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type UserCreateWithoutSubscriptionInput = {
+    id?: string
+    email: string
+    firstname?: string | null
+    lastname?: string | null
+    createdAt?: Date | string
+    clerkid: string
+    image?: string | null
+    trial?: boolean
+    firstView?: boolean
+    studio?: MediaCreateNestedOneWithoutUserInput
+    workspace?: WorkSpaceCreateNestedManyWithoutUserInput
+    videos?: VideoCreateNestedManyWithoutUserInput
+    members?: MemberCreateNestedManyWithoutUserInput
+    notification?: NotificationCreateNestedManyWithoutUserInput
+    sender?: InviteCreateNestedManyWithoutSenderInput
+    reciever?: InviteCreateNestedManyWithoutRecieverInput
+    comment?: CommentCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutSubscriptionInput = {
+    id?: string
+    email: string
+    firstname?: string | null
+    lastname?: string | null
+    createdAt?: Date | string
+    clerkid: string
+    image?: string | null
+    trial?: boolean
+    firstView?: boolean
+    studio?: MediaUncheckedCreateNestedOneWithoutUserInput
+    workspace?: WorkSpaceUncheckedCreateNestedManyWithoutUserInput
+    videos?: VideoUncheckedCreateNestedManyWithoutUserInput
+    members?: MemberUncheckedCreateNestedManyWithoutUserInput
+    notification?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    sender?: InviteUncheckedCreateNestedManyWithoutSenderInput
+    reciever?: InviteUncheckedCreateNestedManyWithoutRecieverInput
+    comment?: CommentUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutSubscriptionInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSubscriptionInput, UserUncheckedCreateWithoutSubscriptionInput>
+  }
+
+  export type UserUpsertWithoutSubscriptionInput = {
+    update: XOR<UserUpdateWithoutSubscriptionInput, UserUncheckedUpdateWithoutSubscriptionInput>
+    create: XOR<UserCreateWithoutSubscriptionInput, UserUncheckedCreateWithoutSubscriptionInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSubscriptionInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSubscriptionInput, UserUncheckedUpdateWithoutSubscriptionInput>
+  }
+
+  export type UserUpdateWithoutSubscriptionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    firstname?: NullableStringFieldUpdateOperationsInput | string | null
+    lastname?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkid?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
+    studio?: MediaUpdateOneWithoutUserNestedInput
+    workspace?: WorkSpaceUpdateManyWithoutUserNestedInput
+    videos?: VideoUpdateManyWithoutUserNestedInput
+    members?: MemberUpdateManyWithoutUserNestedInput
+    notification?: NotificationUpdateManyWithoutUserNestedInput
+    sender?: InviteUpdateManyWithoutSenderNestedInput
+    reciever?: InviteUpdateManyWithoutRecieverNestedInput
+    comment?: CommentUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSubscriptionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    firstname?: NullableStringFieldUpdateOperationsInput | string | null
+    lastname?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkid?: StringFieldUpdateOperationsInput | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    trial?: BoolFieldUpdateOperationsInput | boolean
+    firstView?: BoolFieldUpdateOperationsInput | boolean
+    studio?: MediaUncheckedUpdateOneWithoutUserNestedInput
+    workspace?: WorkSpaceUncheckedUpdateManyWithoutUserNestedInput
+    videos?: VideoUncheckedUpdateManyWithoutUserNestedInput
+    members?: MemberUncheckedUpdateManyWithoutUserNestedInput
+    notification?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    sender?: InviteUncheckedUpdateManyWithoutSenderNestedInput
+    reciever?: InviteUncheckedUpdateManyWithoutRecieverNestedInput
+    comment?: CommentUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutStudioInput = {
+    id?: string
+    email: string
+    firstname?: string | null
+    lastname?: string | null
+    createdAt?: Date | string
+    clerkid: string
+    image?: string | null
+    trial?: boolean
+    firstView?: boolean
+    workspace?: WorkSpaceCreateNestedManyWithoutUserInput
+    videos?: VideoCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionCreateNestedOneWithoutUserInput
+    members?: MemberCreateNestedManyWithoutUserInput
+    notification?: NotificationCreateNestedManyWithoutUserInput
+    sender?: InviteCreateNestedManyWithoutSenderInput
+    reciever?: InviteCreateNestedManyWithoutRecieverInput
+    comment?: CommentCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutStudioInput = {
+    id?: string
+    email: string
+    firstname?: string | null
+    lastname?: string | null
+    createdAt?: Date | string
+    clerkid: string
+    image?: string | null
+    trial?: boolean
+    firstView?: boolean
+    workspace?: WorkSpaceUncheckedCreateNestedManyWithoutUserInput
+    videos?: VideoUncheckedCreateNestedManyWithoutUserInput
+    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
+    members?: MemberUncheckedCreateNestedManyWithoutUserInput
+    notification?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    sender?: InviteUncheckedCreateNestedManyWithoutSenderInput
+    reciever?: InviteUncheckedCreateNestedManyWithoutRecieverInput
+    comment?: CommentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutStudioInput = {
@@ -17525,86 +17854,82 @@ export namespace Prisma {
 
   export type UserUpdateWithoutStudioInput = {
     id?: StringFieldUpdateOperationsInput | string
-    clerkid?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     firstname?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkid?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateddAt?: DateTimeFieldUpdateOperationsInput | Date | string
     firstView?: BoolFieldUpdateOperationsInput | boolean
     workspace?: WorkSpaceUpdateManyWithoutUserNestedInput
-    comment?: CommentUpdateManyWithoutUserNestedInput
     videos?: VideoUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     members?: MemberUpdateManyWithoutUserNestedInput
     notification?: NotificationUpdateManyWithoutUserNestedInput
     sender?: InviteUpdateManyWithoutSenderNestedInput
     reciever?: InviteUpdateManyWithoutRecieverNestedInput
+    comment?: CommentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutStudioInput = {
     id?: StringFieldUpdateOperationsInput | string
-    clerkid?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     firstname?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkid?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateddAt?: DateTimeFieldUpdateOperationsInput | Date | string
     firstView?: BoolFieldUpdateOperationsInput | boolean
     workspace?: WorkSpaceUncheckedUpdateManyWithoutUserNestedInput
-    comment?: CommentUncheckedUpdateManyWithoutUserNestedInput
     videos?: VideoUncheckedUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     members?: MemberUncheckedUpdateManyWithoutUserNestedInput
     notification?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     sender?: InviteUncheckedUpdateManyWithoutSenderNestedInput
     reciever?: InviteUncheckedUpdateManyWithoutRecieverNestedInput
+    comment?: CommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutWorkspaceInput = {
     id?: string
-    clerkid: string
     email: string
     firstname?: string | null
     lastname?: string | null
+    createdAt?: Date | string
+    clerkid: string
     image?: string | null
     trial?: boolean
-    createdAt?: Date | string
-    updateddAt?: Date | string
     firstView?: boolean
     studio?: MediaCreateNestedOneWithoutUserInput
-    comment?: CommentCreateNestedManyWithoutUserInput
     videos?: VideoCreateNestedManyWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     members?: MemberCreateNestedManyWithoutUserInput
     notification?: NotificationCreateNestedManyWithoutUserInput
     sender?: InviteCreateNestedManyWithoutSenderInput
     reciever?: InviteCreateNestedManyWithoutRecieverInput
+    comment?: CommentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWorkspaceInput = {
     id?: string
-    clerkid: string
     email: string
     firstname?: string | null
     lastname?: string | null
+    createdAt?: Date | string
+    clerkid: string
     image?: string | null
     trial?: boolean
-    createdAt?: Date | string
-    updateddAt?: Date | string
     firstView?: boolean
     studio?: MediaUncheckedCreateNestedOneWithoutUserInput
-    comment?: CommentUncheckedCreateNestedManyWithoutUserInput
     videos?: VideoUncheckedCreateNestedManyWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     members?: MemberUncheckedCreateNestedManyWithoutUserInput
     notification?: NotificationUncheckedCreateNestedManyWithoutUserInput
     sender?: InviteUncheckedCreateNestedManyWithoutSenderInput
     reciever?: InviteUncheckedCreateNestedManyWithoutRecieverInput
+    comment?: CommentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWorkspaceInput = {
@@ -17737,44 +18062,42 @@ export namespace Prisma {
 
   export type UserUpdateWithoutWorkspaceInput = {
     id?: StringFieldUpdateOperationsInput | string
-    clerkid?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     firstname?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkid?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateddAt?: DateTimeFieldUpdateOperationsInput | Date | string
     firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUpdateOneWithoutUserNestedInput
-    comment?: CommentUpdateManyWithoutUserNestedInput
     videos?: VideoUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     members?: MemberUpdateManyWithoutUserNestedInput
     notification?: NotificationUpdateManyWithoutUserNestedInput
     sender?: InviteUpdateManyWithoutSenderNestedInput
     reciever?: InviteUpdateManyWithoutRecieverNestedInput
+    comment?: CommentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWorkspaceInput = {
     id?: StringFieldUpdateOperationsInput | string
-    clerkid?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     firstname?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkid?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateddAt?: DateTimeFieldUpdateOperationsInput | Date | string
     firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUncheckedUpdateOneWithoutUserNestedInput
-    comment?: CommentUncheckedUpdateManyWithoutUserNestedInput
     videos?: VideoUncheckedUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     members?: MemberUncheckedUpdateManyWithoutUserNestedInput
     notification?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     sender?: InviteUncheckedUpdateManyWithoutSenderNestedInput
     reciever?: InviteUncheckedUpdateManyWithoutRecieverNestedInput
+    comment?: CommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type FolderUpsertWithWhereUniqueWithoutWorkSpaceInput = {
@@ -17986,44 +18309,42 @@ export namespace Prisma {
 
   export type UserCreateWithoutVideosInput = {
     id?: string
-    clerkid: string
     email: string
     firstname?: string | null
     lastname?: string | null
+    createdAt?: Date | string
+    clerkid: string
     image?: string | null
     trial?: boolean
-    createdAt?: Date | string
-    updateddAt?: Date | string
     firstView?: boolean
     studio?: MediaCreateNestedOneWithoutUserInput
     workspace?: WorkSpaceCreateNestedManyWithoutUserInput
-    comment?: CommentCreateNestedManyWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     members?: MemberCreateNestedManyWithoutUserInput
     notification?: NotificationCreateNestedManyWithoutUserInput
     sender?: InviteCreateNestedManyWithoutSenderInput
     reciever?: InviteCreateNestedManyWithoutRecieverInput
+    comment?: CommentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutVideosInput = {
     id?: string
-    clerkid: string
     email: string
     firstname?: string | null
     lastname?: string | null
+    createdAt?: Date | string
+    clerkid: string
     image?: string | null
     trial?: boolean
-    createdAt?: Date | string
-    updateddAt?: Date | string
     firstView?: boolean
     studio?: MediaUncheckedCreateNestedOneWithoutUserInput
     workspace?: WorkSpaceUncheckedCreateNestedManyWithoutUserInput
-    comment?: CommentUncheckedCreateNestedManyWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     members?: MemberUncheckedCreateNestedManyWithoutUserInput
     notification?: NotificationUncheckedCreateNestedManyWithoutUserInput
     sender?: InviteUncheckedCreateNestedManyWithoutSenderInput
     reciever?: InviteUncheckedCreateNestedManyWithoutRecieverInput
+    comment?: CommentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutVideosInput = {
@@ -18124,44 +18445,42 @@ export namespace Prisma {
 
   export type UserUpdateWithoutVideosInput = {
     id?: StringFieldUpdateOperationsInput | string
-    clerkid?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     firstname?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkid?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateddAt?: DateTimeFieldUpdateOperationsInput | Date | string
     firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUpdateOneWithoutUserNestedInput
     workspace?: WorkSpaceUpdateManyWithoutUserNestedInput
-    comment?: CommentUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     members?: MemberUpdateManyWithoutUserNestedInput
     notification?: NotificationUpdateManyWithoutUserNestedInput
     sender?: InviteUpdateManyWithoutSenderNestedInput
     reciever?: InviteUpdateManyWithoutRecieverNestedInput
+    comment?: CommentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutVideosInput = {
     id?: StringFieldUpdateOperationsInput | string
-    clerkid?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     firstname?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkid?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateddAt?: DateTimeFieldUpdateOperationsInput | Date | string
     firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUncheckedUpdateOneWithoutUserNestedInput
     workspace?: WorkSpaceUncheckedUpdateManyWithoutUserNestedInput
-    comment?: CommentUncheckedUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     members?: MemberUncheckedUpdateManyWithoutUserNestedInput
     notification?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     sender?: InviteUncheckedUpdateManyWithoutSenderNestedInput
     reciever?: InviteUncheckedUpdateManyWithoutRecieverNestedInput
+    comment?: CommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WorkSpaceUpsertWithoutVideosInput = {
@@ -18213,414 +18532,44 @@ export namespace Prisma {
     data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyWithoutVideoInput>
   }
 
-  export type CommentCreateWithoutCommentInput = {
-    id?: string
-    comment: string
-    createdAt?: Date | string
-    reply?: CommentCreateNestedManyWithoutCommentInput
-    User?: UserCreateNestedOneWithoutCommentInput
-    Video?: VideoCreateNestedOneWithoutCommentInput
-  }
-
-  export type CommentUncheckedCreateWithoutCommentInput = {
-    id?: string
-    comment: string
-    userId?: string | null
-    videoId?: string | null
-    createdAt?: Date | string
-    reply?: CommentUncheckedCreateNestedManyWithoutCommentInput
-  }
-
-  export type CommentCreateOrConnectWithoutCommentInput = {
-    where: CommentWhereUniqueInput
-    create: XOR<CommentCreateWithoutCommentInput, CommentUncheckedCreateWithoutCommentInput>
-  }
-
-  export type CommentCreateManyCommentInputEnvelope = {
-    data: CommentCreateManyCommentInput | CommentCreateManyCommentInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type CommentCreateWithoutReplyInput = {
-    id?: string
-    comment: string
-    createdAt?: Date | string
-    Comment?: CommentCreateNestedOneWithoutReplyInput
-    User?: UserCreateNestedOneWithoutCommentInput
-    Video?: VideoCreateNestedOneWithoutCommentInput
-  }
-
-  export type CommentUncheckedCreateWithoutReplyInput = {
-    id?: string
-    comment: string
-    commentId?: string | null
-    userId?: string | null
-    videoId?: string | null
-    createdAt?: Date | string
-  }
-
-  export type CommentCreateOrConnectWithoutReplyInput = {
-    where: CommentWhereUniqueInput
-    create: XOR<CommentCreateWithoutReplyInput, CommentUncheckedCreateWithoutReplyInput>
-  }
-
-  export type UserCreateWithoutCommentInput = {
-    id?: string
-    clerkid: string
-    email: string
-    firstname?: string | null
-    lastname?: string | null
-    image?: string | null
-    trial?: boolean
-    createdAt?: Date | string
-    updateddAt?: Date | string
-    firstView?: boolean
-    studio?: MediaCreateNestedOneWithoutUserInput
-    workspace?: WorkSpaceCreateNestedManyWithoutUserInput
-    videos?: VideoCreateNestedManyWithoutUserInput
-    subscription?: SubscriptionCreateNestedOneWithoutUserInput
-    members?: MemberCreateNestedManyWithoutUserInput
-    notification?: NotificationCreateNestedManyWithoutUserInput
-    sender?: InviteCreateNestedManyWithoutSenderInput
-    reciever?: InviteCreateNestedManyWithoutRecieverInput
-  }
-
-  export type UserUncheckedCreateWithoutCommentInput = {
-    id?: string
-    clerkid: string
-    email: string
-    firstname?: string | null
-    lastname?: string | null
-    image?: string | null
-    trial?: boolean
-    createdAt?: Date | string
-    updateddAt?: Date | string
-    firstView?: boolean
-    studio?: MediaUncheckedCreateNestedOneWithoutUserInput
-    workspace?: WorkSpaceUncheckedCreateNestedManyWithoutUserInput
-    videos?: VideoUncheckedCreateNestedManyWithoutUserInput
-    subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
-    members?: MemberUncheckedCreateNestedManyWithoutUserInput
-    notification?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    sender?: InviteUncheckedCreateNestedManyWithoutSenderInput
-    reciever?: InviteUncheckedCreateNestedManyWithoutRecieverInput
-  }
-
-  export type UserCreateOrConnectWithoutCommentInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutCommentInput, UserUncheckedCreateWithoutCommentInput>
-  }
-
-  export type VideoCreateWithoutCommentInput = {
-    id?: string
-    title?: string | null
-    description?: string | null
-    source: string
-    createdAt?: Date | string
-    processing?: boolean
-    views?: number
-    summery?: string | null
-    Folder?: FolderCreateNestedOneWithoutVideosInput
-    User?: UserCreateNestedOneWithoutVideosInput
-    WorkSpace?: WorkSpaceCreateNestedOneWithoutVideosInput
-  }
-
-  export type VideoUncheckedCreateWithoutCommentInput = {
-    id?: string
-    title?: string | null
-    description?: string | null
-    source: string
-    createdAt?: Date | string
-    folderId?: string | null
-    userId?: string | null
-    processing?: boolean
-    workSpaceId?: string | null
-    views?: number
-    summery?: string | null
-  }
-
-  export type VideoCreateOrConnectWithoutCommentInput = {
-    where: VideoWhereUniqueInput
-    create: XOR<VideoCreateWithoutCommentInput, VideoUncheckedCreateWithoutCommentInput>
-  }
-
-  export type CommentUpsertWithWhereUniqueWithoutCommentInput = {
-    where: CommentWhereUniqueInput
-    update: XOR<CommentUpdateWithoutCommentInput, CommentUncheckedUpdateWithoutCommentInput>
-    create: XOR<CommentCreateWithoutCommentInput, CommentUncheckedCreateWithoutCommentInput>
-  }
-
-  export type CommentUpdateWithWhereUniqueWithoutCommentInput = {
-    where: CommentWhereUniqueInput
-    data: XOR<CommentUpdateWithoutCommentInput, CommentUncheckedUpdateWithoutCommentInput>
-  }
-
-  export type CommentUpdateManyWithWhereWithoutCommentInput = {
-    where: CommentScalarWhereInput
-    data: XOR<CommentUpdateManyMutationInput, CommentUncheckedUpdateManyWithoutCommentInput>
-  }
-
-  export type CommentUpsertWithoutReplyInput = {
-    update: XOR<CommentUpdateWithoutReplyInput, CommentUncheckedUpdateWithoutReplyInput>
-    create: XOR<CommentCreateWithoutReplyInput, CommentUncheckedCreateWithoutReplyInput>
-    where?: CommentWhereInput
-  }
-
-  export type CommentUpdateToOneWithWhereWithoutReplyInput = {
-    where?: CommentWhereInput
-    data: XOR<CommentUpdateWithoutReplyInput, CommentUncheckedUpdateWithoutReplyInput>
-  }
-
-  export type CommentUpdateWithoutReplyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    comment?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Comment?: CommentUpdateOneWithoutReplyNestedInput
-    User?: UserUpdateOneWithoutCommentNestedInput
-    Video?: VideoUpdateOneWithoutCommentNestedInput
-  }
-
-  export type CommentUncheckedUpdateWithoutReplyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    comment?: StringFieldUpdateOperationsInput | string
-    commentId?: NullableStringFieldUpdateOperationsInput | string | null
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
-    videoId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type UserUpsertWithoutCommentInput = {
-    update: XOR<UserUpdateWithoutCommentInput, UserUncheckedUpdateWithoutCommentInput>
-    create: XOR<UserCreateWithoutCommentInput, UserUncheckedCreateWithoutCommentInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutCommentInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutCommentInput, UserUncheckedUpdateWithoutCommentInput>
-  }
-
-  export type UserUpdateWithoutCommentInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    clerkid?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    firstname?: NullableStringFieldUpdateOperationsInput | string | null
-    lastname?: NullableStringFieldUpdateOperationsInput | string | null
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    trial?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateddAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    firstView?: BoolFieldUpdateOperationsInput | boolean
-    studio?: MediaUpdateOneWithoutUserNestedInput
-    workspace?: WorkSpaceUpdateManyWithoutUserNestedInput
-    videos?: VideoUpdateManyWithoutUserNestedInput
-    subscription?: SubscriptionUpdateOneWithoutUserNestedInput
-    members?: MemberUpdateManyWithoutUserNestedInput
-    notification?: NotificationUpdateManyWithoutUserNestedInput
-    sender?: InviteUpdateManyWithoutSenderNestedInput
-    reciever?: InviteUpdateManyWithoutRecieverNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutCommentInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    clerkid?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    firstname?: NullableStringFieldUpdateOperationsInput | string | null
-    lastname?: NullableStringFieldUpdateOperationsInput | string | null
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    trial?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateddAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    firstView?: BoolFieldUpdateOperationsInput | boolean
-    studio?: MediaUncheckedUpdateOneWithoutUserNestedInput
-    workspace?: WorkSpaceUncheckedUpdateManyWithoutUserNestedInput
-    videos?: VideoUncheckedUpdateManyWithoutUserNestedInput
-    subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
-    members?: MemberUncheckedUpdateManyWithoutUserNestedInput
-    notification?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    sender?: InviteUncheckedUpdateManyWithoutSenderNestedInput
-    reciever?: InviteUncheckedUpdateManyWithoutRecieverNestedInput
-  }
-
-  export type VideoUpsertWithoutCommentInput = {
-    update: XOR<VideoUpdateWithoutCommentInput, VideoUncheckedUpdateWithoutCommentInput>
-    create: XOR<VideoCreateWithoutCommentInput, VideoUncheckedCreateWithoutCommentInput>
-    where?: VideoWhereInput
-  }
-
-  export type VideoUpdateToOneWithWhereWithoutCommentInput = {
-    where?: VideoWhereInput
-    data: XOR<VideoUpdateWithoutCommentInput, VideoUncheckedUpdateWithoutCommentInput>
-  }
-
-  export type VideoUpdateWithoutCommentInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    source?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    processing?: BoolFieldUpdateOperationsInput | boolean
-    views?: IntFieldUpdateOperationsInput | number
-    summery?: NullableStringFieldUpdateOperationsInput | string | null
-    Folder?: FolderUpdateOneWithoutVideosNestedInput
-    User?: UserUpdateOneWithoutVideosNestedInput
-    WorkSpace?: WorkSpaceUpdateOneWithoutVideosNestedInput
-  }
-
-  export type VideoUncheckedUpdateWithoutCommentInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    source?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    folderId?: NullableStringFieldUpdateOperationsInput | string | null
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
-    processing?: BoolFieldUpdateOperationsInput | boolean
-    workSpaceId?: NullableStringFieldUpdateOperationsInput | string | null
-    views?: IntFieldUpdateOperationsInput | number
-    summery?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type UserCreateWithoutSubscriptionInput = {
-    id?: string
-    clerkid: string
-    email: string
-    firstname?: string | null
-    lastname?: string | null
-    image?: string | null
-    trial?: boolean
-    createdAt?: Date | string
-    updateddAt?: Date | string
-    firstView?: boolean
-    studio?: MediaCreateNestedOneWithoutUserInput
-    workspace?: WorkSpaceCreateNestedManyWithoutUserInput
-    comment?: CommentCreateNestedManyWithoutUserInput
-    videos?: VideoCreateNestedManyWithoutUserInput
-    members?: MemberCreateNestedManyWithoutUserInput
-    notification?: NotificationCreateNestedManyWithoutUserInput
-    sender?: InviteCreateNestedManyWithoutSenderInput
-    reciever?: InviteCreateNestedManyWithoutRecieverInput
-  }
-
-  export type UserUncheckedCreateWithoutSubscriptionInput = {
-    id?: string
-    clerkid: string
-    email: string
-    firstname?: string | null
-    lastname?: string | null
-    image?: string | null
-    trial?: boolean
-    createdAt?: Date | string
-    updateddAt?: Date | string
-    firstView?: boolean
-    studio?: MediaUncheckedCreateNestedOneWithoutUserInput
-    workspace?: WorkSpaceUncheckedCreateNestedManyWithoutUserInput
-    comment?: CommentUncheckedCreateNestedManyWithoutUserInput
-    videos?: VideoUncheckedCreateNestedManyWithoutUserInput
-    members?: MemberUncheckedCreateNestedManyWithoutUserInput
-    notification?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    sender?: InviteUncheckedCreateNestedManyWithoutSenderInput
-    reciever?: InviteUncheckedCreateNestedManyWithoutRecieverInput
-  }
-
-  export type UserCreateOrConnectWithoutSubscriptionInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutSubscriptionInput, UserUncheckedCreateWithoutSubscriptionInput>
-  }
-
-  export type UserUpsertWithoutSubscriptionInput = {
-    update: XOR<UserUpdateWithoutSubscriptionInput, UserUncheckedUpdateWithoutSubscriptionInput>
-    create: XOR<UserCreateWithoutSubscriptionInput, UserUncheckedCreateWithoutSubscriptionInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutSubscriptionInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutSubscriptionInput, UserUncheckedUpdateWithoutSubscriptionInput>
-  }
-
-  export type UserUpdateWithoutSubscriptionInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    clerkid?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    firstname?: NullableStringFieldUpdateOperationsInput | string | null
-    lastname?: NullableStringFieldUpdateOperationsInput | string | null
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    trial?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateddAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    firstView?: BoolFieldUpdateOperationsInput | boolean
-    studio?: MediaUpdateOneWithoutUserNestedInput
-    workspace?: WorkSpaceUpdateManyWithoutUserNestedInput
-    comment?: CommentUpdateManyWithoutUserNestedInput
-    videos?: VideoUpdateManyWithoutUserNestedInput
-    members?: MemberUpdateManyWithoutUserNestedInput
-    notification?: NotificationUpdateManyWithoutUserNestedInput
-    sender?: InviteUpdateManyWithoutSenderNestedInput
-    reciever?: InviteUpdateManyWithoutRecieverNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutSubscriptionInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    clerkid?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    firstname?: NullableStringFieldUpdateOperationsInput | string | null
-    lastname?: NullableStringFieldUpdateOperationsInput | string | null
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    trial?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateddAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    firstView?: BoolFieldUpdateOperationsInput | boolean
-    studio?: MediaUncheckedUpdateOneWithoutUserNestedInput
-    workspace?: WorkSpaceUncheckedUpdateManyWithoutUserNestedInput
-    comment?: CommentUncheckedUpdateManyWithoutUserNestedInput
-    videos?: VideoUncheckedUpdateManyWithoutUserNestedInput
-    members?: MemberUncheckedUpdateManyWithoutUserNestedInput
-    notification?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    sender?: InviteUncheckedUpdateManyWithoutSenderNestedInput
-    reciever?: InviteUncheckedUpdateManyWithoutRecieverNestedInput
-  }
-
   export type UserCreateWithoutMembersInput = {
     id?: string
-    clerkid: string
     email: string
     firstname?: string | null
     lastname?: string | null
+    createdAt?: Date | string
+    clerkid: string
     image?: string | null
     trial?: boolean
-    createdAt?: Date | string
-    updateddAt?: Date | string
     firstView?: boolean
     studio?: MediaCreateNestedOneWithoutUserInput
     workspace?: WorkSpaceCreateNestedManyWithoutUserInput
-    comment?: CommentCreateNestedManyWithoutUserInput
     videos?: VideoCreateNestedManyWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     notification?: NotificationCreateNestedManyWithoutUserInput
     sender?: InviteCreateNestedManyWithoutSenderInput
     reciever?: InviteCreateNestedManyWithoutRecieverInput
+    comment?: CommentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMembersInput = {
     id?: string
-    clerkid: string
     email: string
     firstname?: string | null
     lastname?: string | null
+    createdAt?: Date | string
+    clerkid: string
     image?: string | null
     trial?: boolean
-    createdAt?: Date | string
-    updateddAt?: Date | string
     firstView?: boolean
     studio?: MediaUncheckedCreateNestedOneWithoutUserInput
     workspace?: WorkSpaceUncheckedCreateNestedManyWithoutUserInput
-    comment?: CommentUncheckedCreateNestedManyWithoutUserInput
     videos?: VideoUncheckedCreateNestedManyWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     notification?: NotificationUncheckedCreateNestedManyWithoutUserInput
     sender?: InviteUncheckedCreateNestedManyWithoutSenderInput
     reciever?: InviteUncheckedCreateNestedManyWithoutRecieverInput
+    comment?: CommentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMembersInput = {
@@ -18668,44 +18617,42 @@ export namespace Prisma {
 
   export type UserUpdateWithoutMembersInput = {
     id?: StringFieldUpdateOperationsInput | string
-    clerkid?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     firstname?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkid?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateddAt?: DateTimeFieldUpdateOperationsInput | Date | string
     firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUpdateOneWithoutUserNestedInput
     workspace?: WorkSpaceUpdateManyWithoutUserNestedInput
-    comment?: CommentUpdateManyWithoutUserNestedInput
     videos?: VideoUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     notification?: NotificationUpdateManyWithoutUserNestedInput
     sender?: InviteUpdateManyWithoutSenderNestedInput
     reciever?: InviteUpdateManyWithoutRecieverNestedInput
+    comment?: CommentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMembersInput = {
     id?: StringFieldUpdateOperationsInput | string
-    clerkid?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     firstname?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkid?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateddAt?: DateTimeFieldUpdateOperationsInput | Date | string
     firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUncheckedUpdateOneWithoutUserNestedInput
     workspace?: WorkSpaceUncheckedUpdateManyWithoutUserNestedInput
-    comment?: CommentUncheckedUpdateManyWithoutUserNestedInput
     videos?: VideoUncheckedUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     notification?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     sender?: InviteUncheckedUpdateManyWithoutSenderNestedInput
     reciever?: InviteUncheckedUpdateManyWithoutRecieverNestedInput
+    comment?: CommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WorkSpaceUpsertWithoutMembersInput = {
@@ -18743,44 +18690,42 @@ export namespace Prisma {
 
   export type UserCreateWithoutNotificationInput = {
     id?: string
-    clerkid: string
     email: string
     firstname?: string | null
     lastname?: string | null
+    createdAt?: Date | string
+    clerkid: string
     image?: string | null
     trial?: boolean
-    createdAt?: Date | string
-    updateddAt?: Date | string
     firstView?: boolean
     studio?: MediaCreateNestedOneWithoutUserInput
     workspace?: WorkSpaceCreateNestedManyWithoutUserInput
-    comment?: CommentCreateNestedManyWithoutUserInput
     videos?: VideoCreateNestedManyWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     members?: MemberCreateNestedManyWithoutUserInput
     sender?: InviteCreateNestedManyWithoutSenderInput
     reciever?: InviteCreateNestedManyWithoutRecieverInput
+    comment?: CommentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutNotificationInput = {
     id?: string
-    clerkid: string
     email: string
     firstname?: string | null
     lastname?: string | null
+    createdAt?: Date | string
+    clerkid: string
     image?: string | null
     trial?: boolean
-    createdAt?: Date | string
-    updateddAt?: Date | string
     firstView?: boolean
     studio?: MediaUncheckedCreateNestedOneWithoutUserInput
     workspace?: WorkSpaceUncheckedCreateNestedManyWithoutUserInput
-    comment?: CommentUncheckedCreateNestedManyWithoutUserInput
     videos?: VideoUncheckedCreateNestedManyWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     members?: MemberUncheckedCreateNestedManyWithoutUserInput
     sender?: InviteUncheckedCreateNestedManyWithoutSenderInput
     reciever?: InviteUncheckedCreateNestedManyWithoutRecieverInput
+    comment?: CommentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNotificationInput = {
@@ -18801,86 +18746,82 @@ export namespace Prisma {
 
   export type UserUpdateWithoutNotificationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    clerkid?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     firstname?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkid?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateddAt?: DateTimeFieldUpdateOperationsInput | Date | string
     firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUpdateOneWithoutUserNestedInput
     workspace?: WorkSpaceUpdateManyWithoutUserNestedInput
-    comment?: CommentUpdateManyWithoutUserNestedInput
     videos?: VideoUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     members?: MemberUpdateManyWithoutUserNestedInput
     sender?: InviteUpdateManyWithoutSenderNestedInput
     reciever?: InviteUpdateManyWithoutRecieverNestedInput
+    comment?: CommentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    clerkid?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     firstname?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkid?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateddAt?: DateTimeFieldUpdateOperationsInput | Date | string
     firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUncheckedUpdateOneWithoutUserNestedInput
     workspace?: WorkSpaceUncheckedUpdateManyWithoutUserNestedInput
-    comment?: CommentUncheckedUpdateManyWithoutUserNestedInput
     videos?: VideoUncheckedUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     members?: MemberUncheckedUpdateManyWithoutUserNestedInput
     sender?: InviteUncheckedUpdateManyWithoutSenderNestedInput
     reciever?: InviteUncheckedUpdateManyWithoutRecieverNestedInput
+    comment?: CommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSenderInput = {
     id?: string
-    clerkid: string
     email: string
     firstname?: string | null
     lastname?: string | null
+    createdAt?: Date | string
+    clerkid: string
     image?: string | null
     trial?: boolean
-    createdAt?: Date | string
-    updateddAt?: Date | string
     firstView?: boolean
     studio?: MediaCreateNestedOneWithoutUserInput
     workspace?: WorkSpaceCreateNestedManyWithoutUserInput
-    comment?: CommentCreateNestedManyWithoutUserInput
     videos?: VideoCreateNestedManyWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     members?: MemberCreateNestedManyWithoutUserInput
     notification?: NotificationCreateNestedManyWithoutUserInput
     reciever?: InviteCreateNestedManyWithoutRecieverInput
+    comment?: CommentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSenderInput = {
     id?: string
-    clerkid: string
     email: string
     firstname?: string | null
     lastname?: string | null
+    createdAt?: Date | string
+    clerkid: string
     image?: string | null
     trial?: boolean
-    createdAt?: Date | string
-    updateddAt?: Date | string
     firstView?: boolean
     studio?: MediaUncheckedCreateNestedOneWithoutUserInput
     workspace?: WorkSpaceUncheckedCreateNestedManyWithoutUserInput
-    comment?: CommentUncheckedCreateNestedManyWithoutUserInput
     videos?: VideoUncheckedCreateNestedManyWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     members?: MemberUncheckedCreateNestedManyWithoutUserInput
     notification?: NotificationUncheckedCreateNestedManyWithoutUserInput
     reciever?: InviteUncheckedCreateNestedManyWithoutRecieverInput
+    comment?: CommentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSenderInput = {
@@ -18890,44 +18831,42 @@ export namespace Prisma {
 
   export type UserCreateWithoutRecieverInput = {
     id?: string
-    clerkid: string
     email: string
     firstname?: string | null
     lastname?: string | null
+    createdAt?: Date | string
+    clerkid: string
     image?: string | null
     trial?: boolean
-    createdAt?: Date | string
-    updateddAt?: Date | string
     firstView?: boolean
     studio?: MediaCreateNestedOneWithoutUserInput
     workspace?: WorkSpaceCreateNestedManyWithoutUserInput
-    comment?: CommentCreateNestedManyWithoutUserInput
     videos?: VideoCreateNestedManyWithoutUserInput
     subscription?: SubscriptionCreateNestedOneWithoutUserInput
     members?: MemberCreateNestedManyWithoutUserInput
     notification?: NotificationCreateNestedManyWithoutUserInput
     sender?: InviteCreateNestedManyWithoutSenderInput
+    comment?: CommentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRecieverInput = {
     id?: string
-    clerkid: string
     email: string
     firstname?: string | null
     lastname?: string | null
+    createdAt?: Date | string
+    clerkid: string
     image?: string | null
     trial?: boolean
-    createdAt?: Date | string
-    updateddAt?: Date | string
     firstView?: boolean
     studio?: MediaUncheckedCreateNestedOneWithoutUserInput
     workspace?: WorkSpaceUncheckedCreateNestedManyWithoutUserInput
-    comment?: CommentUncheckedCreateNestedManyWithoutUserInput
     videos?: VideoUncheckedCreateNestedManyWithoutUserInput
     subscription?: SubscriptionUncheckedCreateNestedOneWithoutUserInput
     members?: MemberUncheckedCreateNestedManyWithoutUserInput
     notification?: NotificationUncheckedCreateNestedManyWithoutUserInput
     sender?: InviteUncheckedCreateNestedManyWithoutSenderInput
+    comment?: CommentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRecieverInput = {
@@ -18975,44 +18914,42 @@ export namespace Prisma {
 
   export type UserUpdateWithoutSenderInput = {
     id?: StringFieldUpdateOperationsInput | string
-    clerkid?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     firstname?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkid?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateddAt?: DateTimeFieldUpdateOperationsInput | Date | string
     firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUpdateOneWithoutUserNestedInput
     workspace?: WorkSpaceUpdateManyWithoutUserNestedInput
-    comment?: CommentUpdateManyWithoutUserNestedInput
     videos?: VideoUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     members?: MemberUpdateManyWithoutUserNestedInput
     notification?: NotificationUpdateManyWithoutUserNestedInput
     reciever?: InviteUpdateManyWithoutRecieverNestedInput
+    comment?: CommentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSenderInput = {
     id?: StringFieldUpdateOperationsInput | string
-    clerkid?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     firstname?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkid?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateddAt?: DateTimeFieldUpdateOperationsInput | Date | string
     firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUncheckedUpdateOneWithoutUserNestedInput
     workspace?: WorkSpaceUncheckedUpdateManyWithoutUserNestedInput
-    comment?: CommentUncheckedUpdateManyWithoutUserNestedInput
     videos?: VideoUncheckedUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     members?: MemberUncheckedUpdateManyWithoutUserNestedInput
     notification?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     reciever?: InviteUncheckedUpdateManyWithoutRecieverNestedInput
+    comment?: CommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutRecieverInput = {
@@ -19028,44 +18965,42 @@ export namespace Prisma {
 
   export type UserUpdateWithoutRecieverInput = {
     id?: StringFieldUpdateOperationsInput | string
-    clerkid?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     firstname?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkid?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateddAt?: DateTimeFieldUpdateOperationsInput | Date | string
     firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUpdateOneWithoutUserNestedInput
     workspace?: WorkSpaceUpdateManyWithoutUserNestedInput
-    comment?: CommentUpdateManyWithoutUserNestedInput
     videos?: VideoUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUpdateOneWithoutUserNestedInput
     members?: MemberUpdateManyWithoutUserNestedInput
     notification?: NotificationUpdateManyWithoutUserNestedInput
     sender?: InviteUpdateManyWithoutSenderNestedInput
+    comment?: CommentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRecieverInput = {
     id?: StringFieldUpdateOperationsInput | string
-    clerkid?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     firstname?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clerkid?: StringFieldUpdateOperationsInput | string
     image?: NullableStringFieldUpdateOperationsInput | string | null
     trial?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateddAt?: DateTimeFieldUpdateOperationsInput | Date | string
     firstView?: BoolFieldUpdateOperationsInput | boolean
     studio?: MediaUncheckedUpdateOneWithoutUserNestedInput
     workspace?: WorkSpaceUncheckedUpdateManyWithoutUserNestedInput
-    comment?: CommentUncheckedUpdateManyWithoutUserNestedInput
     videos?: VideoUncheckedUpdateManyWithoutUserNestedInput
     subscription?: SubscriptionUncheckedUpdateOneWithoutUserNestedInput
     members?: MemberUncheckedUpdateManyWithoutUserNestedInput
     notification?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     sender?: InviteUncheckedUpdateManyWithoutSenderNestedInput
+    comment?: CommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WorkSpaceUpsertWithoutInviteInput = {
@@ -19105,14 +19040,6 @@ export namespace Prisma {
     id?: string
     type: $Enums.Type
     name: string
-    createdAt?: Date | string
-  }
-
-  export type CommentCreateManyUserInput = {
-    id?: string
-    comment: string
-    commentId?: string | null
-    videoId?: string | null
     createdAt?: Date | string
   }
 
@@ -19157,6 +19084,14 @@ export namespace Prisma {
     accepted?: boolean
   }
 
+  export type CommentCreateManyUserInput = {
+    id?: string
+    comment: string
+    commentId?: string | null
+    videoId?: string | null
+    createdAt?: Date | string
+  }
+
   export type WorkSpaceUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     type?: EnumTypeFieldUpdateOperationsInput | $Enums.Type
@@ -19183,32 +19118,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     type?: EnumTypeFieldUpdateOperationsInput | $Enums.Type
     name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type CommentUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    comment?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reply?: CommentUpdateManyWithoutCommentNestedInput
-    Comment?: CommentUpdateOneWithoutReplyNestedInput
-    Video?: VideoUpdateOneWithoutCommentNestedInput
-  }
-
-  export type CommentUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    comment?: StringFieldUpdateOperationsInput | string
-    commentId?: NullableStringFieldUpdateOperationsInput | string | null
-    videoId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reply?: CommentUncheckedUpdateManyWithoutCommentNestedInput
-  }
-
-  export type CommentUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    comment?: StringFieldUpdateOperationsInput | string
-    commentId?: NullableStringFieldUpdateOperationsInput | string | null
-    videoId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -19335,6 +19244,66 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     workSpaceId?: NullableStringFieldUpdateOperationsInput | string | null
     accepted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type CommentUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reply?: CommentUpdateManyWithoutCommentNestedInput
+    Comment?: CommentUpdateOneWithoutReplyNestedInput
+    Video?: VideoUpdateOneWithoutCommentNestedInput
+  }
+
+  export type CommentUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    commentId?: NullableStringFieldUpdateOperationsInput | string | null
+    videoId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reply?: CommentUncheckedUpdateManyWithoutCommentNestedInput
+  }
+
+  export type CommentUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    commentId?: NullableStringFieldUpdateOperationsInput | string | null
+    videoId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommentCreateManyCommentInput = {
+    id?: string
+    comment: string
+    userId?: string | null
+    videoId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type CommentUpdateWithoutCommentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reply?: CommentUpdateManyWithoutCommentNestedInput
+    User?: UserUpdateOneWithoutCommentNestedInput
+    Video?: VideoUpdateOneWithoutCommentNestedInput
+  }
+
+  export type CommentUncheckedUpdateWithoutCommentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    videoId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reply?: CommentUncheckedUpdateManyWithoutCommentNestedInput
+  }
+
+  export type CommentUncheckedUpdateManyWithoutCommentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    comment?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    videoId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FolderCreateManyWorkSpaceInput = {
@@ -19562,40 +19531,6 @@ export namespace Prisma {
     comment?: StringFieldUpdateOperationsInput | string
     commentId?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type CommentCreateManyCommentInput = {
-    id?: string
-    comment: string
-    userId?: string | null
-    videoId?: string | null
-    createdAt?: Date | string
-  }
-
-  export type CommentUpdateWithoutCommentInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    comment?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reply?: CommentUpdateManyWithoutCommentNestedInput
-    User?: UserUpdateOneWithoutCommentNestedInput
-    Video?: VideoUpdateOneWithoutCommentNestedInput
-  }
-
-  export type CommentUncheckedUpdateWithoutCommentInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    comment?: StringFieldUpdateOperationsInput | string
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
-    videoId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reply?: CommentUncheckedUpdateManyWithoutCommentNestedInput
-  }
-
-  export type CommentUncheckedUpdateManyWithoutCommentInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    comment?: StringFieldUpdateOperationsInput | string
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
-    videoId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
