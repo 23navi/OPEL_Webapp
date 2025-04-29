@@ -59,12 +59,43 @@ export const onAuthenticateUser = async () => {
     });
 
     if (newUser) {
-      return { status: 200, user: newUser };
+      return { status: 201, user: newUser };
     }
 
     return { status: 400, message: "No user" };
   } catch (error) {
     console.log(error);
     return { status: 500, message: "Internal server error" };
+  }
+};
+
+export const getNotifications = async () => {
+  try {
+    const user = await currentUser();
+    if (!user) return { status: 404 };
+    const notifications = await client.user.findUnique({
+      where: {
+        clerkid: user.id,
+      },
+      select: {
+        notification: true,
+        _count: {
+          select: {
+            notification: true,
+          },
+        },
+      },
+    });
+
+    if (notifications && notifications.notification.length > 0)
+      return { status: 200, data: notifications };
+    return { status: 404, data: [] };
+  } catch (error) {
+    return {
+      status: 400,
+      data: [],
+      errorMessage:
+        error instanceof Error ? error.message : "An unknown error occurred",
+    };
   }
 };
