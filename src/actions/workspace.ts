@@ -136,6 +136,7 @@ export const getWorkSpaces = async () => {
             plan: true,
           },
         },
+        // All the workspaces, that this user owns.
         workspace: {
           select: {
             id: true,
@@ -143,6 +144,7 @@ export const getWorkSpaces = async () => {
             type: true,
           },
         },
+        // All the workspaces, where this user is part of (via invite)
         members: {
           select: {
             WorkSpace: {
