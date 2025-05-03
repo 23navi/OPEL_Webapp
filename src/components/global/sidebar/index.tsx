@@ -16,6 +16,7 @@ import { PlusCircle } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation"; // next/router is for page router, doesn't work with app router
 import Modal from "../modal";
+import Search from "../search-workspace";
 
 type Props = {
   activeWorkspaceId: string;
@@ -83,7 +84,7 @@ const Sidebar = ({ activeWorkspaceId }: Props) => {
         title="Invite To Workspace"
         description="Invite other users to your workspace"
       >
-        <div></div>
+        <Search workspaceId={activeWorkspaceId} />
       </Modal>
     </div>
   );
