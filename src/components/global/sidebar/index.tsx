@@ -12,7 +12,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { useQueryData } from "@/hooks/useQueryData";
 import { NotificationProps, WorkspaceProps } from "@/types/index.type";
-import { PlusCircle } from "lucide-react";
+import { Menu, PlusCircle } from "lucide-react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation"; // next/router is for page router, doesn't work with app router
 import Modal from "../modal";
@@ -23,6 +23,9 @@ import WorkspacePlaceholder from "./workspace-placeholder";
 import GlobalCard from "../global-card";
 import PaymentButton from "../payment-button";
 import { getNotifications } from "@/actions/user";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
+import InfoBar from "../info-bar";
 
 type Props = {
   activeWorkspaceId: string;
@@ -52,7 +55,7 @@ const Sidebar = ({ activeWorkspaceId }: Props) => {
     (s) => s.id === activeWorkspaceId
   );
 
-  return (
+  const SidebarSection = (
     <div className="bg-[#111111] flex-none relative p-4 h-full w-[250px] flex flex-col gap-4 items-center overflow-hidden">
       <div className="bg-[#111111] p-4 flex gap-2 justify-center items-center mb-4 absolute top-0 left-0 right-0 ">
         <Image src="/opal-logo.svg" height={40} width={40} alt="logo" />
@@ -148,6 +151,7 @@ const Sidebar = ({ activeWorkspaceId }: Props) => {
           {workspace.workspace.length > 0 &&
             workspace.workspace.map(
               (item) =>
+                // only show other's workspaces where I am also part of, not my personal default workspace
                 item.type !== "PERSONAL" && (
                   <SidebarItem
                     href={`/dashboard/${item.id}`}
@@ -188,6 +192,26 @@ const Sidebar = ({ activeWorkspaceId }: Props) => {
           footer={<PaymentButton />}
         />
       )}
+    </div>
+  );
+
+  return (
+    <div className="full">
+      {/* Info bar is the top bar with search and upload/record button */}
+      <InfoBar />
+      <div className="md:hidden fixed my-4">
+        <Sheet>
+          <SheetTrigger asChild className="ml-2">
+            <Button variant={"ghost"} className="mt-[2px]">
+              <Menu />
+            </Button>
+          </SheetTrigger>
+          <SheetContent side={"left"} className="p-0 w-fit h-full">
+            {SidebarSection}
+          </SheetContent>
+        </Sheet>
+      </div>
+      <div className="md:block hidden h-full">{SidebarSection}</div>
     </div>
   );
 };
