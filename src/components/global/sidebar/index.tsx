@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { useQueryData } from "@/hooks/useQueryData";
-import { WorkspaceProps } from "@/types/index.type";
+import { NotificationProps, WorkspaceProps } from "@/types/index.type";
 import { PlusCircle } from "lucide-react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation"; // next/router is for page router, doesn't work with app router
@@ -22,6 +22,7 @@ import SidebarItem from "./sidebar-item";
 import WorkspacePlaceholder from "./workspace-placeholder";
 import GlobalCard from "../global-card";
 import PaymentButton from "../payment-button";
+import { getNotifications } from "@/actions/user";
 
 type Props = {
   activeWorkspaceId: string;
@@ -36,6 +37,12 @@ const Sidebar = ({ activeWorkspaceId }: Props) => {
   // Note: This getWorkSpaces actually do get user by Id (currently logged in user) and then gets all his workspaces. So the subscription is not associated to workspace directly, all workspaces of a pro user is treated as pro workspace
   const { data } = useQueryData(["user-workspaces"], getWorkSpaces);
   const { data: workspace } = data as WorkspaceProps;
+
+  const { data: notifications } = useQueryData(
+    ["user-notifications"],
+    getNotifications
+  );
+  const { data: count } = notifications as NotificationProps;
 
   const onChangeActiveWorkspace = (value: string) => {
     router.push(`/dashboard/${value}`);
@@ -114,12 +121,12 @@ const Sidebar = ({ activeWorkspaceId }: Props) => {
               selected={pathName === item.href}
               title={item.title}
               key={item.title}
-              // notifications={
-              //   (item.title === "Notifications" &&
-              //     count._count &&
-              //     count._count.notification) ||
-              //   0
-              // }
+              notifications={
+                (item.title === "Notifications" &&
+                  count._count &&
+                  count._count.notification) ||
+                0
+              }
             />
           ))}
         </ul>
