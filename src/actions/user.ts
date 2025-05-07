@@ -144,8 +144,6 @@ export const searchUsers = async (query: string) => {
   }
 }
 
-
-
 export const sendEmail = async (
   to: string,
   subject: string,
