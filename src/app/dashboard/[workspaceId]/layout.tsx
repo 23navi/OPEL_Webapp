@@ -1,5 +1,6 @@
 import React from "react";
 import { getNotifications, onAuthenticateUser } from "@/actions/user";
+
 import {
   getAllUserVideos,
   getWorkspaceFolders,
@@ -13,6 +14,7 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import Sidebar from "@/components/global/sidebar";
+import GlobalHeader from "@/components/global/global-header";
 
 type Props = {
   params: { workspaceId: string }; // Getting from the path param of the url
@@ -22,9 +24,8 @@ type Props = {
 // In next14, the layout pages are cached by default so it runs only once, in that case, it will check for workspace access only on the first render. (But this is not the case in next15+)
 
 const Layout = async (props: Props) => {
-
   //  "params should be awaited before using its properties"
-  const { params, children } =  props;
+  const { params, children } = props;
   const { workspaceId } = await params;
 
   // We can have some kind of auth provider which can check for auth so we don't have to do it here.
@@ -70,6 +71,7 @@ const Layout = async (props: Props) => {
       <div className="flex h-screen w-screen">
         <Sidebar activeWorkspaceId={workspaceId} />
         <div className="w-full pt-28 p-6 overflow-y-scroll overflow-x-hidden">
+          <GlobalHeader workspace={hasAccess.data.workspace} />
           <div className="mt-4">{children}</div>
         </div>
       </div>
