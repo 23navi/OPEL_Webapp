@@ -1,5 +1,5 @@
 import { getAllUserVideos, getWorkspaceFolders } from "@/actions/workspace";
-// import CreateForlders from "@/components/global/create-folders";
+import CreateForlders from "@/components/global/create-folders";
 import CreateWorkspace from "@/components/global/create-workspace";
 // import Folders from '@/components/global/folders'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -53,7 +53,7 @@ const Page = async (props: Props) => {
             </TabsList>
             <div className="flex gap-x-3">
               <CreateWorkspace />
-              {/* <CreateForlders workspaceId={workspaceId} /> */}
+              <CreateForlders workspaceId={workspaceId} />
             </div>
           </div>
           <section className="py-9">
