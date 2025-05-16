@@ -1,7 +1,7 @@
 import { getAllUserVideos, getWorkspaceFolders } from "@/actions/workspace";
 import CreateForlders from "@/components/global/create-folders";
 import CreateWorkspace from "@/components/global/create-workspace";
-// import Folders from '@/components/global/folders'
+import Folders from "@/components/global/folders";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   dehydrate,
@@ -57,8 +57,9 @@ const Page = async (props: Props) => {
             </div>
           </div>
           <section className="py-9">
+            {/* We can also have archive section here, similar to videos seaction */}
             <TabsContent value="videos">
-              {/* <Folders workspaceId={workspaceId} /> */}
+              <Folders workspaceId={workspaceId} />
             </TabsContent>
           </section>
         </Tabs>
