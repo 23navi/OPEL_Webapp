@@ -86,7 +86,6 @@ const FormGenerator = ({
           />
         </Label>
       );
-
     case "textarea":
       return (
         <Label className="flex flex-col gap-2" htmlFor={`input-${label}`}>
@@ -109,7 +108,6 @@ const FormGenerator = ({
           />
         </Label>
       );
-
     default:
       break;
   }
