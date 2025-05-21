@@ -49,7 +49,7 @@ export const useMoveVideos = (videoId: string, currentWorkspace: string) => {
     }
     useEffect(() => {
         fetchFolders(currentWorkspace)
-    }, [])
+    }, [currentWorkspace])
 
     useEffect(() => {
         const workspace = watch(async (value) => {
