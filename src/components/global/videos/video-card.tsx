@@ -2,7 +2,6 @@
 import React from "react";
 import Loader from "../loader";
 import CardMenu from "./video-card-menu";
-import ChangeVideoLocation from "@/components/forms/change-video-location";
 import CopyLink from "./copy-link";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
