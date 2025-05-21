@@ -8,7 +8,9 @@ export const useCreateFolders = (workspaceId: string) => {
         'workspace-folders'
     )
 
-    const onCreateNewFolder = () =>
-        mutate({ name: 'Untitled', id: 'optimitsitc--id' })
+    // Not sure why are we passing { name: 'Untitled', id: 'optimitsitc--id' }, it has to do something with useMutationDataState(['create-folder'])
+    //const { latestVariables } = useMutationDataState(["rename-folders"]);
+
+    const onCreateNewFolder = () => mutate({ name: 'Untitled', id: 'optimitsitc--id' })
     return { onCreateNewFolder }
 }
