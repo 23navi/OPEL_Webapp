@@ -14,8 +14,10 @@ type Props = {
 };
 
 const Videos = ({ folderId, videosKey, workspaceId }: Props) => {
-  const { data: videoData } = useQueryData([videosKey], () =>
-    getAllUserVideos(folderId)
+  // I am using hardcoded videosKey for this useQuery, what if the user have multiple videos in different folders? Are we fetching all the videos? What about videos in other workspaces?
+  const { data: videoData } = useQueryData(
+    [videosKey],
+    () => getAllUserVideos(folderId) // Get all videos for this folder
   );
 
   const { status: videosStatus, data: videos } = videoData as VideosProps;

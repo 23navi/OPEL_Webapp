@@ -72,7 +72,7 @@ export const getWorkspaceFolders = async (workSpaceId: string) => {
   }
 };
 
-// Get all videos' of the user.
+// Get all videos' of the user. (Note: This is an overLoad function, which finds all videos in a workspace or in a folder)
 export const getAllUserVideos = async (workSpaceId: string) => {
   try {
     const user = await currentUser();
