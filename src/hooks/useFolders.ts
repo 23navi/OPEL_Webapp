@@ -52,10 +52,10 @@ export const useMoveVideos = (videoId: string, currentWorkspace: string) => {
     }, [currentWorkspace])
 
     useEffect(() => {
+        // This workspace is current context workspace (feature of zodForm to add watch {listener} and .unsubscribe() to remove that listener), it has nothing to do with fetchFolders-workspace
         const workspace = watch(async (value) => {
             if (value.workspace_id) fetchFolders(value.workspace_id)
         })
-
         return () => workspace.unsubscribe()
     }, [watch])
 
