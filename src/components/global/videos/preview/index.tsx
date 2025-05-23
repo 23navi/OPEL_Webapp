@@ -11,7 +11,6 @@ import { Download } from "lucide-react";
 import TabMenu from "../../tabs";
 import AiTools from "../../ai-tools";
 import VideoTranscript from "../../video-transcript";
-import { TabsContent } from "@/components/ui/tabs";
 import Activities from "../../activities";
 import EditVideo from "../edit";
 
