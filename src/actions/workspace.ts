@@ -409,7 +409,7 @@ export const sendEmailForFirstView = async (videoId: string) => {
         `Your video ${video.title} just got its first viewer`
       )
 
-      transporter.sendMail(mailOptions, async (error, ) => {
+      transporter.sendMail(mailOptions, async (error,) => {
         if (error) {
           console.log(error.message)
         } else {
@@ -431,5 +431,26 @@ export const sendEmailForFirstView = async (videoId: string) => {
     }
   } catch (error) {
     console.log(error)
+  }
+}
+
+
+export const editVideoInfo = async (
+  videoId: string,
+  title: string,
+  description: string
+) => {
+  try {
+    const video = await client.video.update({
+      where: { id: videoId },
+      data: {
+        title,
+        description,
+      },
+    })
+    if (video) return { status: 200, data: 'Video successfully updated' }
+    return { status: 404, data: 'Video not found' }
+  } catch (error) {
+    return { status: 400, errorMessage: error instanceof Error ? error.message : "An unknown error occurred", }
   }
 }

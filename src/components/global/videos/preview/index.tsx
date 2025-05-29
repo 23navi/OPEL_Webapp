@@ -117,8 +117,8 @@ const VideoPreview = ({ videoId }: Props) => {
           >
             <AiTools
               videoId={videoId}
-              trial={video.User?.trial!}
-              plan={video.User?.subscription?.plan!}
+              trial={video.User?.trial || false}
+              plan={video.User?.subscription?.plan || "FREE"}
             />
             <VideoTranscript transcript={video.summery!} />
             <Activities
