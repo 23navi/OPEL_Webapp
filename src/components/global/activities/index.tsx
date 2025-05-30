@@ -1,5 +1,5 @@
 "use client";
-// import CommentForm from "@/components/forms/comment-form";
+import CommentForm from "@/components/forms/comment-form";
 import { TabsContent } from "@/components/ui/tabs";
 import React from "react";
 // import CommentCard from "../comment-card";
@@ -23,7 +23,7 @@ const Activities = ({ author, videoId }: Props) => {
 
   return (
     <TabsContent value="Activity" className="rounded-xl flex flex-col gap-y-5">
-      {/* <CommentForm author={author} videoId={videoId} /> */}
+      <CommentForm author={author} videoId={videoId} />
       {/* {comments?.map((comment) => (
         <CommentCard
           comment={comment.comment}
