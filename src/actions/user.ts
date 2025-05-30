@@ -360,3 +360,50 @@ export const getFirstView = async () => {
     return { status: 400, errorMessage: error instanceof Error ? error.message : "An unknown error occurred", }
   }
 }
+
+
+export const createCommentAndReply = async (
+  userId: string,
+  comment: string,
+  videoId: string,
+  commentId?: string | undefined
+) => {
+  try {
+    if (commentId) {
+      const reply = await client.comment.update({
+        where: {
+          id: commentId,
+        },
+        data: {
+          reply: {
+            create: {
+              comment,
+              userId,
+              videoId,
+            },
+          },
+        },
+      })
+      if (reply) {
+        return { status: 200, data: 'Reply posted' }
+      }
+    }
+
+    const newComment = await client.video.update({
+      where: {
+        id: videoId,
+      },
+      data: {
+        Comment: {
+          create: {
+            comment,
+            userId,
+          },
+        },
+      },
+    })
+    if (newComment) return { status: 200, data: 'New comment added' }
+  } catch (error) {
+    return { status: 400, errorMessage: error instanceof Error ? error.message : "An unknown error occurred", }
+  }
+}
