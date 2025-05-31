@@ -4,9 +4,11 @@ import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(
     req: NextRequest,
-    { params: { id } }: { params: { id: string } }
+    context: { params: { id: string } }
 ) {
     console.log('Enpoint hit ✅')
+
+    const { id } = context.params;
 
     try {
         const userProfile = await client.user.findUnique({
